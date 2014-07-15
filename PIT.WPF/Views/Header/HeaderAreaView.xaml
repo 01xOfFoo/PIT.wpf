@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="PIT.WPF.Views.Header.HeaderAreaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sampleData="clr-namespace:PIT.WPF.SampleData"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance sampleData:SampleHeaderAreaViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>            
+
+        <Border Grid.Column="0"
+                Background="#FF25292A"
+                BorderBrush="#FF454A4B"
+                BorderThickness="0,0,0,1"/>
+        <Border Grid.Column="1"
+                Background="White"
+                BorderBrush="#FFEBEDED"
+                BorderThickness="0,0,0,1" />
+        <Image Grid.Column="0"
+               Height="32"
+               Width="32"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Margin="20,0,0,0"
+               Source="/Images/app.ico"/>
+        <TextBlock Grid.Column="0"
+                   Foreground="White"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   Margin="70,0,0,0"
+                   Text="PIT" />
+        <TextBlock Grid.Column="1"
+                   Foreground="#FF5E5E5E"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   Margin="20,0,0,0"
+                   Text="{Binding SelectedProjectName}" />
+    </Grid>
+</UserControl>
