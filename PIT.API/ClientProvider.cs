@@ -3,6 +3,8 @@ using PIT.API.Clients;
 using PIT.API.Clients.Contracts;
 using PIT.API.Contracts;
 using PIT.API.HTTP;
+using PIT.API.Validators;
+using PIT.API.Validators.Contracts;
 
 namespace PIT.API
 {
@@ -11,15 +13,17 @@ namespace PIT.API
     {
         private readonly IHttpClient _httpClient;
         private readonly IEnvironment _environment;
+        private readonly IResponseMessageValidator _responseMessageValidator;
 
         private IProjectClient _projectClient;
         private IIssueClient _issueClient;
 
         [ImportingConstructor]
-        public ClientProvider(IEnvironment environment, IHttpClient httpClient)
+        public ClientProvider(IEnvironment environment, IHttpClient httpClient, IResponseMessageValidator responseMessageValidator)
         {
             _environment = environment;
             _httpClient = httpClient;
+            _responseMessageValidator = responseMessageValidator;
         }
 
         public IProjectClient ProjectClient
@@ -29,7 +33,7 @@ namespace PIT.API
                 var client = _projectClient;
                 if (client == null)
                 {
-                    client = new ProjectClient(_httpClient)
+                    client = new ProjectClient(_httpClient, _responseMessageValidator)
                     {
                         ServerAdress = _environment.ServerAdress
                     };
@@ -47,7 +51,7 @@ namespace PIT.API
                 var client = _issueClient;
                 if (client == null)
                 {
-                    client = new IssueClient(_httpClient)
+                    client = new IssueClient(_httpClient, _responseMessageValidator)
                     {
                         ServerAdress = _environment.ServerAdress
                     };
