@@ -27,6 +27,7 @@ namespace PIT.WPF.ViewModels
         [Import]
         public IProjectAreaViewModel Projects { get; set; }
 
+        [ImportingConstructor]
         public ShellViewModel(IPITWindowManager windowManager)
         {
             _windowManager = windowManager;
