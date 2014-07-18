@@ -8,6 +8,8 @@
         xmlns:projects="clr-namespace:PIT.WPF.Views.Projects"
         xmlns:issues="clr-namespace:PIT.WPF.Views.Issues"
         mc:Ignorable="d" 
+        Title="PIT: Project Issue Tracker"
+        Icon="../Images/app.ico"
         d:DesignHeight="500" d:DesignWidth="500">
     <Grid>
         <Grid.RowDefinitions>

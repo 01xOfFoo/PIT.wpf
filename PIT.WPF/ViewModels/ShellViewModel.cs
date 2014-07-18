@@ -3,7 +3,6 @@ using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.WPF.Core;
 using PIT.WPF.Core.Contracts;
-using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Header.Contracts;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects.Contracts;
@@ -12,7 +11,7 @@ using PIT.WPF.Views;
 namespace PIT.WPF.ViewModels
 {
     [Export(typeof(IShellViewModel))]
-    public class ShellViewModel : Conductor<IScreen>.Collection.AllActive, IShellViewModel, IPartImportsSatisfiedNotification
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IPartImportsSatisfiedNotification, IShellViewModel
     {
         private readonly IPITWindowManager _windowManager;
 
@@ -21,7 +20,7 @@ namespace PIT.WPF.ViewModels
         [Import]
         public IIssueAreaViewModel Issues { get; set; }
 
-        [Import] 
+        [Import]
         public IHeaderAreaViewModel Header { get; set; }
 
         [Import]
@@ -31,6 +30,7 @@ namespace PIT.WPF.ViewModels
         public ShellViewModel(IPITWindowManager windowManager)
         {
             _windowManager = windowManager;
+            DisplayName = "PIT: Project Issue Tracker";
         }
 
         public void OnImportsSatisfied()
@@ -43,7 +43,7 @@ namespace PIT.WPF.ViewModels
             base.OnViewAttached(view, context);
 
             var shellView = (ShellView)view;
-// ReSharper disable once ObjectCreationAsStatement
+            // ReSharper disable once ObjectCreationAsStatement
             new WindowLocationPersister(shellView, _windowLocation);
         }
     }
