@@ -12,6 +12,7 @@
         <Style x:Key="ProjectItemStyle" TargetType="ListViewItem">
             <Setter Property="Height" Value="40" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ProjectContextMenu}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
@@ -53,10 +54,11 @@
                                 </Rectangle>
                                 <TextBlock x:Name="ProjectName"
                                            Grid.Column="1"                                            
-                                           Text="{Binding Name}"
+                                           Text="{Binding Short}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Stretch"
                                            Margin="15, 0, 10, 0"
+                                           Style="{StaticResource FontsStyle}"
                                            FontSize="14"
                                            FontWeight="Bold" 
                                            Foreground="#FFD1D6D8" />
@@ -66,25 +68,65 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="AddProjectStyle" TargetType="{x:Type Button}">
+            <Style.Setters>
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonState">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="MouseOver">
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="AddProjectText" 
+                                                                Storyboard.TargetProperty="(TextBlock.Foreground).Color"
+                                                                To="LightGray"
+                                                                Duration="0"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border BorderBrush="#FF454A4B"
+                                        BorderThickness="0,1,0,0"/>
+                                <TextBlock x:Name="AddProjectText" 
+                                           VerticalAlignment="Center"
+                                           Margin="20,0,0,0"
+                                           Style="{StaticResource FontsStyle}"
+                                           FontWeight="Bold"
+                                           FontSize="12"
+                                           Foreground="SlateGray"
+                                           Text="Add project.."/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="-1,-1,-1,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                    VerticalAlignment="Center"
                    Margin="10,0,0,0"
                    Foreground="DarkGray"
-                   Text="PROJEKTE"
+                   Text="PROJECTS"
                    FontSize="14"
                    FontWeight="Bold" />
         <ListView Grid.Row="1"
-                  ItemsSource="{Binding Projects}" 
+                  ItemsSource="{Binding Projects}"
                   SelectedItem="{Binding SelectedProject}"
                   ItemContainerStyle="{StaticResource ProjectItemStyle}"
                   Background="Transparent"
                   BorderThickness="0" 
+                  SelectionMode="Single"
                   Focusable="False"/>
+        <Button Grid.Row="2"
+                Command="{Binding AddProject}"
+                Style="{StaticResource AddProjectStyle}"/>
     </Grid>
 </UserControl>

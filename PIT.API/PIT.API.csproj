@@ -42,6 +42,7 @@
     <Compile Include="Clients\BaseClient.cs" />
     <Compile Include="ClientProvider.cs" />
     <Compile Include="Exceptions\ContentTypeException.cs" />
+    <Compile Include="JsonContent.cs" />
     <Compile Include="Validators\Contracts\IResponseMessageValidator.cs" />
     <Compile Include="Contracts\IClientProvider.cs" />
     <Compile Include="Contracts\IEnvironment.cs" />

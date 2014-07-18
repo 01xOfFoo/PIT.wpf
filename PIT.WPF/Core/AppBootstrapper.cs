@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using System.Linq;
 using System.Reflection;
+using Microsoft.Practices.ServiceLocation;
 using Caliburn.Micro;
-using PIT.WPF.ViewModels.Contracts;
+using PIT.WPF.ViewModels;
 
 namespace PIT.WPF.Core
 {
@@ -39,6 +39,9 @@ namespace PIT.WPF.Core
             batch.AddExportedValue(_container);
             
             _container.Compose(batch);
+
+            var mefLocator = new MefServiceLocator(_container);
+            ServiceLocator.SetLocatorProvider(() => mefLocator);
          }
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
@@ -47,13 +50,7 @@ namespace PIT.WPF.Core
 
         protected override object GetInstance(Type serviceType, string key)
         {
-            string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
-            object export = _container.GetExportedValues<object>(contract).FirstOrDefault();
-            if (export != null)
-            {
-                return export;
-            }
-            throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
+            return ServiceLocator.Current.GetInstance(serviceType, key);
         }
     }
 }

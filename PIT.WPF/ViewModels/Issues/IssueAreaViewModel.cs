@@ -4,7 +4,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
-using PIT.WPF.Helpers.Contracts;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects;
 
@@ -13,7 +12,7 @@ namespace PIT.WPF.ViewModels.Issues
     [Export(typeof(IIssueAreaViewModel))]
     public class IssueAreaViewModel : PropertyChangedBase, IIssueAreaViewModel, IDisposable
     {
-        private readonly IProjectSelector _projectSelector;
+        private readonly ProjectsModel _projectsModel;
         private readonly IIssueBusiness _issueBusiness;
 
         public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
@@ -33,13 +32,13 @@ namespace PIT.WPF.ViewModels.Issues
         }
 
         [ImportingConstructor]
-        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness, IProjectSelector projectSelector)
+        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness, ProjectsModel projectsModel)
         {
             IssueHeaderView = issueHeaderAreaView;
             _issueBusiness = issueBusiness;
 
-            _projectSelector = projectSelector;
-            _projectSelector.ProjectChanged += OnProjectChanged;
+            _projectsModel = projectsModel;
+            _projectsModel.ProjectChanged += OnProjectChanged;
         }
 
         private void OnProjectChanged(object sender, EventArgs e)
@@ -58,7 +57,7 @@ namespace PIT.WPF.ViewModels.Issues
 
         public void Dispose()
         {
-            _projectSelector.ProjectChanged -= OnProjectChanged;
+            _projectsModel.ProjectChanged -= OnProjectChanged;
         }
     }
 }

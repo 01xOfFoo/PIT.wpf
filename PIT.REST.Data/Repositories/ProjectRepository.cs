@@ -60,15 +60,16 @@ namespace PIT.REST.Data.Repositories
             }
         }
 
-        public void Delete(int projectId)
+        public Project Delete(int projectId)
         {
             try
             {
-                var entity = _context.Projects.Find(projectId);
-                if (entity != null)
+                var foundProject = _context.Projects.Find(projectId);
+                if (foundProject != null)
                 {
-                    _context.Projects.Remove(entity);
+                    _context.Projects.Remove(foundProject);
                     _context.SaveChanges();
+                    return foundProject;
                 }
                 else
                 {

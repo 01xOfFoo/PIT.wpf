@@ -16,21 +16,21 @@ namespace PIT.WPF.SampleData
             Projects = new ObservableCollection<ProjectViewModel>
             {
                 new ProjectViewModel
-                ( 
-                    new Project
+                {
+                    Project = new Project
                     {
                         Id = 0,
-                        Short = "PROJEKT 1"
+                        Short = "PROJECT 1"
                     }
-                ),
-                new ProjectViewModel
-                (
-                    new Project
+                },
+                new ProjectViewModel()
+                {
+                    Project = new Project
                     {
                         Id = 1,
-                        Short = "PROJEKT 2"
+                        Short = "PROJECT 2"
                     }
-                )
+                }
             };
 
             SelectedProject = Projects.First();

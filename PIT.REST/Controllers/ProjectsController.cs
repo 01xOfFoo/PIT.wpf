@@ -81,8 +81,8 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                _repository.Delete(id);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                var responseModel = _repository.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK, responseModel);
             }
             catch (Exception ex)
             {

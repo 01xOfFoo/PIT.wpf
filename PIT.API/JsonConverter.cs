@@ -25,6 +25,11 @@ namespace PIT.API
             }
         }
 
+        public static HttpContent Create(T model)
+        {
+            return new JsonContent(JsonConvert.SerializeObject((object)model));
+        }
+
         public static T Create(HttpResponseMessage responseMessage)
         {
             Type type = typeof(T);

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
+using Newtonsoft.Json;
 using PIT.API.Clients.Contracts;
 using PIT.API.HTTP;
 using PIT.API.Validators.Contracts;
@@ -27,6 +29,30 @@ namespace PIT.API.Clients
             var responseMessage = HttpClient.Get(string.Format("{0}/{1}/{2}", ServerAdress, RessourceUri, projectId));
             ValidateResponse(responseMessage);
             return JsonConverter<Project>.Create(responseMessage);
+        }
+
+        public void CreateProject(Project project)
+        {
+            var content = JsonConverter<Project>.Create(project);
+            var responseMessage = HttpClient.Post(string.Format("{0}/{1}", ServerAdress, RessourceUri), content);
+
+            var responseProject = JsonConverter<Project>.Create(responseMessage);
+            project.Id = responseProject.Id;
+
+            ValidateResponse(responseMessage);
+        }
+
+        public void Update(Project project)
+        {
+            var content = JsonConverter<Project>.Create(project);
+            var responseMessage = HttpClient.Put(string.Format("{0}/{1}/{2}", ServerAdress, RessourceUri, project.Id), content);
+            ValidateResponse(responseMessage);
+        }
+
+        public void DeleteProject(Project project)
+        {
+            var responseMessage = HttpClient.Delete(string.Format("{0}/{1}/{2}", ServerAdress, RessourceUri, project.Id));
+            ValidateResponse(responseMessage);
         }
     }
 }

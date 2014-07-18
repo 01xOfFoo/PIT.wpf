@@ -7,5 +7,8 @@ namespace PIT.API.Clients.Contracts
     {
         IEnumerable<Project> GetProjects();
         Project GetProject(int projectId);
+        void CreateProject(Project project);
+        void DeleteProject(Project project);
+        void Update(Project project);
     }
 }

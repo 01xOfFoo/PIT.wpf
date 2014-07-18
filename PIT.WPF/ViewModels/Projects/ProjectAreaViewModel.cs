@@ -1,63 +1,82 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using Caliburn.Micro;
+using Microsoft.Practices.ServiceLocation;
 using PIT.Business.Service.Contracts;
-using PIT.WPF.Helpers.Contracts;
+using PIT.WPF.Commands.Project;
 using PIT.WPF.ViewModels.Projects.Contracts;
+using PIT.WPF.Views.Projects;
 
 namespace PIT.WPF.ViewModels.Projects
 {
     [Export(typeof(IProjectAreaViewModel))]
-    public class ProjectAreaViewModel : PropertyChangedBase, IProjectAreaViewModel
+    public class ProjectAreaViewModel : Screen, IProjectAreaViewModel
     {
-        private readonly IProjectSelector _projectSelector;
+        private readonly IWindowManager _windowManager;
+        private readonly ProjectsModel _projectsModel;
         private readonly IProjectBusiness _projectBusiness;
+        private readonly ICommand _addProjectCommand;
 
-        private ObservableCollection<ProjectViewModel> _projects;
+        private ProjectViewModel _selectedProject;
+
         public ObservableCollection<ProjectViewModel> Projects
         {
             get
             {
-                return _projects;
-            }
-            set 
-            {
-                _projects = value;
-                NotifyOfPropertyChange(() => Projects);
+                return _projectsModel.Projects;
             }
         }
 
-        private ProjectViewModel _selectedProject;
         public ProjectViewModel SelectedProject
         {
-            get
-            {
-                return _selectedProject;
-            }
-            set
-            {
-                _selectedProject = value;
-                _projectSelector.NotifyOfProjectChanged(_selectedProject);
-            }
+            get { return _projectsModel.SelectedProject; }
+            set { _projectsModel.SelectedProject = value; }
         }
 
         [ImportingConstructor]
-        public ProjectAreaViewModel(IProjectBusiness projectBusiness, IProjectSelector projectSelector)
+        public ProjectAreaViewModel(IWindowManager windowManager, IProjectBusiness projectBusiness, ProjectsModel projectsModel, AddProjectCommand addProjectCommand)
         {
+            _windowManager = windowManager;
             _projectBusiness = projectBusiness;
-            _projectSelector = projectSelector;
+            _projectsModel = projectsModel;
+            _projectsModel.Projects.CollectionChanged += ProjectsOnCollectionChanged;
+            _addProjectCommand = addProjectCommand;
 
             LoadProjects();
-            SelectedProject = _projects.FirstOrDefault();
+        }
+
+        private void ProjectsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        {
+            NotifyOfPropertyChange(() => Projects);
+        }
+
+        public ICommand AddProject
+        {
+            get { return _addProjectCommand; }
+        }
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            BindContextMenu((ProjectAreaView) view);
+        }
+
+        private static void BindContextMenu(ProjectAreaView projectView)
+        {
+            var instance = ServiceLocator.Current.GetInstance<IProjectCommands>();
+            ViewModelBinder.Bind(instance, (DependencyObject) projectView.FindResource("ProjectContextMenu"), null);
         }
 
         private void LoadProjects()
         {
             var prjs = (from project in _projectBusiness.GetAll()
-                        select new ProjectViewModel(project)).ToList();
+                        select new ProjectViewModel() { Project = project }).ToList();
 
-            Projects = new ObservableCollection<ProjectViewModel>(prjs);
+            _projectsModel.Projects = new ObservableCollection<ProjectViewModel>(prjs);
         }
     }
 }

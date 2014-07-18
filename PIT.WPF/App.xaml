@@ -8,7 +8,9 @@
                 <ResourceDictionary>
                     <core:AppBootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>
+                <ResourceDictionary Source="Menues.xaml" />
                 <ResourceDictionary Source="Buttons.xaml" />
+                <ResourceDictionary Source="Fonts.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

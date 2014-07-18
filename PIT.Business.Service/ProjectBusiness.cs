@@ -31,17 +31,17 @@ namespace PIT.Business.Service
 
         public void Create(Project entity)
         {
-            throw new NotImplementedException();
+            _projectClient.CreateProject(entity);
         }
 
         public void Update(Project entity)
         {
-            throw new NotImplementedException();
+            _projectClient.Update(entity);
         }
 
         public void Delete(Project entity)
         {
-            throw new NotImplementedException();
+            _projectClient.DeleteProject(entity);
         }
     }
 }

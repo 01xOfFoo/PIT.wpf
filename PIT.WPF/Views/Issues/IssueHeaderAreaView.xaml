@@ -9,9 +9,9 @@
         <Button Command="{Binding AddIssueCommand}" 
                 Style="{StaticResource RoundedButtonStyle}"
                 HorizontalAlignment="Right" 
-                Width="120" 
+                Width="100" 
                 Height="28" 
-                Content="Issue hinzufügen"                
+                Content="Add issue"
                 Margin="0 0 15 0"/>
     </Grid>
 </UserControl>

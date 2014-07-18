@@ -14,6 +14,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,6 +56,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Xml" />
@@ -59,28 +77,40 @@
     </ApplicationDefinition>
     <Compile Include="Commands\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Project\AddProjectCommand.cs" />
+    <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
+    <Compile Include="Commands\Project\EditProjectCommand.cs" />
+    <Compile Include="Commands\Project\IProjectCommands.cs" />
+    <Compile Include="Commands\Project\ProjectCommand.cs" />
+    <Compile Include="Commands\Project\ProjectCommands.cs" />
     <Compile Include="Core\AppBootstrapper.cs" />
     <Compile Include="Core\Contracts\IPITWindowManager.cs" />
+    <Compile Include="Core\MEFServiceLocator.cs" />
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
-    <Compile Include="Helpers\Contracts\IProjectSelector.cs" />
-    <Compile Include="Helpers\ProjectSelector.cs" />
+    <Compile Include="ViewModels\IShellViewModel.cs" />
+    <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
+    <Compile Include="ViewModels\Projects\IProjectViewModel.cs" />
+    <Compile Include="ViewModels\Projects\ProjectsModel.cs" />
     <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />
     <Compile Include="SampleData\SampleIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueDialogViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueHeaderAreaViewModel.cs" />
+    <Compile Include="SampleData\SampleProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Header\HeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Header\Contracts\IHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectAreaViewModel.cs" />
-    <Compile Include="ViewModels\Contracts\IShellViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueDialogViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueViewModel.cs" />
+    <Compile Include="ViewModels\Projects\IProjectViewModelFactory.cs" />
+    <Compile Include="ViewModels\Projects\ProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectViewModel.cs" />
     <Compile Include="SampleData\SampleProjectAreaViewModel.cs" />
+    <Compile Include="ViewModels\Projects\ProjectViewModelFactory.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Header\HeaderAreaView.xaml.cs">
       <DependentUpon>HeaderAreaView.xaml</DependentUpon>
@@ -101,10 +131,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Projects\ProjectEditView.xaml.cs">
+      <DependentUpon>ProjectEditView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Projects\ProjectAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\ProjectEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,7 +216,23 @@
       <Name>PIT.Business.Service</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\app.ico" />
   </ItemGroup>

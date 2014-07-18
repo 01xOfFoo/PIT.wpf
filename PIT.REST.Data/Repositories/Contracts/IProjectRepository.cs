@@ -9,6 +9,6 @@ namespace PIT.REST.Data.Repositories.Contracts
         Project GetProject(int projectId);
         Project Create(Project project);
         Project Update(Project project);
-        void Delete(int projectId);
+        Project Delete(int projectId);
     }
 }
