@@ -12,6 +12,7 @@ namespace PIT.REST.Data.Mappers
             Property(i => i.Description).HasMaxLength(1000);
 
             Property(i => i.Status).IsRequired();
+            HasRequired(i => i.Project).WithMany().Map(p => p.MapKey("ProjectId")).WillCascadeOnDelete();
         }
     }
 }
