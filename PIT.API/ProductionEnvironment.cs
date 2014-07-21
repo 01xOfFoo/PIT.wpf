@@ -10,7 +10,7 @@ namespace PIT.API
 
         public ProductionEnvironment()
         {
-            _serverAdress = "http://localhost:3726/";
+            _serverAdress = "http://localhost:3726";
         }
 
         public string ServerAdress
