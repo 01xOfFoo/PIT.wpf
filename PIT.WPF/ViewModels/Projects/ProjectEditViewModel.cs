@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
@@ -14,49 +12,34 @@ namespace PIT.WPF.ViewModels.Projects
     {
         private readonly IProjectBusiness _projectBusiness;
         private readonly ProjectsModel _projectsModel;
-        private ProjectViewModel _projectViewModel;
+        private  ProjectViewModel _projectViewModel;
 
         [ImportingConstructor]
         public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectsModel projectsModel)
         {
             _projectBusiness = projectBusiness;
             _projectsModel = projectsModel;
-            _projectsModel.ProjectChanged += OnProjectChanged;
         }
 
-        private void OnProjectChanged(object sender, EventArgs e)
+        public void ActivateProject(ProjectViewModel projectViewModel)
         {
-            _projectViewModel = (ProjectViewModel) sender;
-            DisplayName = _projectViewModel.Id == 0 ? "Add project" : "Edit project";
+            _projectViewModel = projectViewModel;
+
+            DisplayName = _projectViewModel.Exists ? "Add project" : "Edit project";
+
+            NotifyOfPropertyChange(() => ProjectDialogHeaderCaption);
+            NotifyOfPropertyChange(() => ProjectDialogSubHeaderCaption);
         }
 
         public string ProjectDialogHeaderCaption
         {
-            get
-            {
-                if (true != false)
-                {
-                    return "Add project";
-                }
-                else
-                {
-                    return "Edit project";
-                }
-            }
+            get { return _projectViewModel.Exists ? "Add project" : "Edit project"; }
         }
 
         public string ProjectDialogSubHeaderCaption
         {
-            get
-            {
-                if (true != false)
-                {
-                    return "Create a new project";
-                }
-                else
-                {
-                    return "You're editing an existing project";
-                }
+            get {
+                return _projectViewModel.Exists ? "Create a new project" : "You're editing an existing project";
             }
         }
 
@@ -89,7 +72,6 @@ namespace PIT.WPF.ViewModels.Projects
             else
             { 
                 _projectBusiness.Update(_projectViewModel.Project);
-                _projectsModel.Projects.Remove(_projectViewModel);
             }
         }
     }

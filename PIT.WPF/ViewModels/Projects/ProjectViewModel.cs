@@ -12,6 +12,11 @@ namespace PIT.WPF.ViewModels.Projects
             get { return Project.Id; }
         }
 
+        public bool Exists
+        {
+            get { return Id != 0; }
+        }
+
         public string Short
         {
             get

@@ -27,7 +27,7 @@ namespace PIT.WPF.Commands.Project
         {
             var project = new Business.Entities.Project();
             var projectViewModel = _projectViewModelFactory.CreateProjectViewModel(project);
-            ProjectsModel.SelectedProject = projectViewModel;
+            _projectEditViewModel.ActivateProject(projectViewModel);
             _windowManager.ShowDialog(_projectEditViewModel);
         }
     }
