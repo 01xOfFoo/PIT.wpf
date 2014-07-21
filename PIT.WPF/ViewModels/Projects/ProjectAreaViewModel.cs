@@ -9,6 +9,7 @@ using Caliburn.Micro;
 using Microsoft.Practices.ServiceLocation;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Project;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 using PIT.WPF.Views.Projects;
 
@@ -21,8 +22,7 @@ namespace PIT.WPF.ViewModels.Projects
         private readonly ProjectsModel _projectsModel;
         private readonly IProjectBusiness _projectBusiness;
         private readonly ICommand _addProjectCommand;
-
-        private ProjectViewModel _selectedProject;
+        private readonly IProjectSelector _projectSelector;
 
         public ObservableCollection<ProjectViewModel> Projects
         {
@@ -39,18 +39,27 @@ namespace PIT.WPF.ViewModels.Projects
         }
 
         [ImportingConstructor]
-        public ProjectAreaViewModel(IWindowManager windowManager, IProjectBusiness projectBusiness, ProjectsModel projectsModel, AddProjectCommand addProjectCommand)
+        public ProjectAreaViewModel(IWindowManager windowManager, IProjectBusiness projectBusiness, ProjectsModel projectsModel, IProjectSelector projectSelector, AddProjectCommand addProjectCommand)
         {
             _windowManager = windowManager;
             _projectBusiness = projectBusiness;
+
             _projectsModel = projectsModel;
-            _projectsModel.Projects.CollectionChanged += ProjectsOnCollectionChanged;
+            _projectsModel.ProjectChanged += OnProjectChanged;
+            _projectsModel.ProjectsUpdates += OnProjectsUpdates;
+
             _addProjectCommand = addProjectCommand;
+            _projectSelector = projectSelector;
 
             LoadProjects();
         }
 
-        private void ProjectsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void OnProjectChanged(object sender, EventArgs eventArgs)
+        {
+            NotifyOfPropertyChange(() => SelectedProject);
+        }
+
+        private void OnProjectsUpdates(object sender, EventArgs eventArgs)
         {
             NotifyOfPropertyChange(() => Projects);
         }

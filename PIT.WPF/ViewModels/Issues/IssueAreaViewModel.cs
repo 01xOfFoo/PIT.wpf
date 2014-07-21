@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects;
 

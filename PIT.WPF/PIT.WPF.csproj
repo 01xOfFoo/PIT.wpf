@@ -61,6 +61,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -88,10 +92,12 @@
     <Compile Include="Core\MEFServiceLocator.cs" />
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
+    <Compile Include="Models\Projects\IProjectSelector.cs" />
+    <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Projects\IProjectViewModel.cs" />
-    <Compile Include="ViewModels\Projects\ProjectsModel.cs" />
+    <Compile Include="Models\Projects\ProjectsModel.cs" />
     <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />
     <Compile Include="SampleData\SampleIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueDialogViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 

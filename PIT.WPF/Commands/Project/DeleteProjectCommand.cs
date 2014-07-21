@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using PIT.Business.Service.Contracts;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Commands.Project
