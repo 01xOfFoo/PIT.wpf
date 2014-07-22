@@ -1,14 +1,15 @@
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using PIT.API.Contracts;
 
 namespace PIT.API
 {
     [Export(typeof(IEnvironment))]
-    class ProductionEnvironment : IEnvironment
+    class TestEnvironment : IEnvironment
     {
         private string _serverAdress;
 
-        public ProductionEnvironment()
+        public TestEnvironment()
         {
             _serverAdress = "http://localhost:3726";
         }
