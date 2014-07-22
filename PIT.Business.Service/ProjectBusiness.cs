@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using PIT.API.Clients;
 using PIT.API.Clients.Contracts;
 using PIT.API.Contracts;
 using PIT.Business.Entities;
@@ -21,17 +22,17 @@ namespace PIT.Business.Service
 
         public Project GetById(int id)
         {
-            return _projectClient.GetProject(id);
+            return _projectClient.GetById(id);
         }
 
         public IEnumerable<Project> GetAll()
         {
-            return _projectClient.GetProjects();
+            return _projectClient.GetAll();
         }
 
         public void Create(Project entity)
         {
-            _projectClient.CreateProject(entity);
+            _projectClient.Create(entity);
         }
 
         public void Update(Project entity)
@@ -41,7 +42,7 @@ namespace PIT.Business.Service
 
         public void Delete(Project entity)
         {
-            _projectClient.DeleteProject(entity);
+            _projectClient.Delete(entity);
         }
     }
 }

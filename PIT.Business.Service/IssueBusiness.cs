@@ -26,7 +26,7 @@ namespace PIT.Business.Service
 
         public IEnumerable<Issue> GetAll()
         {
-            return _issueClient.GetIssues();
+            return _issueClient.GetAll();
         }
 
         public IEnumerable<Issue> GetIssuesOfProject(int projectId)

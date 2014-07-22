@@ -1,4 +1,6 @@
-﻿using PIT.API.Clients.Contracts;
+﻿using PIT.API.Clients;
+using PIT.API.Clients.Contracts;
+using PIT.Business.Entities;
 
 namespace PIT.API.Contracts
 {

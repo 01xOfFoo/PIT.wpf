@@ -39,21 +39,22 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clients\BaseClient.cs" />
     <Compile Include="ClientProvider.cs" />
+    <Compile Include="Clients\IClient.cs" />
+    <Compile Include="Clients\ProjectClient.cs" />
+    <Compile Include="Clients\Client.cs" />
     <Compile Include="Exceptions\ContentTypeException.cs" />
     <Compile Include="JsonContent.cs" />
     <Compile Include="Validators\Contracts\IResponseMessageValidator.cs" />
     <Compile Include="Contracts\IClientProvider.cs" />
     <Compile Include="Contracts\IEnvironment.cs" />
     <Compile Include="Clients\Contracts\IIssueClient.cs" />
-    <Compile Include="ProductionEnvironment.cs" />
+    <Compile Include="TestEnvironment.cs" />
     <Compile Include="HTTP\PITHttpClient.cs" />
     <Compile Include="Clients\Contracts\IProjectClient.cs" />
     <Compile Include="HTTP\IHttpClient.cs" />
     <Compile Include="JsonConverter.cs" />
     <Compile Include="Clients\IssueClient.cs" />
-    <Compile Include="Clients\ProjectClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\ResponseMessageValidator.cs" />
     <Compile Include="Exceptions\RESTErrorException.cs" />

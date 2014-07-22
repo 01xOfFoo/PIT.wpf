@@ -5,6 +5,7 @@ using PIT.API.Contracts;
 using PIT.API.HTTP;
 using PIT.API.Validators;
 using PIT.API.Validators.Contracts;
+using PIT.Business.Entities;
 
 namespace PIT.API
 {

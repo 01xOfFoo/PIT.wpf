@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using PIT.Business.Entities;
+﻿using PIT.Business.Entities;
 
 namespace PIT.API.Clients.Contracts
 {
-    public interface IProjectClient
+    public interface IProjectClient : IClient<Project>
     {
-        IEnumerable<Project> GetProjects();
-        Project GetProject(int projectId);
-        void CreateProject(Project project);
-        void DeleteProject(Project project);
-        void Update(Project project);
     }
 }
