@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business.cs" />
     <Compile Include="Contracts\IBusiness.cs" />
     <Compile Include="Contracts\IIssueBusiness.cs" />
     <Compile Include="Contracts\IProjectBusiness.cs" />

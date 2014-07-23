@@ -12,19 +12,18 @@ namespace PIT.Tests.Business.Service
     [TestClass]
     public class ProjectBusinessTests
     {
-        private Mock<IClientProvider> _clientProvider;
         private IProjectBusiness _projectBusiness;
         private Mock<IProjectClient> _projectClient;
 
         [TestInitialize]
         public void SetUp()
         {
-            _clientProvider = new Mock<IClientProvider>();
-
             _projectClient = new Mock<IProjectClient>();
-            _clientProvider.SetupGet(p => p.ProjectClient).Returns(_projectClient.Object);
 
-            _projectBusiness = new ProjectBusiness(_clientProvider.Object);    
+            var clientProvider = new Mock<IClientProvider>();
+            clientProvider.SetupGet(p => p.ProjectClient).Returns(_projectClient.Object);
+
+            _projectBusiness = new ProjectBusiness(clientProvider.Object);    
         }
 
         [TestMethod]

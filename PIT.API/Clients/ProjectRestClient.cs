@@ -1,6 +1,4 @@
 ﻿using PIT.API.Clients.Contracts;
-using PIT.API.Contracts;
-using PIT.API.HTTP;
 using PIT.API.HTTP.Contracts;
 using PIT.Business.Entities;
 

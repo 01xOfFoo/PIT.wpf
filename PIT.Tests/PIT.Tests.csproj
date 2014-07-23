@@ -75,6 +75,7 @@
     <Compile Include="API\Clients\ProjectRestClientTest.cs" />
     <Compile Include="API\Clients\IssueRestClientTests.cs" />
     <Compile Include="API\HTTP\PITHttpClientTests.cs" />
+    <Compile Include="Business.Service\IssueBusinessTests.cs" />
     <Compile Include="WPF\ViewModels\Header\HeaderAreaViewModelTests.cs" />
     <Compile Include="WPF\ViewModels\ShellViewModelTests.cs" />
     <Compile Include="WPF\Commands\Project\AddProjectCommandTests.cs" />
