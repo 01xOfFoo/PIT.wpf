@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace PIT.API.Exceptions
 {
-    internal class ContentTypeException : Exception
+    [ExcludeFromCodeCoverage]
+    public class ContentTypeException : Exception
     {
         public ContentTypeException(HttpStatusCode statusCode, string mimeType, string expectedMimeType)
             : base(CreateMessage(statusCode, mimeType, expectedMimeType))

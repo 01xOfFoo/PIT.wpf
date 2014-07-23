@@ -1,9 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Header.Contracts;
-using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.ViewModels.Header
 {
@@ -11,7 +11,6 @@ namespace PIT.WPF.ViewModels.Header
     public class HeaderAreaViewModel : PropertyChangedBase, IHeaderAreaViewModel, IDisposable
     {
         private readonly ProjectsModel _projectsModel;
-        private ProjectViewModel _projectViewModel;
 
         [ImportingConstructor]
         public HeaderAreaViewModel(ProjectsModel projectsModel)
@@ -22,18 +21,14 @@ namespace PIT.WPF.ViewModels.Header
 
         private void OnProjectChanged(object sender, EventArgs e)
         {
-            _projectViewModel = (ProjectViewModel)sender;
             NotifyOfPropertyChange(() => SelectedProjectName);
         }
 
-        public string SelectedProjectName
+        public string SelectedProjectName 
         {
             get 
             {
-                if (_projectViewModel != null)
-                    return _projectViewModel.Short;
-                else
-                    return "";
+                return _projectsModel.SelectedProject == null ? "" : _projectsModel.SelectedProject.Short;
             }
         }
 

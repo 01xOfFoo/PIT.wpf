@@ -6,8 +6,8 @@
     <ProjectGuid>{A5DBEB6A-3F6C-429B-9D9A-E335E6DEF385}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PIT.WPF.Tests.Core</RootNamespace>
-    <AssemblyName>PIT.WPF.Tests</AssemblyName>
+    <RootNamespace>PIT.Tests</RootNamespace>
+    <AssemblyName>PIT.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -38,9 +38,20 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=1.5.2.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -57,20 +68,51 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Core\PITWindowManagerTest.cs" />
-    <Compile Include="Core\WindowLocationPersisterTests.cs" />
+    <Compile Include="API\HTTP\ResponseMessageValidatorTests.cs" />
+    <Compile Include="Business.Service\ProjectBusinessTests.cs" />
+    <Compile Include="API\ClientProviderTests.cs" />
+    <Compile Include="API\JsonContentTests.cs" />
+    <Compile Include="API\Clients\ProjectRestClientTest.cs" />
+    <Compile Include="API\Clients\IssueRestClientTests.cs" />
+    <Compile Include="API\HTTP\PITHttpClientTests.cs" />
+    <Compile Include="WPF\ViewModels\Header\HeaderAreaViewModelTests.cs" />
+    <Compile Include="WPF\ViewModels\ShellViewModelTests.cs" />
+    <Compile Include="WPF\Commands\Project\AddProjectCommandTests.cs" />
+    <Compile Include="WPF\Commands\Project\DeleteProjectCommandTests.cs" />
+    <Compile Include="WPF\Commands\Project\EditProjectCommandTests.cs" />
+    <Compile Include="WPF\Core\PITWindowManagerTest.cs" />
+    <Compile Include="WPF\Core\WindowLocationPersisterTests.cs" />
+    <Compile Include="WPF\Models\Projects\ProjectSelectorTests.cs" />
+    <Compile Include="Business\ProjectFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPF\ViewModels\Projects\ProjectViewModelFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PIT.API\PIT.API.csproj">
+      <Project>{DFD5F4B2-8851-4E81-8DE4-BD36F8BABEFF}</Project>
+      <Name>PIT.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PIT.Business.Entities\PIT.Business.Entities.csproj">
       <Project>{773a52f0-62a2-478a-9eab-13e5af6139ab}</Project>
       <Name>PIT.Business.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PIT.Business.Service\PIT.Business.Service.csproj">
+      <Project>{1D67980F-56AC-4E15-A44E-1C7134EEF7A6}</Project>
+      <Name>PIT.Business.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PIT.Business\PIT.Business.csproj">
+      <Project>{06F86F20-E5E0-44AD-A774-DB5555A27516}</Project>
+      <Name>PIT.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\PIT.WPF\PIT.WPF.csproj">
       <Project>{629f5b5c-4618-4f1f-a3ed-3ab71ba6ca89}</Project>
       <Name>PIT.WPF</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

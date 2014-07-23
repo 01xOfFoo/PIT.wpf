@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel.Composition;
 using System.Net.Http;
 using PIT.API.Exceptions;
-using PIT.API.Validators.Contracts;
+using PIT.API.HTTP.Contracts;
 
-namespace PIT.API.Validators
+namespace PIT.API.HTTP
 {
     [Export(typeof(IResponseMessageValidator))]
     public class ResponseMessageValidator : IResponseMessageValidator

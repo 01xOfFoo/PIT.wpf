@@ -42,7 +42,8 @@ namespace PIT.WPF.Core
 
             var mefLocator = new MefServiceLocator(_container);
             ServiceLocator.SetLocatorProvider(() => mefLocator);
-         }
+        }
+
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
             return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));

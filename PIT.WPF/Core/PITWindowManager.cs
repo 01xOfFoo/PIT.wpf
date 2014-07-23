@@ -8,18 +8,13 @@ namespace PIT.WPF.Core
     [Export(typeof(IPITWindowManager))]
     public class PITWindowManager : IPITWindowManager
     {
-    	private readonly double _primaryScreenWidth;
-		private readonly double _primaryScreenHeight;
+    	private double _primaryScreenWidth;
+		private double _primaryScreenHeight;
 
-        public PITWindowManager() : this(System.Windows.SystemParameters.PrimaryScreenWidth, 
-                                            System.Windows.SystemParameters.PrimaryScreenHeight)
+        public void ApplyScreenBoundaries(double screenWidht, double screenheight)
         {
-        }
-
-        public PITWindowManager(double primaryScreenWidth, double primaryScreenHeight)
-        {
-            _primaryScreenWidth = primaryScreenWidth;
-            _primaryScreenHeight = primaryScreenHeight;
+            _primaryScreenWidth = screenWidht;
+            _primaryScreenHeight = screenheight;
         }
 
         public WindowLocation GetCenteredWindowLocation(double desiredWidth, double desiredHeight)
@@ -30,15 +25,6 @@ namespace PIT.WPF.Core
 
         private WindowLocation GetCenteredWindow(double desiredWidth, double desiredHeight, System.Windows.Rect parentArea)
         {
-            if (desiredWidth <= 1.0)
-            {
-                desiredWidth = parentArea.Width * desiredWidth;
-            }
-            if (desiredHeight <= 1.0)
-            {
-                desiredHeight = parentArea.Height * desiredHeight;
-            }
-
             var windowLocation = new WindowLocation();
 
             windowLocation.Width = Math.Min(desiredWidth, parentArea.Width - 50.0);

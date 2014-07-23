@@ -3,8 +3,7 @@ using PIT.API.Clients;
 using PIT.API.Clients.Contracts;
 using PIT.API.Contracts;
 using PIT.API.HTTP;
-using PIT.API.Validators;
-using PIT.API.Validators.Contracts;
+using PIT.API.HTTP.Contracts;
 using PIT.Business.Entities;
 
 namespace PIT.API
@@ -34,7 +33,7 @@ namespace PIT.API
                 var client = _projectClient;
                 if (client == null)
                 {
-                    client = new ProjectClient(_httpClient, _responseMessageValidator)
+                    client = new ProjectRestClient(_httpClient, _responseMessageValidator)
                     {
                         ServerAdress = _environment.ServerAdress
                     };
@@ -52,7 +51,7 @@ namespace PIT.API
                 var client = _issueClient;
                 if (client == null)
                 {
-                    client = new IssueClient(_httpClient, _responseMessageValidator)
+                    client = new IssueRestClient(_httpClient, _responseMessageValidator)
                     {
                         ServerAdress = _environment.ServerAdress
                     };

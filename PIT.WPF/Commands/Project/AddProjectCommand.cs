@@ -1,22 +1,19 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
-using PIT.Business.Service.Contracts;
-using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 
 namespace PIT.WPF.Commands.Project
 {
     [Export]
-    public class AddProjectCommand : ProjectCommand
+    public class AddProjectCommand : Command
     {
         private readonly IWindowManager _windowManager;
         private readonly IProjectViewModelFactory _projectViewModelFactory;
         private readonly IProjectEditViewModel _projectEditViewModel;
 
         [ImportingConstructor]
-        public AddProjectCommand(ProjectsModel projectsModel, IProjectBusiness projectBusiness, IWindowManager windowManager, IProjectEditViewModel projectEditViewModel, IProjectViewModelFactory projectViewModelFactory) 
-            : base(projectsModel, projectBusiness)
+        public AddProjectCommand(IWindowManager windowManager, IProjectEditViewModel projectEditViewModel, IProjectViewModelFactory projectViewModelFactory) 
         {
             _windowManager = windowManager;
             _projectViewModelFactory = projectViewModelFactory;
@@ -25,8 +22,7 @@ namespace PIT.WPF.Commands.Project
 
         public override void Execute(object parameter)
         {
-            var project = new Business.Entities.Project();
-            var projectViewModel = _projectViewModelFactory.CreateProjectViewModel(project);
+            var projectViewModel = _projectViewModelFactory.CreateProjectViewModel();
             _projectEditViewModel.ActivateProject(projectViewModel);
             _windowManager.ShowDialog(_projectEditViewModel);
         }

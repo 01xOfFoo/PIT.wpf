@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace PIT.API.HTTP
+namespace PIT.API.HTTP.Contracts
 {
     public interface IHttpClient
     {

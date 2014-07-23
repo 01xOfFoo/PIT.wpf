@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using PIT.API.HTTP;
-using PIT.API.Validators.Contracts;
+using PIT.API.HTTP.Contracts;
 using PIT.Business.Entities;
 
 namespace PIT.API.Clients
 {
-    public class Client<T> : IClient<T> where T : Entity
+    public class RestClient<T> : IClient<T> where T : Entity
     {
         private readonly IResponseMessageValidator _validator;
 
@@ -15,7 +15,7 @@ namespace PIT.API.Clients
         public string ServerAdress { get; set; }
         protected string RessourceUri { get; set; }
 
-        protected Client(IHttpClient httpClient, IResponseMessageValidator validator)
+        protected RestClient(IHttpClient httpClient, IResponseMessageValidator validator)
         {
             HttpClient = httpClient;
             _validator = validator;
@@ -37,25 +37,26 @@ namespace PIT.API.Clients
         {
             var responseMessage = HttpClient.Get(string.Format("{0}/{1}/{2}", ServerAdress, RessourceUri, id));
             ValidateResponse(responseMessage);
+
             return JsonConverter<T>.Create(responseMessage);
         }
 
-        public void Create(T entity)
+        public T Create(T entity)
         {
             var content = JsonConverter<T>.Create(entity);
             var responseMessage = HttpClient.Post(string.Format("{0}/{1}", ServerAdress, RessourceUri), content);
-
-            var responseProject = JsonConverter<T>.Create(responseMessage);
-            entity.Id = responseProject.Id;
-
             ValidateResponse(responseMessage);
+
+            return JsonConverter<T>.Create(responseMessage);
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             var content = JsonConverter<T>.Create(entity);
             var responseMessage = HttpClient.Put(string.Format("{0}/{1}/{2}", ServerAdress, RessourceUri, entity.Id), content);
             ValidateResponse(responseMessage);
+
+            return JsonConverter<T>.Create(responseMessage);
         }
 
         public void Delete(T entity)

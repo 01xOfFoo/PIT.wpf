@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using PIT.API.Clients.Contracts;
+using PIT.API.Contracts;
 using PIT.API.HTTP;
-using PIT.API.Validators.Contracts;
+using PIT.API.HTTP.Contracts;
 using PIT.Business.Entities;
 
 namespace PIT.API.Clients
 {
-    public class IssueClient : Client<Issue>, IIssueClient
+    public class IssueRestClient : RestClient<Issue>, IIssueClient
     {
-        public IssueClient(IHttpClient httpClient, IResponseMessageValidator validator)
+        public IssueRestClient(IHttpClient httpClient, IResponseMessageValidator validator)
             : base(httpClient, validator)
         {
             RessourceUri = "api/issues";

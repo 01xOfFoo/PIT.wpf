@@ -6,8 +6,8 @@ namespace PIT.API.Clients
     {
         IEnumerable<T> GetAll();
         T GetById(int id);
-        void Create(T entity);
-        void Update(T entity);
+        T Create(T entity);
+        T Update(T entity);
         void Delete(T entity);
     }
 }

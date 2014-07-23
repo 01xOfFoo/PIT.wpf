@@ -4,6 +4,6 @@ namespace PIT.WPF.ViewModels.Projects
 {
     public interface IProjectViewModelFactory
     {
-        ProjectViewModel CreateProjectViewModel(Project project);
+        ProjectViewModel CreateProjectViewModel();
     }
 }

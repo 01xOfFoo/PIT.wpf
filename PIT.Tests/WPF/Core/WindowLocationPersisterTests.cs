@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PIT.Business.Entities;
 using PIT.WPF.Core;
 
-namespace PIT.WPF.Tests.Core.Core
+namespace PIT.Tests.WPF.Core
 {
     [TestClass]
     public class WindowLocationPersisterTests
@@ -11,9 +11,9 @@ namespace PIT.WPF.Tests.Core.Core
         [TestMethod]
         public void Assigns_Window_Location_To_View()
         {
-            Window window = new Window();
+            var window = new Window();
 
-            WindowLocation windowLocation = new WindowLocation()
+            var windowLocation = new WindowLocation
             {
                 Left = 10,
                 Top = 10,
@@ -21,8 +21,8 @@ namespace PIT.WPF.Tests.Core.Core
                 Height = 100
             };
 
-            WindowLocationPersister windowLocationPersister;
-            windowLocationPersister = new WindowLocationPersister(window, windowLocation);
+            // ReSharper disable once ObjectCreationAsStatement
+            new WindowLocationPersister(window, windowLocation);
 
             Assert.AreEqual(window.SizeToContent, SizeToContent.Manual, "views SizeToContent is invalid");
             Assert.AreEqual(window.Top, 10, "view top position is invalid");

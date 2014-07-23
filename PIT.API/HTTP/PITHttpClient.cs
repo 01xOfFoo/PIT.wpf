@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using PIT.API.HTTP.Contracts;
 
 namespace PIT.API.HTTP
 {
@@ -9,11 +10,13 @@ namespace PIT.API.HTTP
     {
         private readonly HttpClient _http;
 
-        public string ServerAdress { get; set; }
-
-        public PITHttpClient()
+        public PITHttpClient() : this(new HttpClient())
         {
-            _http = new HttpClient(new HttpClientHandler());
+        }
+
+        public PITHttpClient(HttpClient httpClient)
+        {
+            _http = httpClient;
             _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Issues;
@@ -6,6 +7,7 @@ using PIT.WPF.ViewModels.Issues.Contracts;
 
 namespace PIT.WPF.SampleData
 {
+    [ExcludeFromCodeCoverage]
     class SampleIssueAreaViewModel : PropertyChangedBase, IIssueAreaViewModel
     {
         public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }

@@ -5,6 +5,7 @@ using PIT.API.Contracts;
 namespace PIT.API
 {
     [Export(typeof(IEnvironment))]
+    [ExcludeFromCodeCoverage]
     class TestEnvironment : IEnvironment
     {
         private string _serverAdress;

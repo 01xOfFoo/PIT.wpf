@@ -1,16 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json;
+using PIT.API.Contracts;
 
 namespace PIT.API
 {
+    [ExcludeFromCodeCoverage]
     public static class JsonConverter<T> where T : class
     {
         public static IEnumerable<T> CreateList(HttpResponseMessage responseMessage)
         {
-            Type type = typeof(List<T>);
+            if (responseMessage == null || responseMessage.Content == null) return new List<T>();
+
+            Type type = typeof (List<T>);
             using (var memoryStream = new MemoryStream())
             {
                 responseMessage.Content.CopyToAsync(memoryStream).Wait();
@@ -27,11 +33,13 @@ namespace PIT.API
 
         public static HttpContent Create(T model)
         {
-            return new JsonContent(JsonConvert.SerializeObject((object)model));
+            return new JsonContent(JsonConvert.SerializeObject(model));
         }
 
         public static T Create(HttpResponseMessage responseMessage)
         {
+            if (responseMessage == null || responseMessage.Content == null) return null;
+
             Type type = typeof(T);
             using (var memoryStream = new MemoryStream())
             {

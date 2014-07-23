@@ -1,19 +1,20 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
+using System.Windows;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Models.Projects
 {
-    [Export]
-    public class ProjectsModel
+    [Export(typeof (IProjectsModel))]
+    [Export(typeof (ProjectsModel))]
+    public class ProjectsModel : IProjectsModel
     {
-        private ProjectViewModel _selectedProjectViewModel;
         private ObservableCollection<ProjectViewModel> _projects;
-
-        public event EventHandler ProjectChanged;
-        public event NotifyCollectionChangedEventHandler ProjectsUpdates;
+        private ProjectViewModel _selectedProjectViewModel;
 
         public ProjectViewModel SelectedProject
         {
@@ -41,12 +42,21 @@ namespace PIT.WPF.Models.Projects
             }
         }
 
+        public event EventHandler ProjectChanged;
+        public event NotifyCollectionChangedEventHandler ProjectsUpdates;
+
         private void NotifyOfProjectChanged(ProjectViewModel projectViewModel)
         {
             if ((ProjectChanged != null) && (projectViewModel != null))
             {
                 ProjectChanged(projectViewModel, EventArgs.Empty);
             }
+        }
+
+        // Testing purpose only
+        public bool HasProjectChangedSubscriber()
+        {
+            return (ProjectChanged != null);
         }
     }
 }

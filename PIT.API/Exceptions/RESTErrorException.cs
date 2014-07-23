@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 
 namespace PIT.API.Exceptions
 {
-    internal class RestErrorException : Exception
+    [ExcludeFromCodeCoverage]
+    public class RestErrorException : Exception
     {
         public RestErrorException(HttpResponseMessage responseMessage) 
             : base(CreateMessage(responseMessage))

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows;
 using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.WPF.Core;
@@ -11,7 +12,7 @@ using PIT.WPF.Views;
 namespace PIT.WPF.ViewModels
 {
     [Export(typeof(IShellViewModel))]
-    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IPartImportsSatisfiedNotification, IShellViewModel
+    public class ShellViewModel : Conductor<Screen>.Collection.AllActive, IShellViewModel
     {
         private readonly IPITWindowManager _windowManager;
 
@@ -30,18 +31,24 @@ namespace PIT.WPF.ViewModels
         public ShellViewModel(IPITWindowManager windowManager)
         {
             _windowManager = windowManager;
-            DisplayName = "PIT: Project Issue Tracker";
+
+            DetermineWindowLocation();
+            SetWindowCaption();
         }
 
-        public void OnImportsSatisfied()
+        private string SetWindowCaption()
         {
-            _windowLocation = _windowManager.GetCenteredWindowLocation(1024, 768);
+            return DisplayName = "PIT: Project Issue Tracker";
+        }
+
+        private void DetermineWindowLocation()
+        {
+            _windowManager.ApplyScreenBoundaries(SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight);
+            _windowLocation = _windowManager.GetCenteredWindowLocation(1100, 700);
         }
 
         protected override void OnViewAttached(object view, object context)
         {
-            base.OnViewAttached(view, context);
-
             var shellView = (ShellView)view;
             // ReSharper disable once ObjectCreationAsStatement
             new WindowLocationPersister(shellView, _windowLocation);

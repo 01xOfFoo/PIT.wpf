@@ -1,13 +1,22 @@
 ﻿using System.ComponentModel.Composition;
-using PIT.Business.Entities;
+using PIT.Business.Contracts;
 
 namespace PIT.WPF.ViewModels.Projects
 {
     [Export(typeof(IProjectViewModelFactory))]
     public class ProjectViewModelFactory : IProjectViewModelFactory
     {
-        public ProjectViewModel CreateProjectViewModel(Project project)
+        private readonly IProjectFactory _projectFactory;
+
+        [ImportingConstructor]
+        public ProjectViewModelFactory(IProjectFactory projectFactory)
         {
+            _projectFactory = projectFactory;
+        }
+
+        public ProjectViewModel CreateProjectViewModel()
+        {
+            var project = _projectFactory.CreateProject();
             return new ProjectViewModel()
             {
                 Project = project

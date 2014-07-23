@@ -85,7 +85,6 @@
     <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
     <Compile Include="Commands\Project\EditProjectCommand.cs" />
     <Compile Include="Commands\Project\IProjectCommands.cs" />
-    <Compile Include="Commands\Project\ProjectCommand.cs" />
     <Compile Include="Commands\Project\ProjectCommands.cs" />
     <Compile Include="Core\AppBootstrapper.cs" />
     <Compile Include="Core\Contracts\IPITWindowManager.cs" />
@@ -93,6 +92,7 @@
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
     <Compile Include="Models\Projects\IProjectSelector.cs" />
+    <Compile Include="Models\Projects\IProjectsModel.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
@@ -220,6 +220,10 @@
     <ProjectReference Include="..\PIT.Business.Service\PIT.Business.Service.csproj">
       <Project>{1d67980f-56ac-4e15-a44e-1c7134eef7a6}</Project>
       <Name>PIT.Business.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PIT.Business\PIT.Business.csproj">
+      <Project>{06F86F20-E5E0-44AD-A774-DB5555A27516}</Project>
+      <Name>PIT.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
