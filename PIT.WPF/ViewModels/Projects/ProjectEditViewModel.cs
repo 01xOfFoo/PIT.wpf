@@ -4,6 +4,7 @@ using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
+using PIT.WPF.Views.Projects;
 
 namespace PIT.WPF.ViewModels.Projects
 {
@@ -13,6 +14,12 @@ namespace PIT.WPF.ViewModels.Projects
         private readonly IProjectBusiness _projectBusiness;
         private readonly ProjectSelection _projectSelection;
         private  ProjectViewModel _projectViewModel;
+        private Window _attachedView;
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            _attachedView = (Window)view;
+        }
 
         [ImportingConstructor]
         public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectSelection projectSelection)
@@ -56,10 +63,11 @@ namespace PIT.WPF.ViewModels.Projects
         public void SaveProject()
         {
             DetermineOperation();
-
-            var window = Application.Current.Windows[Application.Current.Windows.Count - 1];
-            if (window != null)
-                window.Close();
+            _attachedView.Close();
+//
+//            var window = Application.Current.Windows[Application.Current.Windows.Count - 1];
+//            if (window != null)
+//                window.Close();
         }
 
         private void DetermineOperation()

@@ -12,7 +12,7 @@
                                         VerticalAlignment="Top" 
                                         BorderThickness="0" 
                                         Background="Transparent"
-                                        Margin="5,5,5,0" 
+                                        Margin="2,2,2,0" 
                                         RenderOptions.ClearTypeHint="Enabled"/>
                     </Grid>
                 </ControlTemplate>

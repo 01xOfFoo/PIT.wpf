@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Windows.Input;
 using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Issues;
@@ -33,5 +34,7 @@ namespace PIT.WPF.SampleData
                 )
             };
         }
+
+        public ICommand IssueDoubleClick { get; set; }
     }
 }

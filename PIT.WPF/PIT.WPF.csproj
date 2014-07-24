@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
     <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
     <Compile Include="Commands\Project\EditProjectCommand.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
     <Compile Include="Converters\EnumToArrayConverter.cs" />
+    <Compile Include="Models\Issues\IIssueSelection.cs" />
+    <Compile Include="Models\Issues\IssueSelection.cs" />
     <Compile Include="Models\Projects\IProjectSelector.cs" />
     <Compile Include="Models\Projects\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />

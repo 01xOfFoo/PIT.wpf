@@ -18,12 +18,12 @@ namespace PIT.REST.Data.Repositories
 
         public IQueryable<Issue> GetAllIssues()
         {
-            return _context.Issues.AsQueryable();
+            return _context.Issues.Include("Project").AsQueryable();
         }
 
         public Issue GetIssue(int issueId)
         {
-            return _context.Issues.FirstOrDefault(i => i.Id == issueId);
+            return _context.Issues.Include("Project").FirstOrDefault(i => i.Id == issueId);
         }
 
         public Issue Create(Issue issue)

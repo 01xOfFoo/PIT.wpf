@@ -43,6 +43,8 @@ namespace PIT.REST.Data.Context.Seeders
 
             for (int i = 1; i <= 2; i++)
                 _context.Issues.Add(BuildIssue(3, i));
+
+            _context.SaveChanges();
         }
 
         private Issue BuildIssue(int projectId, int count)

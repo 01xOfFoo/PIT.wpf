@@ -15,14 +15,18 @@ namespace PIT.WPF.SampleData
         public string DialogSubHeaderCaption
         {
             get { return "test text"; }
+            set { throw new NotImplementedException(); }
         }
 
-        public static string ProjectDescription
+        public string Short
         {
-            get
-            {
-                return "default description"; 
-            }
+            get { return "default short"; }
+            set { throw new NotImplementedException(); }
+        }
+
+        public string Description
+        {
+            get { return "default description"; }
             set { throw new NotImplementedException(); }
         }
 
@@ -30,18 +34,6 @@ namespace PIT.WPF.SampleData
         {
             get { return IssueStatus.Assigned; }
             set { throw new NotImplementedException(); }
-        }
-
-        public IssueViewModel Model
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
         }
     }
 }

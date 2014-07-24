@@ -134,6 +134,7 @@
                 CornerRadius="3">
             <ListView ItemsSource="{Binding Issues}" 
                       ItemContainerStyle="{StaticResource IssueItemStyle}"
+                      SelectedItem="{Binding Issue}"
                       BorderThickness="0"
                       Margin="1">
                 <ListView.View>
