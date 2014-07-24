@@ -91,7 +91,7 @@
     <Compile Include="Core\MEFServiceLocator.cs" />
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
-    <Compile Include="Helpers\EnumToArrayConverter.cs" />
+    <Compile Include="Converters\EnumToArrayConverter.cs" />
     <Compile Include="Models\Projects\IProjectSelector.cs" />
     <Compile Include="Models\Projects\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
@@ -144,6 +144,10 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -155,6 +159,10 @@
     <Page Include="Menues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Header\HeaderAreaView.xaml">
       <SubType>Designer</SubType>

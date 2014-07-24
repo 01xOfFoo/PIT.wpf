@@ -11,27 +11,6 @@
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
-    <FrameworkElement.Resources>
-        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <Border BorderThickness="1" 
-                                    BorderBrush="#ADA8A8" 
-                                    Background="White"/>
-                            <ScrollViewer Name="PART_ContentHost" 
-                                          VerticalAlignment="Center" 
-                                          BorderThickness="0" 
-                                          Background="Transparent"
-                                          Margin="5,0,5,0" 
-                                          RenderOptions.ClearTypeHint="Enabled"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </FrameworkElement.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="63"/>

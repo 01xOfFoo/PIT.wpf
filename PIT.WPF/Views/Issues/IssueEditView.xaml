@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:PIT.Business;assembly=PIT.Business.Entities"
         xmlns:sampledata="clr-namespace:PIT.WPF.SampleData"
+        xmlns:entities="clr-namespace:PIT.Business.Entities;assembly=PIT.Business.Entities"
         mc:Ignorable="d" 
         d:DataContext="{d:DesignInstance sampledata:SampleIssueEditViewModel, IsDesignTimeCreatable=True}"
         Height="358" Width="600"
@@ -53,9 +55,9 @@
               Background="#EFEFEF"
               Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -72,6 +74,7 @@
             <TextBox Grid.Row="0" 
                      Grid.Column="1" 
                      Margin="2"
+                     Height="26"
                      Text="{Binding ProjectShort}"
                      Style="{StaticResource TextBoxStyle}"/>
             <TextBlock Grid.Row="1" 
@@ -84,8 +87,17 @@
             <TextBox Grid.Row="1" 
                      Grid.Column="1" 
                      Margin="2"
-                     Text="{Binding ProjectShort}"
+                     Height="60"
+                     Text="{Binding ProjectDescription}"
                      Style="{StaticResource TextBoxStyle}"/>
+            <TextBox Grid.Row="1" 
+                         Grid.Column="1" 
+                         Margin="2"
+                         Height="60"
+                         Text="{Binding ProjectDescription}"
+                         AcceptsReturn="true"
+                         Style="{StaticResource TextBoxStyle}">
+            </TextBox>
             <TextBlock Grid.Row="2" 
                        Grid.Column="0"
                        Text="Status"
@@ -96,8 +108,10 @@
             <ComboBox Grid.Row="2"
                       Grid.Column="1"
                       Margin="2"
-                      ItemsSource="{Binding }"
-                      SelectedItem="{Binding Status}"/>
+                      ItemsSource="{Binding Status, Mode=OneTime, Converter={StaticResource EnumToArrayConverter}}"
+                      DisplayMemberPath="Value"
+                      SelectedValuePath="Key"
+                      SelectedValue="{Binding Status, Mode=TwoWay}"/>
         </Grid>
         <Grid Background="#EFEFEF"
               Grid.Row="2">
@@ -114,8 +128,7 @@
                     Grid.ColumnSpan="3" 
                     BorderBrush="#9F9F9F"
                     BorderThickness="0,0,0,1"/>
-            <Button Name="SaveProject"
-                    Grid.Row="1" 
+            <Button Grid.Row="1" 
                     Grid.Column="1" 
                     Margin="5,0,5,0"
                     Height="25"
