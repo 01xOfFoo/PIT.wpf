@@ -8,18 +8,18 @@ namespace PIT.WPF.Commands
     public class AddIssueCommand : Command
     {
         private readonly IWindowManager _windowManager;
-        private readonly IIssueDialogViewModel _issueDialogViewModel;
+        private readonly IIssueEditViewModel _issueEditViewModel;
 
         [ImportingConstructor]
-        public AddIssueCommand(IWindowManager windowManager, IIssueDialogViewModel issueDialogViewModel)
+        public AddIssueCommand(IWindowManager windowManager, IIssueEditViewModel issueEditViewModel)
         {
             _windowManager = windowManager;
-            _issueDialogViewModel = issueDialogViewModel;
+            _issueEditViewModel = issueEditViewModel;
         }
 
         public override void Execute(object parameter)
         {
-            _windowManager.ShowDialog(_issueDialogViewModel);
+            _windowManager.ShowDialog(_issueEditViewModel);
         }
     }
 }

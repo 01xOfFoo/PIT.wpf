@@ -3,11 +3,11 @@
 namespace PIT.WPF.Views.Issues
 {
     /// <summary>
-    /// Interaction logic for IssueDialogView.xaml
+    /// Interaction logic for IssueEditView.xaml
     /// </summary>
-    public partial class IssueDialogView : Window
+    public partial class IssueEditView : Window
     {
-        public IssueDialogView()
+        public IssueEditView()
         {
             InitializeComponent();
         }

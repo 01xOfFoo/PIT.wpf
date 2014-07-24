@@ -39,7 +39,7 @@
   <ItemGroup>
     <Compile Include="Entity.cs" />
     <Compile Include="Issue.cs" />
-    <Compile Include="IssueStatus.cs" />
+    <Compile Include="Status.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowLocation.cs" />

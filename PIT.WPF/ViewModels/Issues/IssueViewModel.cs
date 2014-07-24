@@ -33,6 +33,16 @@ namespace PIT.WPF.ViewModels.Issues
             }
         }
 
+        public IssueStatus Status
+        {
+            get { return _issue.Status; }
+            set
+            {
+                _issue.Status = value;
+                NotifyOfPropertyChange(() => Status);
+            }
+        }
+
         public string AssignedToName
         {
             get { return "na"; }

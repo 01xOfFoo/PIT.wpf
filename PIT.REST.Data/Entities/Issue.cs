@@ -1,4 +1,7 @@
-﻿namespace PIT.REST.Data.Entities
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace PIT.REST.Data.Entities
 {
     public class Issue : Entity
     {
@@ -8,6 +11,7 @@
             Status = IssueStatus.Open;
         }
 
+        public string Short { get; set; }
         public string Description { get; set; }
         public IssueStatus Status { get; set; }
 

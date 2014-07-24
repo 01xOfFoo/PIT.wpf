@@ -48,6 +48,7 @@ namespace PIT.REST.Data.Context.Seeders
         private Issue BuildIssue(int projectId, int count)
         {
             var issue = new Issue();
+            issue.Short = string.Format("I{0}", count);
             issue.Description = string.Format("Issue #{0}", count);
             issue.Project = _context.Projects.Find(projectId);
 

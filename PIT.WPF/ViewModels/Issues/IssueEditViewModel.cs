@@ -4,8 +4,8 @@ using PIT.WPF.ViewModels.Issues.Contracts;
 
 namespace PIT.WPF.ViewModels.Issues
 {
-    [Export(typeof(IIssueDialogViewModel))]
-    public class IssueDialogViewModel : PropertyChangedBase, IIssueDialogViewModel
+    [Export(typeof(IIssueEditViewModel))]
+    public class IssueEditViewModel : PropertyChangedBase, IIssueEditViewModel
     {
     }
 }
