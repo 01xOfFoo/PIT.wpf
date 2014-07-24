@@ -10,14 +10,14 @@ namespace PIT.WPF.Commands.Project
     [Export]
     public class EditProjectCommand : Command
     {
-        private readonly ProjectsModel _projectModel;
+        private readonly ProjectSelection _projectModel;
         private readonly IWindowManager _windowManager;
         private readonly IProjectEditViewModel _projectEditViewModel;
 
         [ImportingConstructor]
-        public EditProjectCommand(ProjectsModel projectsModel, IWindowManager windowManager, IProjectEditViewModel projectEditViewModel)
+        public EditProjectCommand(ProjectSelection projectSelection, IWindowManager windowManager, IProjectEditViewModel projectEditViewModel)
         {
-            _projectModel = projectsModel;
+            _projectModel = projectSelection;
             _windowManager = windowManager;
             _projectEditViewModel = projectEditViewModel;
         }

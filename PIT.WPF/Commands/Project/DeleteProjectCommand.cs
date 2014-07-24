@@ -9,21 +9,21 @@ namespace PIT.WPF.Commands.Project
     [Export]
     public class DeleteProjectCommand : Command
     {
-        private readonly IProjectsModel _projectsModel;
+        private readonly IProjectSelection _projectSelection;
         private readonly IProjectBusiness _projectBusiness;
 
         [ImportingConstructor]
-        public DeleteProjectCommand(IProjectsModel projectsModel, IProjectBusiness projectBusiness)
+        public DeleteProjectCommand(IProjectSelection projectSelection, IProjectBusiness projectBusiness)
         {
-            _projectsModel = projectsModel;
+            _projectSelection = projectSelection;
             _projectBusiness = projectBusiness;
         }
 
         public override void Execute(object parameter)
         {
-            var selectedProject = _projectsModel.SelectedProject;
+            var selectedProject = _projectSelection.SelectedProject;
             _projectBusiness.Delete(selectedProject.Project);
-            _projectsModel.Projects.Remove(selectedProject);
+            _projectSelection.Projects.Remove(selectedProject);
         }
     }
 }

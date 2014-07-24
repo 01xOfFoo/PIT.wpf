@@ -9,9 +9,9 @@ using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Models.Projects
 {
-    [Export(typeof (IProjectsModel))]
-    [Export(typeof (ProjectsModel))]
-    public class ProjectsModel : IProjectsModel
+    [Export(typeof (IProjectSelection))]
+    [Export(typeof (ProjectSelection))]
+    public class ProjectSelection : IProjectSelection
     {
         private ObservableCollection<ProjectViewModel> _projects;
         private ProjectViewModel _selectedProjectViewModel;

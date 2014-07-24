@@ -92,12 +92,12 @@
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
     <Compile Include="Models\Projects\IProjectSelector.cs" />
-    <Compile Include="Models\Projects\IProjectsModel.cs" />
+    <Compile Include="Models\Projects\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Projects\IProjectViewModel.cs" />
-    <Compile Include="Models\Projects\ProjectsModel.cs" />
+    <Compile Include="Models\Projects\ProjectSelection.cs" />
     <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />
     <Compile Include="SampleData\SampleIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueDialogViewModel.cs" />

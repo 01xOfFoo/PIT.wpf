@@ -9,13 +9,13 @@ namespace PIT.Tests.WPF.ViewModels.Header
     [TestClass]
     public class HeaderAreaViewModelTests 
     {
-        private Mock<ProjectsModel> _projectsModel;
+        private Mock<ProjectSelection> _projectsModel;
         private HeaderAreaViewModel _viewModel;
 
         [TestInitialize]
         public void SetUp()
         {
-            _projectsModel = new Mock<ProjectsModel>();
+            _projectsModel = new Mock<ProjectSelection>();
             _viewModel = new HeaderAreaViewModel(_projectsModel.Object);
         }
 

@@ -9,13 +9,13 @@ namespace PIT.Tests.WPF.Models.Projects
     [TestClass]
     public class ProjectSelectorTests
     {
-        private ProjectsModel _projectModel;
+        private ProjectSelection _projectModel;
         private ProjectSelector _selector;
 
         [TestInitialize]
         public void SetUp()
         {
-            _projectModel = new ProjectsModel();
+            _projectModel = new ProjectSelection();
             _selector = new ProjectSelector(_projectModel);
 
             _projectModel.Projects = new ObservableCollection<ProjectViewModel>();

@@ -9,27 +9,27 @@ namespace PIT.WPF.Models.Projects
     [Export(typeof(IProjectSelector))]
     public class ProjectSelector : IProjectSelector, IDisposable
     {
-        private readonly ProjectsModel _projectsModel;
+        private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public ProjectSelector(ProjectsModel projectsModel)
+        public ProjectSelector(ProjectSelection projectSelection)
         {
-            _projectsModel = projectsModel;
-            _projectsModel.ProjectsUpdates += OnProjectsUpdates;
+            _projectSelection = projectSelection;
+            _projectSelection.ProjectsUpdates += OnProjectsUpdates;
         }
 
         private void OnProjectsUpdates(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             if (notifyCollectionChangedEventArgs.Action == NotifyCollectionChangedAction.Remove)
-                _projectsModel.SelectedProject = _projectsModel.Projects.FirstOrDefault();
+                _projectSelection.SelectedProject = _projectSelection.Projects.FirstOrDefault();
             else
-                _projectsModel.SelectedProject = (ProjectViewModel) notifyCollectionChangedEventArgs.NewItems[0];
+                _projectSelection.SelectedProject = (ProjectViewModel) notifyCollectionChangedEventArgs.NewItems[0];
 
         }
 
         public void Dispose()
         {
-            _projectsModel.ProjectsUpdates -= OnProjectsUpdates;
+            _projectSelection.ProjectsUpdates -= OnProjectsUpdates;
         }
     }
 }

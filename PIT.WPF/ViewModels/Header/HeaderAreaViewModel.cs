@@ -10,13 +10,13 @@ namespace PIT.WPF.ViewModels.Header
     [Export(typeof(IHeaderAreaViewModel))]
     public class HeaderAreaViewModel : PropertyChangedBase, IHeaderAreaViewModel, IDisposable
     {
-        private readonly ProjectsModel _projectsModel;
+        private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public HeaderAreaViewModel(ProjectsModel projectsModel)
+        public HeaderAreaViewModel(ProjectSelection projectSelection)
         {
-            this._projectsModel = projectsModel;
-            this._projectsModel.ProjectChanged += new EventHandler(OnProjectChanged);
+            this._projectSelection = projectSelection;
+            this._projectSelection.ProjectChanged += new EventHandler(OnProjectChanged);
         }
 
         private void OnProjectChanged(object sender, EventArgs e)
@@ -28,13 +28,13 @@ namespace PIT.WPF.ViewModels.Header
         {
             get 
             {
-                return _projectsModel.SelectedProject == null ? "" : _projectsModel.SelectedProject.Short;
+                return _projectSelection.SelectedProject == null ? "" : _projectSelection.SelectedProject.Short;
             }
         }
 
         public void Dispose()
         {
-            _projectsModel.ProjectChanged -= OnProjectChanged;
+            _projectSelection.ProjectChanged -= OnProjectChanged;
         }
     }
 }

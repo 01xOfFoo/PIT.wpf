@@ -13,7 +13,7 @@ namespace PIT.Tests.WPF.Commands.Project
     {
         private DeleteProjectCommand _command;
         private Mock<IProjectBusiness> _projectBusiness;
-        private Mock<IProjectsModel> _projectModel;
+        private Mock<IProjectSelection> _projectModel;
 
         [TestInitialize]
         public void SetUp()
@@ -21,7 +21,7 @@ namespace PIT.Tests.WPF.Commands.Project
             var project = new ProjectViewModel();
             var projects = new ObservableCollection<ProjectViewModel> {project};
 
-            _projectModel = new Mock<IProjectsModel>();
+            _projectModel = new Mock<IProjectSelection>();
             _projectModel.SetupProperty(m => m.Projects, projects);
             _projectModel.SetupProperty(m => m.SelectedProject, project);
 

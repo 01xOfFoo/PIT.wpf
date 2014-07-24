@@ -11,14 +11,14 @@ namespace PIT.WPF.ViewModels.Projects
     public class ProjectEditViewModel : Screen, IProjectEditViewModel
     {
         private readonly IProjectBusiness _projectBusiness;
-        private readonly ProjectsModel _projectsModel;
+        private readonly ProjectSelection _projectSelection;
         private  ProjectViewModel _projectViewModel;
 
         [ImportingConstructor]
-        public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectsModel projectsModel)
+        public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectSelection projectSelection)
         {
             _projectBusiness = projectBusiness;
-            _projectsModel = projectsModel;
+            _projectSelection = projectSelection;
         }
 
         public void ActivateProject(ProjectViewModel projectViewModel)
@@ -67,7 +67,7 @@ namespace PIT.WPF.ViewModels.Projects
             if (_projectViewModel.Id == 0)
             {
                 _projectBusiness.Create(_projectViewModel.Project);
-                _projectsModel.Projects.Add(_projectViewModel);
+                _projectSelection.Projects.Add(_projectViewModel);
             }
             else
             { 

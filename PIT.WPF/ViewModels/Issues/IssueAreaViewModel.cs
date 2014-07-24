@@ -13,7 +13,7 @@ namespace PIT.WPF.ViewModels.Issues
     [Export(typeof(IIssueAreaViewModel))]
     public class IssueAreaViewModel : PropertyChangedBase, IIssueAreaViewModel, IDisposable
     {
-        private readonly ProjectsModel _projectsModel;
+        private readonly ProjectSelection _projectSelection;
         private readonly IIssueBusiness _issueBusiness;
 
         public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
@@ -33,13 +33,13 @@ namespace PIT.WPF.ViewModels.Issues
         }
 
         [ImportingConstructor]
-        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness, ProjectsModel projectsModel)
+        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness, ProjectSelection projectSelection)
         {
             IssueHeaderView = issueHeaderAreaView;
             _issueBusiness = issueBusiness;
 
-            _projectsModel = projectsModel;
-            _projectsModel.ProjectChanged += OnProjectChanged;
+            _projectSelection = projectSelection;
+            _projectSelection.ProjectChanged += OnProjectChanged;
         }
 
         private void OnProjectChanged(object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace PIT.WPF.ViewModels.Issues
 
         public void Dispose()
         {
-            _projectsModel.ProjectChanged -= OnProjectChanged;
+            _projectSelection.ProjectChanged -= OnProjectChanged;
         }
     }
 }

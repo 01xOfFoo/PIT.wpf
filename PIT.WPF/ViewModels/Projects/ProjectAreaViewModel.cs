@@ -19,7 +19,7 @@ namespace PIT.WPF.ViewModels.Projects
     public class ProjectAreaViewModel : Screen, IProjectAreaViewModel
     {
         private readonly IWindowManager _windowManager;
-        private readonly ProjectsModel _projectsModel;
+        private readonly ProjectSelection _projectSelection;
         private readonly IProjectBusiness _projectBusiness;
         private readonly ICommand _addProjectCommand;
         private readonly IProjectSelector _projectSelector;
@@ -28,25 +28,25 @@ namespace PIT.WPF.ViewModels.Projects
         {
             get
             {
-                return _projectsModel.Projects;
+                return _projectSelection.Projects;
             }
         }
 
         public ProjectViewModel SelectedProject
         {
-            get { return _projectsModel.SelectedProject; }
-            set { _projectsModel.SelectedProject = value; }
+            get { return _projectSelection.SelectedProject; }
+            set { _projectSelection.SelectedProject = value; }
         }
 
         [ImportingConstructor]
-        public ProjectAreaViewModel(IWindowManager windowManager, IProjectBusiness projectBusiness, ProjectsModel projectsModel, IProjectSelector projectSelector, AddProjectCommand addProjectCommand)
+        public ProjectAreaViewModel(IWindowManager windowManager, IProjectBusiness projectBusiness, ProjectSelection projectSelection, IProjectSelector projectSelector, AddProjectCommand addProjectCommand)
         {
             _windowManager = windowManager;
             _projectBusiness = projectBusiness;
 
-            _projectsModel = projectsModel;
-            _projectsModel.ProjectChanged += OnProjectChanged;
-            _projectsModel.ProjectsUpdates += OnProjectsUpdates;
+            _projectSelection = projectSelection;
+            _projectSelection.ProjectChanged += OnProjectChanged;
+            _projectSelection.ProjectsUpdates += OnProjectsUpdates;
 
             _addProjectCommand = addProjectCommand;
             _projectSelector = projectSelector;
@@ -85,7 +85,7 @@ namespace PIT.WPF.ViewModels.Projects
             var prjs = (from project in _projectBusiness.GetAll()
                         select new ProjectViewModel() { Project = project }).ToList();
 
-            _projectsModel.Projects = new ObservableCollection<ProjectViewModel>(prjs);
+            _projectSelection.Projects = new ObservableCollection<ProjectViewModel>(prjs);
         }
     }
 }

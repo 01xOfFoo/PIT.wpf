@@ -13,13 +13,13 @@ namespace PIT.Tests.WPF.Commands.Project
     {
         private EditProjectCommand _command;
         private Mock<IProjectEditViewModel> _projectEditViewModel;
-        private Mock<ProjectsModel> _projectModel;
+        private Mock<ProjectSelection> _projectModel;
         private Mock<IWindowManager> _windowManager;
 
         [TestInitialize]
         public void SetUp()
         {
-            _projectModel = new Mock<ProjectsModel>();
+            _projectModel = new Mock<ProjectSelection>();
             _windowManager = new Mock<IWindowManager>();
             _projectEditViewModel = new Mock<IProjectEditViewModel>();
 
