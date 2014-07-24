@@ -61,20 +61,18 @@ namespace PIT.REST.Data.Repositories
             }
         }
 
-        public void Delete(int issueId)
+        public Issue Delete(int issueId)
         {
             try
             {
-                var entity = _context.Issues.Find(issueId);
-                if (entity != null)
+                var foundEntity = _context.Issues.Find(issueId);
+                if (foundEntity != null)
                 {
-                    _context.Issues.Remove(entity);
+                    _context.Issues.Remove(foundEntity);
                     _context.SaveChanges();
+                    return foundEntity;
                 }
-                else
-                {
-                    throw new EntityNotFoundException();
-                }
+                throw new EntityNotFoundException();
             }
             catch (Exception ex)
             {

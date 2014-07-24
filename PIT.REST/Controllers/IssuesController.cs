@@ -75,15 +75,32 @@ namespace PIT.REST.Controllers
         }
 
         // PUT api/<controller>/5
-        public HttpResponseMessage Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(int id, [FromBody]IssueModel issueModel)
         {
-            return Request.CreateResponse(HttpStatusCode.NotImplemented);
+            try
+            {
+                var issue = _modelFactory.ParseIssue(issueModel);
+                var responseModel = _repository.Update(issue);
+                return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // DELETE api/<controller>/5
         public HttpResponseMessage Delete(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.NotImplemented);
+            try
+            {
+                var responseModel = _repository.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK, responseModel);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
     }
 }

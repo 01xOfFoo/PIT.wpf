@@ -58,6 +58,7 @@ namespace PIT.REST.Models.Factories
                 var issue = new Issue();
 
                 issue.Id = issueModel.Id;
+                issue.Short = issueModel.Short;
                 issue.CreatedAt = issueModel.CreatedAt;
                 issue.Status = issueModel.Status;
                 issue.Description = issueModel.Description;
