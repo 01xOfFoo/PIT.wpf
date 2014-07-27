@@ -5,16 +5,12 @@ namespace PIT.REST.Data.Entities
 {
     public class Issue : Entity
     {
-        public Issue()
-        {
-            Project = new Project();
-            Status = IssueStatus.Open;
-        }
+        public int ProjectId { get; set; }
 
         public string Short { get; set; }
         public string Description { get; set; }
         public IssueStatus Status { get; set; }
 
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

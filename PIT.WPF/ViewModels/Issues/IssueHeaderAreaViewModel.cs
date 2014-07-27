@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using PIT.WPF.Commands;
+using PIT.WPF.Commands.Issue;
 using PIT.WPF.ViewModels.Issues.Contracts;
 
 namespace PIT.WPF.ViewModels.Issues

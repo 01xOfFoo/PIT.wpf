@@ -79,8 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\AddIssueCommand.cs" />
+    <Compile Include="Commands\Issue\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="ViewModels\Issues\Contracts\IIssueViewModelFactory.cs" />
     <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
     <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="SampleData\SampleIssueEditViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
+    <Compile Include="ViewModels\Issues\IssueViewModelFactory.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
     <Compile Include="Models\Projects\ProjectSelection.cs" />
     <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />

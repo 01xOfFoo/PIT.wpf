@@ -4,7 +4,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Input;
 using Caliburn.Micro;
-using PIT.Business.Entities;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
@@ -18,30 +17,14 @@ namespace PIT.WPF.ViewModels.Issues
     [Export(typeof(IIssueAreaViewModel))]
     public class IssueAreaViewModel : Screen, IIssueAreaViewModel, IDisposable
     {
-        private readonly IIssueBusiness _issueBusiness;
         private readonly ICommand _editEditIssueCommand;
-        private readonly ProjectSelection _projectSelection;
+        private readonly IIssueBusiness _issueBusiness;
         private readonly IssueSelection _issueSelection;
-
-        public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
-        
-        public ObservableCollection<IssueViewModel> Issues
-        {
-            get
-            {
-                return _issueSelection.Issues;
-            }
-            set { throw new NotImplementedException(); }
-        }
-
-        public IssueViewModel Issue
-        {
-            get { return _issueSelection.SelectedIssue; }
-            set { _issueSelection.SelectedIssue = value; }
-        }
+        private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness, ProjectSelection projectSelection, IssueSelection issueSelection, EditIssueCommand editEditIssueCommand)
+        public IssueAreaViewModel(IIssueHeaderAreaViewModel issueHeaderAreaView, IIssueBusiness issueBusiness,
+            ProjectSelection projectSelection, IssueSelection issueSelection, EditIssueCommand editEditIssueCommand)
         {
             IssueHeaderView = issueHeaderAreaView;
             _issueBusiness = issueBusiness;
@@ -53,15 +36,34 @@ namespace PIT.WPF.ViewModels.Issues
             _issueSelection = issueSelection;
         }
 
-        private void OnProjectChanged(object sender, EventArgs e)
+        public IssueViewModel Issue
         {
-            var project = (ProjectViewModel)sender;
-            LoadIssues(project);
+            get { return _issueSelection.SelectedIssue; }
+            set { _issueSelection.SelectedIssue = value; }
         }
 
         public ICommand EditIssue
         {
             get { return _editEditIssueCommand; }
+        }
+
+        public void Dispose()
+        {
+            _projectSelection.ProjectChanged -= OnProjectChanged;
+        }
+
+        public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
+
+        public ObservableCollection<IssueViewModel> Issues
+        {
+            get { return _issueSelection.Issues; }
+            set { throw new NotImplementedException(); }
+        }
+
+        private void OnProjectChanged(object sender, EventArgs e)
+        {
+            var project = (ProjectViewModel) sender;
+            LoadIssues(project);
         }
 
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -73,24 +75,21 @@ namespace PIT.WPF.ViewModels.Issues
 
         protected override void OnViewAttached(object view, object context)
         {
-            var issueAreaView = (IssueAreaView)view;
+            var issueAreaView = (IssueAreaView) view;
             issueAreaView.PreviewMouseLeftButtonDown += OnMouseLeftButtonDown;
         }
 
         private void LoadIssues(ProjectViewModel projectViewModel)
         {
             _issueSelection.Issues.Clear();
-            foreach (var issueViewModel in _issueBusiness.GetIssuesOfProject(projectViewModel.Id).Select(issue => new IssueViewModel(issue)))
+            foreach (
+                IssueViewModel issueViewModel in
+                    _issueBusiness.GetIssuesOfProject(projectViewModel.Id).Select(issue => new IssueViewModel(issue)))
             {
                 issueViewModel.Issue.Project = projectViewModel.Project;
                 _issueSelection.Issues.Add(issueViewModel);
             }
             NotifyOfPropertyChange(() => Issues);
-        }
-
-        public void Dispose()
-        {
-            _projectSelection.ProjectChanged -= OnProjectChanged;
         }
     }
 }

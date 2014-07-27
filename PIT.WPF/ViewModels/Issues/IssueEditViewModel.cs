@@ -13,19 +13,24 @@ namespace PIT.WPF.ViewModels.Issues
     {
         private readonly IIssueBusiness _issueBusiness;
         private readonly IssueSelection _issueSelection;
-        private IssueViewModel _issueViewModel;
         private Window _attachedView;
-
-        protected override void OnViewAttached(object view, object context)
-        {
-            _attachedView = (Window)view;
-        }
+        private IssueViewModel _issueViewModel;
 
         [ImportingConstructor]
         public IssueEditViewModel(IIssueBusiness issueBusiness, IssueSelection issueSelection)
         {
             _issueBusiness = issueBusiness;
             _issueSelection = issueSelection;
+        }
+
+        public string DialogHeaderCaption
+        {
+            get { return _issueViewModel.Id == 0 ? "Add issue" : "Edit issue"; }
+        }
+
+        public string DialogSubHeaderCaption
+        {
+            get { return _issueViewModel.Id == 0 ? "Create a new issue" : "You're editing an existing issue"; }
         }
 
         public string Short
@@ -55,6 +60,11 @@ namespace PIT.WPF.ViewModels.Issues
         {
             DetermineOperation();
             _attachedView.Close();
+        }
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            _attachedView = (Window) view;
         }
 
         private void DetermineOperation()

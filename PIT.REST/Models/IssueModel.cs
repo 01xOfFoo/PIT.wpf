@@ -4,6 +4,7 @@ namespace PIT.REST.Models
 {
     public class IssueModel : BaseModel
     {
+        public int ProjectId { get; set; }
         public string Short { get; set; }
         public string Description { get; set; }
         public IssueStatus Status { get; set; }

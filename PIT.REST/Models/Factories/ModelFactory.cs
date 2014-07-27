@@ -25,7 +25,7 @@ namespace PIT.REST.Models.Factories
                 CreatedAt = issue.CreatedAt,
                 Description = issue.Description,
                 Status = issue.Status,
-                Project = CreateProject(issue.Project),
+                ProjectId = issue.ProjectId
             };
         }
 
@@ -62,8 +62,7 @@ namespace PIT.REST.Models.Factories
                 issue.CreatedAt = issueModel.CreatedAt;
                 issue.Status = issueModel.Status;
                 issue.Description = issueModel.Description;
-
-                issue.Project = ParseProject(issueModel.Project);
+                issue.ProjectId = issueModel.Project.Id;
 
                 return issue;
             }
