@@ -4,140 +4,138 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sampledata="clr-namespace:PIT.WPF.SampleData"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DataContext="{d:DesignInstance sampledata:SampleIssueEditViewModel, IsDesignTimeCreatable=True}"
-        Height="358" Width="600"
+        Height="426.425" Width="640"
         Background="#EFEFEF"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="63"/>
+            <RowDefinition Height="63" />
             <RowDefinition />
             <RowDefinition Height="45" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
-                   Grid.ColumnSpan="2"
-                   FontSize="16"
-                   FontWeight="Bold"
-                   Foreground="#676767"
-                   VerticalAlignment="Bottom"
-                   Margin="30,0,0,0"
-                   Style="{StaticResource FontsStyle}"
-                   Text="{Binding DialogHeaderCaption}"/>
+                       Grid.ColumnSpan="2"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="#676767"
+                       VerticalAlignment="Bottom"
+                       Margin="30,0,0,0"
+                       Style="{StaticResource FontsStyle}"
+                       Text="{Binding DialogHeaderCaption}" />
             <TextBlock Grid.Row="1"
-                   Grid.ColumnSpan="2"
-                   FontSize="12"
-                   Foreground="#676767"
-                   VerticalAlignment="Top"
-                   Margin="30,5,0,0"
-                   Style="{StaticResource FontsStyle}"
-                   Text="{Binding DialogSubHeaderCaption}"/>
+                       Grid.ColumnSpan="2"
+                       FontSize="12"
+                       Foreground="#676767"
+                       VerticalAlignment="Top"
+                       Margin="30,5,0,0"
+                       Style="{StaticResource FontsStyle}"
+                       Text="{Binding DialogSubHeaderCaption}" />
             <Border Grid.Row="3"
-                Grid.ColumnSpan="2"
-                BorderBrush="#9F9F9F"
-                BorderThickness="0,0,0,1"
-                Background="White"/>
+                    Grid.ColumnSpan="2"
+                    BorderBrush="#9F9F9F"
+                    BorderThickness="0,0,0,1"
+                    Background="White" />
         </Grid>
         <Grid Name="FieldsGrid"
               Margin="10"
               Background="#EFEFEF"
               Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" 
+            <TextBlock Grid.Row="0"
                        Grid.Column="0"
                        Text="Shortname"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        Margin="0,2,0,0"
-                       Padding="0,0,20,0"/>
-            <TextBox Grid.Row="0" 
-                     Grid.Column="1" 
+                       Padding="0,0,20,0" />
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
                      Margin="2"
-                     Height="26"
+                     Width="100"
+                     HorizontalAlignment="Left"
                      Text="{Binding Short}"
-                     Style="{StaticResource TextBoxStyle}"/>
-            <TextBlock Grid.Row="1" 
-                       Grid.Column="0"
-                       Text="Description"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Right"
-                       Margin="0,2,0,0"
-                       Padding="0,0,20,0"/>
-            <TextBox Grid.Row="1" 
-                     Grid.Column="1" 
-                     Margin="2"
-                     Height="60"
-                     Text="{Binding Description}"
-                     Style="{StaticResource TextBoxStyle}"/>
-            <TextBox Grid.Row="1" 
-                         Grid.Column="1" 
-                         Margin="2"
-                         Height="60"
-                         Text="{Binding Description}"
-                         AcceptsReturn="true"
-                         Style="{StaticResource TextBoxStyle}">
-            </TextBox>
-            <TextBlock Grid.Row="2" 
+                     Style="{StaticResource TextBoxStyle}"
+                     MaxLength="10" />
+            <TextBlock Grid.Row="2"
                        Grid.Column="0"
                        Text="Status"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
                        Margin="0,2,0,0"
-                       Padding="0,0,20,0"/>
+                       Padding="0,0,20,0" />
             <ComboBox Grid.Row="2"
                       Grid.Column="1"
                       Margin="2"
+                      Width="200"
+                      HorizontalAlignment="Left"
                       ItemsSource="{Binding Status, Mode=OneTime, Converter={StaticResource EnumToArrayConverter}}"
                       DisplayMemberPath="Value"
                       SelectedValuePath="Key"
-                      SelectedValue="{Binding Status, Mode=TwoWay}"/>
+                      SelectedValue="{Binding Status, Mode=TwoWay}" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Description"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       Margin="0,2,0,0"
+                       Padding="0,0,20,0" />
+            <TextBox Grid.Row="3"
+                     Grid.Column="1"
+                     Margin="2"
+                     Height="200"
+                     Text="{Binding Description}"
+                     AcceptsReturn="true"
+                     Style="{StaticResource TextBoxStyle}" />
         </Grid>
         <Grid Background="#EFEFEF"
               Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2"/>
+                <RowDefinition Height="2" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0"
-                    Grid.ColumnSpan="3" 
+                    Grid.ColumnSpan="3"
                     BorderBrush="#9F9F9F"
-                    BorderThickness="0,0,0,1"/>
+                    BorderThickness="0,0,0,1" />
             <Button Name="SaveIssue"
-                    Grid.Row="1" 
-                    Grid.Column="1" 
+                    Grid.Row="1"
+                    Grid.Column="1"
                     Margin="5,0,5,0"
                     Height="25"
-                    Content="Save"/>
-            <Button Grid.Row="1" 
-                    Grid.Column="2" 
+                    Content="Save" />
+            <Button Grid.Row="1"
+                    Grid.Column="2"
                     Margin="5,0,5,0"
                     Height="25"
                     Content="Abort"
-                    IsCancel="true"/>
+                    IsCancel="true" />
         </Grid>
     </Grid>
 </Window>

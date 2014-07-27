@@ -5,12 +5,12 @@ namespace PIT.WPF.ViewModels.Issues
 {
     public class IssueViewModel : PropertyChangedBase
     {
-        public Issue Issue { get; set; }
-
         public IssueViewModel(Issue issue)
         {
             Issue = issue;
         }
+
+        public Issue Issue { get; set; }
 
         public int Id
         {
@@ -19,10 +19,7 @@ namespace PIT.WPF.ViewModels.Issues
 
         public string IssueNumber
         {
-            get
-            {
-                return string.Format("#{0}", Issue.Id);
-            }
+            get { return string.Format("#{0}", Issue.Id); }
         }
 
         public string Short
@@ -30,7 +27,7 @@ namespace PIT.WPF.ViewModels.Issues
             get { return Issue.Short; }
             set
             {
-                Issue.Short = value; 
+                Issue.Short = value;
                 NotifyOfPropertyChange(() => Short);
             }
         }
@@ -53,11 +50,6 @@ namespace PIT.WPF.ViewModels.Issues
                 Issue.Status = value;
                 NotifyOfPropertyChange(() => Status);
             }
-        }
-
-        public string AssignedToName
-        {
-            get { return "na"; }
         }
     }
 }

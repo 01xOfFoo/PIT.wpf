@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Runtime.Serialization.Formatters;
 using PIT.Business.Entities;
-using PIT.WPF.ViewModels.Issues;
 
 namespace PIT.WPF.SampleData
 {
-    class SampleIssueEditViewModel
+    internal class SampleIssueEditViewModel
     {
         public string DialogHeaderCaption
         {

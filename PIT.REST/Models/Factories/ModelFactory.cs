@@ -55,16 +55,15 @@ namespace PIT.REST.Models.Factories
         {
             try
             {
-                var issue = new Issue();
-
-                issue.Id = issueModel.Id;
-                issue.Short = issueModel.Short;
-                issue.CreatedAt = issueModel.CreatedAt;
-                issue.Status = issueModel.Status;
-                issue.Description = issueModel.Description;
-                issue.ProjectId = issueModel.Project.Id;
-
-                return issue;
+                return new Issue()
+                {
+                    Id = issueModel.Id,
+                    Short = issueModel.Short,
+                    CreatedAt = issueModel.CreatedAt,
+                    Status = issueModel.Status,
+                    Description = issueModel.Description,
+                    ProjectId = issueModel.Project.Id
+                };
             }
             catch (Exception)
             {
