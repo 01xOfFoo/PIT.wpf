@@ -81,6 +81,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Issue\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Converters\EnumExtension.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueViewModelFactory.cs" />
     <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
