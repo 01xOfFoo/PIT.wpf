@@ -76,6 +76,7 @@
     <Compile Include="API\Clients\IssueRestClientTests.cs" />
     <Compile Include="API\HTTP\PITHttpClientTests.cs" />
     <Compile Include="Business.Service\IssueBusinessTests.cs" />
+    <Compile Include="Business\EntityHistoryTests.cs" />
     <Compile Include="WPF\Converters\EnumToArrayConverterTests.cs" />
     <Compile Include="WPF\ViewModels\Header\HeaderAreaViewModelTests.cs" />
     <Compile Include="WPF\ViewModels\ShellViewModelTests.cs" />

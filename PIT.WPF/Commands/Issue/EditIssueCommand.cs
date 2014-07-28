@@ -25,7 +25,13 @@ namespace PIT.WPF.Commands.Issue
 
         public override void Execute(object parameter)
         {
-            _windowManager.ShowDialog(_issueEditViewModel);
+            var history = new EntityHistory<IssueViewModel>(_issueSelection.SelectedIssue);
+
+            bool? result = _windowManager.ShowDialog(_issueEditViewModel);
+            if (result != null && result == false)
+            { 
+                history.Restore();
+            }
         }
     }
 }

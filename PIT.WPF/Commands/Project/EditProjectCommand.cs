@@ -24,7 +24,13 @@ namespace PIT.WPF.Commands.Project
 
         public override void Execute(object parameter)
         {
-            _windowManager.ShowDialog(_projectEditViewModel);
+            var history = new EntityHistory<ProjectViewModel>(_projectSelection.SelectedProject);
+
+            bool? result = _windowManager.ShowDialog(_projectEditViewModel);
+            if (result != null && result == false)
+            {
+                history.Restore();
+            }
         }
     }
 }
