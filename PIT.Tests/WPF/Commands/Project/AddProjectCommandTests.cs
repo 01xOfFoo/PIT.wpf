@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PIT.WPF.Commands.Project;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 
@@ -12,6 +13,7 @@ namespace PIT.Tests.WPF.Commands.Project
     {
         private AddProjectCommand _command;
         private Mock<IProjectEditViewModel> _projectEditViewModelMock;
+        private Mock<ProjectSelection> _projectSelection;
         private Mock<IProjectViewModelFactory> _projectViewModelFactory;
         private Mock<IWindowManager> _windowManager;
 
@@ -21,8 +23,10 @@ namespace PIT.Tests.WPF.Commands.Project
             _windowManager = new Mock<IWindowManager>();
             _projectEditViewModelMock = new Mock<IProjectEditViewModel>();
             _projectViewModelFactory = new Mock<IProjectViewModelFactory>();
+            _projectSelection = new Mock<ProjectSelection>();
 
-            _command = new AddProjectCommand(_windowManager.Object, _projectEditViewModelMock.Object,
+            _command = new AddProjectCommand(_windowManager.Object, _projectSelection.Object,
+                _projectEditViewModelMock.Object,
                 _projectViewModelFactory.Object);
             _command.Execute(null);
         }
@@ -31,12 +35,6 @@ namespace PIT.Tests.WPF.Commands.Project
         public void CreatesNewViewModelUsingTheFactory()
         {
             _projectViewModelFactory.Verify(f => f.CreateProjectViewModel());
-        }
-
-        [TestMethod]
-        public void ActivatesNewProjectInEditViewModel()
-        {
-            _projectEditViewModelMock.Verify(e => e.ActivateProject(It.IsAny<ProjectViewModel>()));
         }
 
         [TestMethod]

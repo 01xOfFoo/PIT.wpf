@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
 using PIT.Business.Entities;
@@ -21,6 +22,15 @@ namespace PIT.WPF.ViewModels.Issues
         {
             _issueBusiness = issueBusiness;
             _issueSelection = issueSelection;
+            _issueSelection.IssueChanged += OnIssueChanged;
+        }
+
+        private void OnIssueChanged(object sender, EventArgs eventArgs)
+        {
+            _issueViewModel = (IssueViewModel) sender;
+
+            NotifyOfPropertyChange(() => DialogHeaderCaption);
+            NotifyOfPropertyChange(() => DialogSubHeaderCaption);
         }
 
         public string DialogHeaderCaption
@@ -51,15 +61,10 @@ namespace PIT.WPF.ViewModels.Issues
             set { _issueViewModel.Status = value; }
         }
 
-        public void ActivateIssue(IssueViewModel issueViewModel)
-        {
-            _issueViewModel = issueViewModel;
-        }
-
         public void SaveIssue()
-        {
+        {            
             DetermineOperation();
-            _attachedView.Close();
+            _attachedView.DialogResult = true;
         }
 
         protected override void OnViewAttached(object view, object context)

@@ -2,7 +2,5 @@
 {
     public interface IIssueEditViewModel
     {
-        void ActivateIssue(IssueViewModel issueViewModel);
-        void SaveIssue();
     }
 }

@@ -49,6 +49,7 @@ namespace PIT.Tests.Business.Service
         [TestMethod]
         public void ForwardCreateProjectToClient()
         {
+            _projectClient.Setup(c => c.Create(It.IsAny<Project>())).Returns(new Project());
             _projectBusiness.Create(new Project());
             _projectClient.Verify(c => c.Create(It.IsAny<Project>()));
         }
@@ -65,6 +66,16 @@ namespace PIT.Tests.Business.Service
         {
             _projectBusiness.Delete(new Project());
             _projectClient.Verify(c => c.Delete(It.IsAny<Project>()));
+        }
+
+        [TestMethod]
+        public void UpdatesEntityIdWithCreatedResponse()
+        {
+            _projectClient.Setup(c => c.Create(It.IsAny<Project>())).Returns(new Project() {Id = 333});
+
+            var project = new Project();
+            _projectBusiness.Create(project);
+            Assert.AreEqual(333, project.Id);
         }
     }
 }

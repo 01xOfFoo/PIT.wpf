@@ -28,8 +28,6 @@ namespace PIT.WPF.Commands.Issue
         {
             IssueViewModel issue = _issueViewModelFactory.CreateIssueViewModel();
             issue.Issue.Project = _projectSelection.SelectedProject.Project;
-
-            _issueEditViewModel.ActivateIssue(issue);
             _windowManager.ShowDialog(_issueEditViewModel);
         }
     }

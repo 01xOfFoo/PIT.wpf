@@ -24,7 +24,6 @@ namespace PIT.WPF.Commands.Project
 
         public override void Execute(object parameter)
         {
-            _projectEditViewModel.ActivateProject(_projectModel.SelectedProject);
             _windowManager.ShowDialog(_projectEditViewModel);
         }
     }

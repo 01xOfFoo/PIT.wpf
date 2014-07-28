@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
@@ -26,12 +27,12 @@ namespace PIT.WPF.ViewModels.Projects
         {
             _projectBusiness = projectBusiness;
             _projectSelection = projectSelection;
+            _projectSelection.ProjectChanged += OnProjectChanged;
         }
 
-        public void ActivateProject(ProjectViewModel projectViewModel)
+        private void OnProjectChanged(object sender, EventArgs eventArgs)
         {
-            _projectViewModel = projectViewModel;
-
+            _projectViewModel = (ProjectViewModel) sender;
             DisplayName = _projectViewModel.Exists ? "Add project" : "Edit project";
 
             NotifyOfPropertyChange(() => ProjectDialogHeaderCaption);
@@ -63,11 +64,9 @@ namespace PIT.WPF.ViewModels.Projects
         public void SaveProject()
         {
             DetermineOperation();
+
+            _attachedView.DialogResult = true;
             _attachedView.Close();
-//
-//            var window = Application.Current.Windows[Application.Current.Windows.Count - 1];
-//            if (window != null)
-//                window.Close();
         }
 
         private void DetermineOperation()

@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Collections.Specialized;
+using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Models.Projects
@@ -20,11 +21,10 @@ namespace PIT.WPF.Models.Projects
 
         private void OnProjectsUpdates(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
-            if (notifyCollectionChangedEventArgs.Action == NotifyCollectionChangedAction.Remove)
-                _projectSelection.SelectedProject = _projectSelection.Projects.FirstOrDefault();
+            if (notifyCollectionChangedEventArgs.Action == NotifyCollectionChangedAction.Add)
+                _projectSelection.SelectedProject = (ProjectViewModel)notifyCollectionChangedEventArgs.NewItems[0];
             else
-                _projectSelection.SelectedProject = (ProjectViewModel) notifyCollectionChangedEventArgs.NewItems[0];
-
+                _projectSelection.SelectedProject = _projectSelection.Projects.FirstOrDefault();
         }
 
         public void Dispose()

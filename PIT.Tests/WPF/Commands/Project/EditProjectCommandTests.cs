@@ -28,12 +28,6 @@ namespace PIT.Tests.WPF.Commands.Project
         }
 
         [TestMethod]
-        public void ActivatesSelectedProjectViewModel()
-        {
-            _projectEditViewModel.Verify(e => e.ActivateProject(It.IsAny<ProjectViewModel>()));
-        }
-
-        [TestMethod]
         public void DisplaysEditView()
         {
             _windowManager.Verify(w => w.ShowDialog(It.IsAny<object>(), null, null));
