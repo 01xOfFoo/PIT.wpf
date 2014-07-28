@@ -10,7 +10,7 @@ using PIT.WPF.ViewModels.Issues.Contracts;
 namespace PIT.WPF.ViewModels.Issues
 {
     [Export(typeof(IIssueEditViewModel))]
-    public class IssueEditViewModel : Screen, IIssueEditViewModel
+    public class IssueEditViewModel : Screen, IIssueEditViewModel, IDisposable
     {
         private readonly IIssueBusiness _issueBusiness;
         private readonly IssueSelection _issueSelection;
@@ -23,14 +23,6 @@ namespace PIT.WPF.ViewModels.Issues
             _issueBusiness = issueBusiness;
             _issueSelection = issueSelection;
             _issueSelection.IssueChanged += OnIssueChanged;
-        }
-
-        private void OnIssueChanged(object sender, EventArgs eventArgs)
-        {
-            _issueViewModel = (IssueViewModel) sender;
-
-            NotifyOfPropertyChange(() => DialogHeaderCaption);
-            NotifyOfPropertyChange(() => DialogSubHeaderCaption);
         }
 
         public string DialogHeaderCaption
@@ -61,28 +53,27 @@ namespace PIT.WPF.ViewModels.Issues
             set { _issueViewModel.Status = value; }
         }
 
+        public void Dispose()
+        {
+            _issueSelection.IssueChanged -= OnIssueChanged;
+        }
+
+        private void OnIssueChanged(object sender, EventArgs eventArgs)
+        {
+            _issueViewModel = (IssueViewModel) sender;
+
+            NotifyOfPropertyChange(() => DialogHeaderCaption);
+            NotifyOfPropertyChange(() => DialogSubHeaderCaption);
+        }
+
         public void SaveIssue()
-        {            
-            DetermineOperation();
+        {
             _attachedView.DialogResult = true;
         }
 
         protected override void OnViewAttached(object view, object context)
         {
             _attachedView = (Window) view;
-        }
-
-        private void DetermineOperation()
-        {
-            if (_issueViewModel.Id == 0)
-            {
-                _issueBusiness.Create(_issueViewModel.Issue);
-                _issueSelection.Issues.Add(_issueViewModel);
-            }
-            else
-            {
-                _issueBusiness.Update(_issueViewModel.Issue);
-            }
         }
     }
 }

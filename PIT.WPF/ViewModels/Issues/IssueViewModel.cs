@@ -5,11 +5,6 @@ namespace PIT.WPF.ViewModels.Issues
 {
     public class IssueViewModel : PropertyChangedBase
     {
-        public IssueViewModel(Issue issue)
-        {
-            Issue = issue;
-        }
-
         public Issue Issue { get; set; }
 
         public int Id

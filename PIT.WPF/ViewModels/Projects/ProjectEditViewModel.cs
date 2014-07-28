@@ -5,22 +5,16 @@ using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
-using PIT.WPF.Views.Projects;
 
 namespace PIT.WPF.ViewModels.Projects
 {
     [Export(typeof(IProjectEditViewModel))]
-    public class ProjectEditViewModel : Screen, IProjectEditViewModel
+    public class ProjectEditViewModel : Screen, IProjectEditViewModel, IDisposable
     {
         private readonly IProjectBusiness _projectBusiness;
         private readonly ProjectSelection _projectSelection;
-        private  ProjectViewModel _projectViewModel;
         private Window _attachedView;
-
-        protected override void OnViewAttached(object view, object context)
-        {
-            _attachedView = (Window)view;
-        }
+        private ProjectViewModel _projectViewModel;
 
         [ImportingConstructor]
         public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectSelection projectSelection)
@@ -30,15 +24,6 @@ namespace PIT.WPF.ViewModels.Projects
             _projectSelection.ProjectChanged += OnProjectChanged;
         }
 
-        private void OnProjectChanged(object sender, EventArgs eventArgs)
-        {
-            _projectViewModel = (ProjectViewModel) sender;
-            DisplayName = _projectViewModel.Exists ? "Add project" : "Edit project";
-
-            NotifyOfPropertyChange(() => ProjectDialogHeaderCaption);
-            NotifyOfPropertyChange(() => ProjectDialogSubHeaderCaption);
-        }
-
         public string ProjectDialogHeaderCaption
         {
             get { return _projectViewModel.Exists ? "Add project" : "Edit project"; }
@@ -46,9 +31,7 @@ namespace PIT.WPF.ViewModels.Projects
 
         public string ProjectDialogSubHeaderCaption
         {
-            get {
-                return _projectViewModel.Exists ? "Create a new project" : "You're editing an existing project";
-            }
+            get { return _projectViewModel.Exists ? "Create a new project" : "You're editing an existing project"; }
         }
 
         public string ProjectShort
@@ -61,25 +44,28 @@ namespace PIT.WPF.ViewModels.Projects
             }
         }
 
-        public void SaveProject()
+        public void Dispose()
         {
-            DetermineOperation();
-
-            _attachedView.DialogResult = true;
-            _attachedView.Close();
+            _projectSelection.ProjectChanged -= OnProjectChanged;
         }
 
-        private void DetermineOperation()
+        protected override void OnViewAttached(object view, object context)
         {
-            if (_projectViewModel.Id == 0)
-            {
-                _projectBusiness.Create(_projectViewModel.Project);
-                _projectSelection.Projects.Add(_projectViewModel);
-            }
-            else
-            { 
-                _projectBusiness.Update(_projectViewModel.Project);
-            }
+            _attachedView = (Window) view;
+        }
+
+        private void OnProjectChanged(object sender, EventArgs eventArgs)
+        {
+            _projectViewModel = (ProjectViewModel) sender;
+            DisplayName = _projectViewModel.Exists ? "Add project" : "Edit project";
+
+            NotifyOfPropertyChange(() => ProjectDialogHeaderCaption);
+            NotifyOfPropertyChange(() => ProjectDialogSubHeaderCaption);
+        }
+
+        public void SaveProject()
+        {
+            _attachedView.DialogResult = true;
         }
     }
 }

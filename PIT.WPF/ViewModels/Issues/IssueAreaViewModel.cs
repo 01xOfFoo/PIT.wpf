@@ -84,7 +84,12 @@ namespace PIT.WPF.ViewModels.Issues
             _issueSelection.Issues.Clear();
             foreach (
                 IssueViewModel issueViewModel in
-                    _issueBusiness.GetIssuesOfProject(projectViewModel.Id).Select(issue => new IssueViewModel(issue)))
+                    _issueBusiness.GetIssuesOfProject(projectViewModel.Id)
+                                  .Select(issue => 
+                                      new IssueViewModel()
+                                      {
+                                          Issue = issue
+                                      }))
             {
                 issueViewModel.Issue.Project = projectViewModel.Project;
                 _issueSelection.Issues.Add(issueViewModel);
