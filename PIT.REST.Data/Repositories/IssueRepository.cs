@@ -18,12 +18,12 @@ namespace PIT.REST.Data.Repositories
 
         public IQueryable<Issue> GetAllIssues()
         {
-            return _context.Issues.AsQueryable();
+            return _context.Issues.Include("Project").AsQueryable();
         }
 
         public Issue GetIssue(int issueId)
         {
-            return _context.Issues.FirstOrDefault(i => i.Id == issueId);
+            return _context.Issues.Include("Project").FirstOrDefault(i => i.Id == issueId);
         }
 
         public Issue Create(Issue issue)
@@ -61,20 +61,18 @@ namespace PIT.REST.Data.Repositories
             }
         }
 
-        public void Delete(int issueId)
+        public Issue Delete(int issueId)
         {
             try
             {
-                var entity = _context.Issues.Find(issueId);
-                if (entity != null)
+                var foundEntity = _context.Issues.Find(issueId);
+                if (foundEntity != null)
                 {
-                    _context.Issues.Remove(entity);
+                    _context.Issues.Remove(foundEntity);
                     _context.SaveChanges();
+                    return foundEntity;
                 }
-                else
-                {
-                    throw new EntityNotFoundException();
-                }
+                throw new EntityNotFoundException();
             }
             catch (Exception ex)
             {

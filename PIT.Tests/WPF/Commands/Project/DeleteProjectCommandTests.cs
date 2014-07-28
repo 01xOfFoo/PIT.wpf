@@ -13,7 +13,7 @@ namespace PIT.Tests.WPF.Commands.Project
     {
         private DeleteProjectCommand _command;
         private Mock<IProjectBusiness> _projectBusiness;
-        private Mock<IProjectSelection> _projectModel;
+        private Mock<IProjectSelection> _projectSelection;
 
         [TestInitialize]
         public void SetUp()
@@ -21,13 +21,13 @@ namespace PIT.Tests.WPF.Commands.Project
             var project = new ProjectViewModel();
             var projects = new ObservableCollection<ProjectViewModel> {project};
 
-            _projectModel = new Mock<IProjectSelection>();
-            _projectModel.SetupProperty(m => m.Projects, projects);
-            _projectModel.SetupProperty(m => m.SelectedProject, project);
+            _projectSelection = new Mock<IProjectSelection>();
+            _projectSelection.SetupProperty(m => m.Projects, projects);
+            _projectSelection.SetupProperty(m => m.SelectedProject, project);
 
             _projectBusiness = new Mock<IProjectBusiness>();
 
-            _command = new DeleteProjectCommand(_projectModel.Object, _projectBusiness.Object);
+            _command = new DeleteProjectCommand(_projectSelection.Object, _projectBusiness.Object);
             _command.Execute(null);
         }
 
@@ -40,8 +40,8 @@ namespace PIT.Tests.WPF.Commands.Project
         [TestMethod]
         public void RemovesProjectFromInternalList()
         {
-            _projectModel.VerifyGet(m => m.Projects);
-            Assert.AreEqual(0, _projectModel.Object.Projects.Count);
+            _projectSelection.VerifyGet(m => m.Projects);
+            Assert.AreEqual(0, _projectSelection.Object.Projects.Count);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace PIT.REST.Data.Repositories.Contracts
         Issue GetIssue(int issueId);
         Issue Create(Issue issue);
         Issue Update(Issue issue);
-        void Delete(int issueId);
+        Issue Delete(int issueId);
     }
 }

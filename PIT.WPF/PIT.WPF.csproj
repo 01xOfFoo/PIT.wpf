@@ -79,8 +79,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\AddIssueCommand.cs" />
+    <Compile Include="Commands\Issue\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Converters\EnumExtension.cs" />
+    <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="ViewModels\Issues\Contracts\IIssueViewModelFactory.cs" />
+    <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
     <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
     <Compile Include="Commands\Project\EditProjectCommand.cs" />
@@ -91,16 +95,20 @@
     <Compile Include="Core\MEFServiceLocator.cs" />
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
+    <Compile Include="Converters\EnumToArrayConverter.cs" />
+    <Compile Include="Models\Issues\IIssueSelection.cs" />
+    <Compile Include="Models\Issues\IssueSelection.cs" />
     <Compile Include="Models\Projects\IProjectSelector.cs" />
     <Compile Include="Models\Projects\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
+    <Compile Include="SampleData\SampleIssueEditViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
+    <Compile Include="ViewModels\Issues\IssueViewModelFactory.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
-    <Compile Include="ViewModels\Projects\IProjectViewModel.cs" />
     <Compile Include="Models\Projects\ProjectSelection.cs" />
     <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />
     <Compile Include="SampleData\SampleIssueAreaViewModel.cs" />
-    <Compile Include="ViewModels\Issues\Contracts\IIssueDialogViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Contracts\IIssueEditViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueHeaderAreaViewModel.cs" />
     <Compile Include="SampleData\SampleProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Header\HeaderAreaViewModel.cs" />
@@ -108,7 +116,7 @@
     <Compile Include="ViewModels\Issues\Contracts\IIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueAreaViewModel.cs" />
-    <Compile Include="ViewModels\Issues\IssueDialogViewModel.cs" />
+    <Compile Include="ViewModels\Issues\IssueEditViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Projects\IProjectViewModelFactory.cs" />
@@ -124,8 +132,8 @@
     <Compile Include="Views\Issues\IssueAreaView.xaml.cs">
       <DependentUpon>IssueAreaView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Issues\IssueDialogView.xaml.cs">
-      <DependentUpon>IssueDialogView.xaml</DependentUpon>
+    <Compile Include="Views\Issues\IssueEditView.xaml.cs">
+      <DependentUpon>IssueEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Issues\IssueHeaderAreaView.xaml.cs">
       <DependentUpon>IssueHeaderAreaView.xaml</DependentUpon>
@@ -143,6 +151,10 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Fonts.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -155,6 +167,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Header\HeaderAreaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,7 +179,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Issues\IssueDialogView.xaml">
+    <Page Include="Views\Issues\IssueEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,7 +3,7 @@ using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels.Projects
 {
-    public class ProjectViewModel : PropertyChangedBase, IProjectViewModel
+    public class ProjectViewModel : PropertyChangedBase
     {
         public Project Project { get; set; }
 
@@ -28,11 +28,6 @@ namespace PIT.WPF.ViewModels.Projects
                 Project.Short = value;
                 NotifyOfPropertyChange(() => Short);
             }
-        }
-
-        public void Delete()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

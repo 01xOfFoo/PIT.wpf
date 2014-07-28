@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace PIT.WPF.Views.Issues
 {
@@ -11,6 +12,5 @@ namespace PIT.WPF.Views.Issues
         {
             InitializeComponent();
         }
-
     }
 }

@@ -5,37 +5,46 @@ namespace PIT.WPF.ViewModels.Issues
 {
     public class IssueViewModel : PropertyChangedBase
     {
-        private readonly Issue _issue;
+        public Issue Issue { get; set; }
 
-        public IssueViewModel(Issue issue)
+        public int Id
         {
-            _issue = issue;
+            get { return Issue.Id; }
         }
 
         public string IssueNumber
         {
-            get
+            get { return string.Format("#{0}", Issue.Id); }
+        }
+
+        public string Short
+        {
+            get { return Issue.Short; }
+            set
             {
-                return string.Format("#{0}", _issue.Id);
+                Issue.Short = value;
+                NotifyOfPropertyChange(() => Short);
             }
         }
 
         public string Description
         {
-            get
-            {
-                return _issue.Description;
-            }
+            get { return Issue.Description; }
             set
             {
-                _issue.Description = value;
+                Issue.Description = value;
                 NotifyOfPropertyChange(() => Description);
             }
         }
 
-        public string AssignedToName
+        public IssueStatus Status
         {
-            get { return "na"; }
+            get { return Issue.Status; }
+            set
+            {
+                Issue.Status = value;
+                NotifyOfPropertyChange(() => Status);
+            }
         }
     }
 }
