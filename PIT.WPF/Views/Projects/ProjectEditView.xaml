@@ -67,6 +67,7 @@
                        Padding="0,0,20,0"/>
             <TextBox Grid.Row="0" 
                      Grid.Column="1" 
+                     MaxLength="15"
                      Text="{Binding ProjectShort}"
                      Style="{StaticResource TextBoxStyle}"/>
         </Grid>
