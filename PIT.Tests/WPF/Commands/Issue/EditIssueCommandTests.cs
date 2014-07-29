@@ -3,15 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
-using PIT.WPF.Commands.Project;
 using PIT.WPF.Models.Issues;
-using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
-using PIT.WPF.ViewModels.Projects;
-using PIT.WPF.ViewModels.Projects.Contracts;
 
-namespace PIT.Tests.WPF.Commands.Project
+namespace PIT.Tests.WPF.Commands.Issue
 {
     [TestClass]
     public class EditIssueCommandTests
@@ -25,21 +21,21 @@ namespace PIT.Tests.WPF.Commands.Project
         [TestInitialize]
         public void SetUp()
         {
-
             _windowManager = new Mock<IWindowManager>();
             _issueBusiness = new Mock<IIssueBusiness>();
             _issueEditViewModel = new Mock<IIssueEditViewModel>();
 
             _issueSelection = new Mock<IssueSelection>();
-            _issueSelection.Object.SelectedIssue = new IssueViewModel()
+            _issueSelection.Object.SelectedIssue = new IssueViewModel
             {
-                Issue = new PIT.Business.Entities.Issue()
+                Issue = new PIT.Business.Entities.Issue
                 {
                     Short = "short"
                 }
             };
 
-            _command = new EditIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection.Object, _issueEditViewModel.Object);
+            _command = new EditIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection.Object,
+                _issueEditViewModel.Object);
         }
 
         [TestMethod]
