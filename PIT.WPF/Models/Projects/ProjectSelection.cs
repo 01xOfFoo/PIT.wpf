@@ -1,16 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
-using System.Windows;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Models.Projects
 {
-    [Export(typeof (IProjectSelection))]
-    [Export(typeof (ProjectSelection))]
+    [Export(typeof(IProjectSelection))]
+    [Export(typeof(ProjectSelection))]
     public class ProjectSelection : IProjectSelection
     {
         private ObservableCollection<ProjectViewModel> _projects;

@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
-using Caliburn.Micro;
 using PIT.WPF.ViewModels.Issues;
 
 namespace PIT.WPF.Models.Issues
@@ -11,8 +10,8 @@ namespace PIT.WPF.Models.Issues
     [Export(typeof(IssueSelection))]
     public class IssueSelection : IIssueSelection
     {
+        private readonly ObservableCollection<IssueViewModel> _issues;
         private IssueViewModel _selectedIssue;
-        private ObservableCollection<IssueViewModel> _issues;
 
         public IssueSelection()
         {

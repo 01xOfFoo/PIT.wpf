@@ -96,10 +96,10 @@
     <Compile Include="Core\PITWindowManager.cs" />
     <Compile Include="Core\WindowLocationPersister.cs" />
     <Compile Include="Converters\EnumToArrayConverter.cs" />
-    <Compile Include="Models\Issues\IIssueSelection.cs" />
+    <Compile Include="Models\Issues\Contracts\IIssueSelection.cs" />
     <Compile Include="Models\Issues\IssueSelection.cs" />
-    <Compile Include="Models\Projects\IProjectSelector.cs" />
-    <Compile Include="Models\Projects\IProjectSelection.cs" />
+    <Compile Include="Models\Projects\Ordner\IProjectSelector.cs" />
+    <Compile Include="Models\Projects\Ordner\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="SampleData\SampleIssueEditViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
