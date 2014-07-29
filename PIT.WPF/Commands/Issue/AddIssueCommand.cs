@@ -3,6 +3,7 @@ using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Projects;
+using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
 
@@ -14,14 +15,14 @@ namespace PIT.WPF.Commands.Issue
         private readonly IIssueBusiness _issueBusiness;
         private readonly IIssueEditViewModel _issueEditViewModel;
         private readonly IssueSelection _issueSelection;
-        private readonly IIssueViewModelFactory _issueViewModelFactory;
+        private readonly IViewModelFactory<IssueViewModel, Business.Entities.Issue> _issueViewModelFactory;
         private readonly ProjectSelection _projectSelection;
         private readonly IWindowManager _windowManager;
 
         [ImportingConstructor]
         public AddIssueCommand(IWindowManager windowManager, IIssueBusiness issueBusiness, IssueSelection issueSelection,
             ProjectSelection projectSelection, IIssueEditViewModel issueEditViewModel,
-            IIssueViewModelFactory issueViewModelFactory)
+            IViewModelFactory<IssueViewModel, Business.Entities.Issue> issueViewModelFactory)
         {
             _windowManager = windowManager;
             _issueBusiness = issueBusiness;
@@ -35,7 +36,7 @@ namespace PIT.WPF.Commands.Issue
         {
             IssueViewModel oldIssue = _issueSelection.SelectedIssue;
 
-            IssueViewModel issue = _issueViewModelFactory.CreateIssueViewModel();
+            IssueViewModel issue = _issueViewModelFactory.CreateViewModel(null);
             issue.Issue.Project = _projectSelection.SelectedProject.Project;
 
             _issueSelection.SelectedIssue = issue;

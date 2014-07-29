@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Project;
-using PIT.WPF.Models.Projects;
+using PIT.WPF.Models.Projects.Contracts;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.Tests.WPF.Commands.Project
@@ -22,7 +22,7 @@ namespace PIT.Tests.WPF.Commands.Project
             var projects = new ObservableCollection<ProjectViewModel> {project};
 
             _projectSelection = new Mock<IProjectSelection>();
-            _projectSelection.SetupProperty(m => m.Projects, projects);
+            _projectSelection.SetupGet(m => m.Projects).Returns(projects);
             _projectSelection.SetupProperty(m => m.SelectedProject, project);
 
             _projectBusiness = new Mock<IProjectBusiness>();

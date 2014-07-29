@@ -1,9 +1,8 @@
-﻿using Caliburn.Micro;
-using PIT.Business.Entities;
+﻿using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels.Issues
 {
-    public class IssueViewModel : PropertyChangedBase
+    public class IssueViewModel : ViewModel<Issue>
     {
         public Issue Issue { get; set; }
 

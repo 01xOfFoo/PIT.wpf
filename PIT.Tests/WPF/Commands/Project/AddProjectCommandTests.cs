@@ -4,6 +4,7 @@ using Moq;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Project;
 using PIT.WPF.Models.Projects;
+using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 
@@ -16,7 +17,7 @@ namespace PIT.Tests.WPF.Commands.Project
         private Mock<IProjectBusiness> _projectBusiness;
         private Mock<IProjectEditViewModel> _projectEditViewModelMock;
         private Mock<ProjectSelection> _projectSelection;
-        private Mock<IProjectViewModelFactory> _projectViewModelFactory;
+        private Mock<IViewModelFactory<ProjectViewModel, PIT.Business.Entities.Project>> _projectViewModelFactory;
         private Mock<IWindowManager> _windowManager;
 
         [TestInitialize]
@@ -26,8 +27,8 @@ namespace PIT.Tests.WPF.Commands.Project
             _projectBusiness = new Mock<IProjectBusiness>();
             _projectEditViewModelMock = new Mock<IProjectEditViewModel>();
 
-            _projectViewModelFactory = new Mock<IProjectViewModelFactory>();
-            _projectViewModelFactory.Setup(f => f.CreateProjectViewModel())
+            _projectViewModelFactory = new Mock<IViewModelFactory<ProjectViewModel, PIT.Business.Entities.Project>>();
+            _projectViewModelFactory.Setup(f => f.CreateViewModel(It.IsAny<PIT.Business.Entities.Project>()))
                 .Returns(new ProjectViewModel
                 {
                     Project = new PIT.Business.Entities.Project()
@@ -44,7 +45,7 @@ namespace PIT.Tests.WPF.Commands.Project
         public void CreatesNewViewModelUsingTheFactory()
         {
             _command.Execute(null);
-            _projectViewModelFactory.Verify(f => f.CreateProjectViewModel());
+            _projectViewModelFactory.Verify(f => f.CreateViewModel(It.IsAny<PIT.Business.Entities.Project>()));
         }
 
         [TestMethod]

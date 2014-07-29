@@ -56,6 +56,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -83,7 +84,13 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\EnumExtension.cs" />
     <Compile Include="Converters\EnumToStringConverter.cs" />
-    <Compile Include="ViewModels\Issues\Contracts\IIssueViewModelFactory.cs" />
+    <Compile Include="Models\Loaders\Contracts\ILoader.cs" />
+    <Compile Include="Models\Loaders\IssuesLoader.cs" />
+    <Compile Include="Models\Loaders\Loader.cs" />
+    <Compile Include="Models\Loaders\ProjectsLoader.cs" />
+    <Compile Include="Models\Projects\Contracts\IProjectsLoader.cs" />
+    <Compile Include="ViewModels\Contracts\IViewModelFactory.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
     <Compile Include="Commands\Project\DeleteProjectCommand.cs" />
@@ -98,8 +105,8 @@
     <Compile Include="Converters\EnumToArrayConverter.cs" />
     <Compile Include="Models\Issues\Contracts\IIssueSelection.cs" />
     <Compile Include="Models\Issues\IssueSelection.cs" />
-    <Compile Include="Models\Projects\Ordner\IProjectSelector.cs" />
-    <Compile Include="Models\Projects\Ordner\IProjectSelection.cs" />
+    <Compile Include="Models\Projects\Contracts\IProjectSelector.cs" />
+    <Compile Include="Models\Projects\Contracts\IProjectSelection.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
     <Compile Include="SampleData\SampleIssueEditViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
@@ -119,7 +126,6 @@
     <Compile Include="ViewModels\Issues\IssueEditViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueViewModel.cs" />
-    <Compile Include="ViewModels\Projects\IProjectViewModelFactory.cs" />
     <Compile Include="ViewModels\Projects\ProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectViewModel.cs" />

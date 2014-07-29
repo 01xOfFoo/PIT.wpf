@@ -2,6 +2,7 @@
 using Caliburn.Micro;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Projects;
+using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 
@@ -13,13 +14,13 @@ namespace PIT.WPF.Commands.Project
         private readonly IProjectBusiness _projectBusiness;
         private readonly IProjectEditViewModel _projectEditViewModel;
         private readonly ProjectSelection _projectSelection;
-        private readonly IProjectViewModelFactory _projectViewModelFactory;
+        private readonly IViewModelFactory<ProjectViewModel, Business.Entities.Project> _projectViewModelFactory;
         private readonly IWindowManager _windowManager;
 
         [ImportingConstructor]
         public AddProjectCommand(IWindowManager windowManager, IProjectBusiness projectBusiness,
             ProjectSelection projectSelection, IProjectEditViewModel projectEditViewModel,
-            IProjectViewModelFactory projectViewModelFactory)
+            IViewModelFactory<ProjectViewModel, Business.Entities.Project> projectViewModelFactory)
         {
             _windowManager = windowManager;
             _projectBusiness = projectBusiness;
@@ -32,7 +33,7 @@ namespace PIT.WPF.Commands.Project
         {
             ProjectViewModel oldProject = _projectSelection.SelectedProject;
 
-            _projectSelection.SelectedProject = _projectViewModelFactory.CreateProjectViewModel();
+            _projectSelection.SelectedProject = _projectViewModelFactory.CreateViewModel(null);
             bool? result = _windowManager.ShowDialog(_projectEditViewModel);
             if (result != null && result == true)
             {

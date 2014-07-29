@@ -2,7 +2,7 @@
 
 namespace PIT.Business.Service.Contracts
 {
-    public interface IBusiness<T> where T : class
+    public interface IBusiness<T>
     {
         T GetById(int id);
         IEnumerable<T> GetAll();

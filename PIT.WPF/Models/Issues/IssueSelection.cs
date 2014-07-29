@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using PIT.WPF.ViewModels.Issues;
 
@@ -42,7 +41,5 @@ namespace PIT.WPF.Models.Issues
                 IssueChanged(issueViewModel, EventArgs.Empty);
             }
         }
-
-        public event NotifyCollectionChangedEventHandler IssuesUpdates;
     }
 }

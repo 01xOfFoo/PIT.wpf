@@ -8,11 +8,8 @@ using PIT.WPF.ViewModels.Projects.Contracts;
 namespace PIT.WPF.SampleData
 {
     [ExcludeFromCodeCoverage]
-    class SampleProjectAreaViewModel : IProjectAreaViewModel
+    internal class SampleProjectAreaViewModel : IProjectAreaViewModel
     {
-        public ObservableCollection<ProjectViewModel> Projects { get; set; }
-        public ProjectViewModel SelectedProject { get; set; }
-
         public SampleProjectAreaViewModel()
         {
             Projects = new ObservableCollection<ProjectViewModel>
@@ -25,7 +22,7 @@ namespace PIT.WPF.SampleData
                         Short = "PROJECT 1"
                     }
                 },
-                new ProjectViewModel()
+                new ProjectViewModel
                 {
                     Project = new Project
                     {
@@ -37,5 +34,8 @@ namespace PIT.WPF.SampleData
 
             SelectedProject = Projects.First();
         }
+
+        public ObservableCollection<ProjectViewModel> Projects { get; set; }
+        public ProjectViewModel SelectedProject { get; set; }
     }
 }

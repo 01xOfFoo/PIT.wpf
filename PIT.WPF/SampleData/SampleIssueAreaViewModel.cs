@@ -15,7 +15,8 @@ namespace PIT.WPF.SampleData
         {
             Issues = new ObservableCollection<IssueViewModel>
             {
-                new IssueViewModel() {
+                new IssueViewModel
+                {
                     Issue = new Issue
                     {
                         Short = "Short1",
@@ -23,7 +24,7 @@ namespace PIT.WPF.SampleData
                         Status = IssueStatus.Open
                     }
                 },
-                new IssueViewModel()
+                new IssueViewModel
                 {
                     Issue = new Issue
                     {

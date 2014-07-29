@@ -1,47 +1,46 @@
 ﻿using System;
-using System.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PIT.WPF.Converters;
 
 namespace PIT.Tests.WPF.Converters
 {
     [TestClass]
-    public class EnumToArrayConverterTests
+    public class EnumToStringConverterTests
     {
         private const string EnumDescription = "Enum description";
-        private EnumToArrayConverter _converter;
 
-        private object ConvertEnum()
+        private EnumToStringConverter _converter;
+
+        private object ConvertEnum(EnumTest value)
         {
-            return _converter.Convert(EnumTest.Enum1, typeof(EnumTest), null, null);
+            return _converter.Convert(value, typeof(EnumTest), null, null);
         }
 
         [TestInitialize]
         public void SetUp()
         {
-            _converter = new EnumToArrayConverter();
+            _converter = new EnumToStringConverter();
         }
 
         [TestMethod]
-        public void ReturnTypeIsArrayList()
+        public void ReturnTypeIsString()
         {
-            object enumList = ConvertEnum();
-            Assert.IsInstanceOfType(enumList, typeof(ArrayList));
+            object enumList = ConvertEnum(EnumTest.Enum1);
+            Assert.IsInstanceOfType(enumList, typeof(string));
         }
 
         [TestMethod]
-        public void ConvertsEnumsToList()
+        public void ConvertsEnumToString()
         {
-            var enumList = (ArrayList) ConvertEnum();
-
-            Assert.AreEqual("[Enum1, Enum1]", enumList[0].ToString());
+            var enumString = (string) ConvertEnum(EnumTest.Enum1);
+            Assert.AreEqual("Enum1", enumString);
         }
 
         [TestMethod]
         public void DeterminesDescriptionsOfEnumValuesIfDefined()
         {
-            var enumList = (ArrayList) ConvertEnum();
-            Assert.AreEqual(string.Format("[Enum2, {0}]", EnumDescription), enumList[1].ToString());
+            var enumString = (string) ConvertEnum(EnumTest.Enum2);
+            Assert.AreEqual(EnumDescription, enumString);
         }
 
         [TestMethod]

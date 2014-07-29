@@ -4,8 +4,8 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
-using Microsoft.Practices.ServiceLocation;
 using Caliburn.Micro;
+using Microsoft.Practices.ServiceLocation;
 using PIT.WPF.ViewModels;
 
 namespace PIT.WPF.Core
@@ -23,7 +23,7 @@ namespace PIT.WPF.Core
         {
             var catalog = new AggregateCatalog(new AssemblyCatalog(typeof(App).Assembly));
 
-            var directoryPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string directoryPath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             if (directoryPath != null)
             {
                 var directoryCatalog = new DirectoryCatalog(directoryPath, "PIT.*.dll");
@@ -35,9 +35,9 @@ namespace PIT.WPF.Core
             var batch = new CompositionBatch();
 
             batch.AddExportedValue<IWindowManager>(new WindowManager());
-            batch.AddExportedValue<IEventAggregator>(new EventAggregator()); 
+            batch.AddExportedValue<IEventAggregator>(new EventAggregator());
             batch.AddExportedValue(_container);
-            
+
             _container.Compose(batch);
 
             var mefLocator = new MefServiceLocator(_container);
@@ -46,7 +46,7 @@ namespace PIT.WPF.Core
 
         protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
-            return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
+            return ServiceLocator.Current.GetAllInstances(serviceType);
         }
 
         protected override object GetInstance(Type serviceType, string key)

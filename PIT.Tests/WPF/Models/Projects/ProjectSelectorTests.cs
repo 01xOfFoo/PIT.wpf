@@ -17,8 +17,6 @@ namespace PIT.Tests.WPF.Models.Projects
         {
             _projectModel = new ProjectSelection();
             _selector = new ProjectSelector(_projectModel);
-
-            _projectModel.Projects = new ObservableCollection<ProjectViewModel>();
         }
 
         [TestMethod]
@@ -37,6 +35,7 @@ namespace PIT.Tests.WPF.Models.Projects
             _projectModel.Projects.Add(new ProjectViewModel());
             _projectModel.Projects.Add(new ProjectViewModel());
 
+            _projectModel.SelectedProject = _projectModel.Projects.Last();
             _projectModel.Projects.Remove(_projectModel.Projects.Last());
             Assert.AreEqual(_projectModel.Projects[0], _projectModel.SelectedProject);
         }

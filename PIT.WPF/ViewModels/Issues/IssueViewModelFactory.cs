@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.Composition;
 using PIT.Business.Contracts;
 using PIT.Business.Entities;
-using PIT.WPF.ViewModels.Issues.Contracts;
+using PIT.WPF.ViewModels.Contracts;
 
 namespace PIT.WPF.ViewModels.Issues
 {
-    [Export(typeof(IIssueViewModelFactory))]
-    public class IssueViewModelFactory : IIssueViewModelFactory
+    [Export(typeof(IViewModelFactory<IssueViewModel, Issue>))]
+    public class IssueViewModelFactory : IViewModelFactory<IssueViewModel, Issue>
     {
         private readonly IIssueFactory _issueFactory;
 
@@ -16,12 +16,10 @@ namespace PIT.WPF.ViewModels.Issues
             _issueFactory = issueFactory;
         }
 
-        public IssueViewModel CreateIssueViewModel()
+        public IssueViewModel CreateViewModel(Issue entity)
         {
-            return new IssueViewModel()
-            {
-                Issue = _issueFactory.CreateIssue()
-            };
+            Issue issue = entity ?? _issueFactory.CreateIssue();
+            return new IssueViewModel {Issue = issue};
         }
     }
 }

@@ -5,6 +5,7 @@ using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Projects;
+using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects;
@@ -18,7 +19,7 @@ namespace PIT.Tests.WPF.Commands.Issue
         private Mock<IIssueBusiness> _issueBusiness;
         private Mock<IIssueEditViewModel> _issueEditViewModelMock;
         private Mock<IssueSelection> _issueSelection;
-        private Mock<IIssueViewModelFactory> _issueViewModelFactory;
+        private Mock<IViewModelFactory<IssueViewModel, PIT.Business.Entities.Issue>> _issueViewModelFactory;
         private Mock<ProjectSelection> _projectSelection;
         private Mock<IWindowManager> _windowManager;
 
@@ -29,8 +30,8 @@ namespace PIT.Tests.WPF.Commands.Issue
             _issueBusiness = new Mock<IIssueBusiness>();
             _issueEditViewModelMock = new Mock<IIssueEditViewModel>();
 
-            _issueViewModelFactory = new Mock<IIssueViewModelFactory>();
-            _issueViewModelFactory.Setup(f => f.CreateIssueViewModel())
+            _issueViewModelFactory = new Mock<IViewModelFactory<IssueViewModel, PIT.Business.Entities.Issue>>();
+            _issueViewModelFactory.Setup(f => f.CreateViewModel(It.IsAny<PIT.Business.Entities.Issue>()))
                 .Returns(new IssueViewModel
                 {
                     Issue = new PIT.Business.Entities.Issue()
@@ -52,7 +53,7 @@ namespace PIT.Tests.WPF.Commands.Issue
         public void CreatesNewViewModelUsingTheFactory()
         {
             _command.Execute(null);
-            _issueViewModelFactory.Verify(f => f.CreateIssueViewModel());
+            _issueViewModelFactory.Verify(f => f.CreateViewModel(It.IsAny<PIT.Business.Entities.Issue>()));
         }
 
         [TestMethod]

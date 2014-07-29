@@ -15,12 +15,12 @@ namespace PIT.WPF.Models.Projects
         public ProjectSelector(ProjectSelection projectSelection)
         {
             _projectSelection = projectSelection;
-            _projectSelection.ProjectsUpdates += OnProjectsUpdates;
+            _projectSelection.Projects.CollectionChanged += OnProjectsUpdates;
         }
 
         public void Dispose()
         {
-            _projectSelection.ProjectsUpdates -= OnProjectsUpdates;
+            _projectSelection.Projects.CollectionChanged -= OnProjectsUpdates;
         }
 
         private void OnProjectsUpdates(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)

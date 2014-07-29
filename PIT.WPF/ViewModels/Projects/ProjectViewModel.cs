@@ -1,9 +1,8 @@
-﻿using Caliburn.Micro;
-using PIT.Business.Entities;
+﻿using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels.Projects
 {
-    public class ProjectViewModel : PropertyChangedBase
+    public class ProjectViewModel : ViewModel<Project>
     {
         public Project Project { get; set; }
 
@@ -19,10 +18,7 @@ namespace PIT.WPF.ViewModels.Projects
 
         public string Short
         {
-            get
-            {
-                return Project.Short;
-            }
+            get { return Project.Short; }
             set
             {
                 Project.Short = value;

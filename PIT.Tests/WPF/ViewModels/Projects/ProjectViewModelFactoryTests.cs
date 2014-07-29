@@ -27,7 +27,7 @@ namespace PIT.Tests.WPF.ViewModels.Projects
         [TestMethod]
         public void CreateNewProjectViewModelUsingProjectFactory()
         {
-            var viewModel = _projectViewModelFactory.CreateProjectViewModel();
+            ProjectViewModel viewModel = _projectViewModelFactory.CreateViewModel(It.IsAny<Project>());
             Assert.IsNotNull(viewModel);
             Assert.IsNotNull(viewModel.Project);
             _projectFactory.Verify(f => f.CreateProject());
