@@ -5,19 +5,25 @@ using PIT.API.HTTP.Contracts;
 
 namespace PIT.API.HTTP
 {
-    [Export(typeof (IHttpClient))]
+    [Export(typeof(IHttpClient))]
     public class PITHttpClient : IHttpClient
     {
-        private readonly HttpClient _http;
+        private readonly IHttpClientProxy _http;
 
-        public PITHttpClient() : this(new HttpClient())
+        public PITHttpClient() : this(new HttpClientProxy())
         {
         }
 
-        public PITHttpClient(HttpClient httpClient)
+        public PITHttpClient(IHttpClientProxy httpClient)
         {
             _http = httpClient;
-            _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ApplyRequestMediaType();
+        }
+
+        private void ApplyRequestMediaType()
+        {
+            if (_http.DefaultRequestHeaders != null)
+                _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public HttpResponseMessage Get(string uri)
@@ -40,4 +46,4 @@ namespace PIT.API.HTTP
             return _http.DeleteAsync(uri).Result;
         }
     }
-} 
+}

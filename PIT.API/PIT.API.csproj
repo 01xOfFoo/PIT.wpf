@@ -44,6 +44,8 @@
     <Compile Include="Clients\ProjectRestClient.cs" />
     <Compile Include="Clients\RestClient.cs" />
     <Compile Include="Exceptions\ContentTypeException.cs" />
+    <Compile Include="HTTP\HttpClientProxy.cs" />
+    <Compile Include="HTTP\Contracts\IHttpClientProxy.cs" />
     <Compile Include="JsonContent.cs" />
     <Compile Include="HTTP\Contracts\IResponseMessageValidator.cs" />
     <Compile Include="Contracts\IClientProvider.cs" />
