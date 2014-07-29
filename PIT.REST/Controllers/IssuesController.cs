@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PIT.REST.Data.Entities;
 using PIT.REST.Data.Repositories.Contracts;
 using PIT.REST.Models;
 using PIT.REST.Models.Factories;
@@ -12,10 +13,10 @@ namespace PIT.REST.Controllers
 {
     public class IssuesController : ApiController
     {
-        private readonly IIssueRepository _repository;
+        private readonly IRepository<Issue> _repository;
         private readonly IModelFactory _modelFactory;
 
-        public IssuesController(IIssueRepository issueRepository, IModelFactory modelFactory)
+        public IssuesController(IRepository<Issue> issueRepository, IModelFactory modelFactory)
         {
             _repository = issueRepository;
             _modelFactory = modelFactory;
@@ -24,7 +25,7 @@ namespace PIT.REST.Controllers
         // GET api/<controller>
         public IEnumerable<IssueModel> Get()
         {
-            var issues = _repository.GetAllIssues();
+            var issues = _repository.GetAll();
             return issues.ToList().Select(i => _modelFactory.CreateIssue(i));
         }
 
@@ -33,7 +34,7 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                var issue = _repository.GetIssue(id);
+                var issue = _repository.Get(id);
                 if (issue.Exists())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _modelFactory.CreateIssue(issue));
@@ -51,7 +52,7 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, _repository.GetAllIssues().Where(i => i.Project.Id == projectId));
+                return Request.CreateResponse(HttpStatusCode.OK, _repository.GetAll().Where(i => i.ProjectId == projectId));
             }
             catch (Exception ex)
             {

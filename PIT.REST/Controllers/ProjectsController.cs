@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using PIT.REST.Data.Entities;
 using PIT.REST.Data.Repositories.Contracts;
 using PIT.REST.Models;
 using PIT.REST.Models.Factories;
@@ -12,10 +13,10 @@ namespace PIT.REST.Controllers
 {
     public class ProjectsController : ApiController
     {
-        private readonly IProjectRepository _repository;
         private readonly IModelFactory _modelFactory;
+        private readonly IRepository<Project> _repository;
 
-        public ProjectsController(IProjectRepository projectRepository, IModelFactory modelFactory)
+        public ProjectsController(IRepository<Project> projectRepository, IModelFactory modelFactory)
         {
             _repository = projectRepository;
             _modelFactory = modelFactory;
@@ -24,7 +25,7 @@ namespace PIT.REST.Controllers
         // GET api/<controller>
         public IEnumerable<ProjectModel> Get()
         {
-            var projects = _repository.GetAllProjects();
+            IQueryable<Project> projects = _repository.GetAll();
             return projects.ToList().Select(p => _modelFactory.CreateProject(p));
         }
 
@@ -33,7 +34,7 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                var project = _repository.GetProject(id);
+                Project project = _repository.Get(id);
                 if (project.Exists())
                 {
                     return Request.CreateResponse(HttpStatusCode.OK, _modelFactory.CreateProject(project));
@@ -47,12 +48,12 @@ namespace PIT.REST.Controllers
         }
 
         // POST api/<controller>
-        public HttpResponseMessage Post([FromBody]ProjectModel projectModel)
+        public HttpResponseMessage Post([FromBody] ProjectModel projectModel)
         {
             try
             {
-                var project = _modelFactory.ParseProject(projectModel);
-                var responseModel = _repository.Create(project);
+                Project project = _modelFactory.ParseProject(projectModel);
+                Project responseModel = _repository.Create(project);
                 return Request.CreateResponse(HttpStatusCode.Created, _modelFactory.CreateProject(responseModel));
             }
             catch (Exception ex)
@@ -62,12 +63,12 @@ namespace PIT.REST.Controllers
         }
 
         // PUT api/<controller>/5
-        public HttpResponseMessage Put(int id, [FromBody]ProjectModel projectModel)
+        public HttpResponseMessage Put(int id, [FromBody] ProjectModel projectModel)
         {
             try
             {
-                var project = _modelFactory.ParseProject(projectModel);
-                var responseModel = _repository.Update(project);
+                Project project = _modelFactory.ParseProject(projectModel);
+                Project responseModel = _repository.Update(project);
                 return Request.CreateResponse(HttpStatusCode.OK, responseModel);
             }
             catch (Exception ex)
@@ -81,7 +82,7 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                var responseModel = _repository.Delete(id);
+                Project responseModel = _repository.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK, responseModel);
             }
             catch (Exception ex)
