@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.Composition;
-using PIT.Business.Contracts;
 using PIT.Business.Entities;
+using PIT.Business.Factories.Contracts;
 using PIT.WPF.ViewModels.Contracts;
 
 namespace PIT.WPF.ViewModels.Issues

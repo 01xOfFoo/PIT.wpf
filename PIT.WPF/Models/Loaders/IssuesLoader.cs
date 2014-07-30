@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.Business.Entities.Events.Issues;
+using PIT.Business.Service;
 using PIT.Business.Service.Contracts;
 using PIT.Core;
 using PIT.WPF.Models.Issues;
@@ -22,14 +22,15 @@ namespace PIT.WPF.Models.Loaders
         private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public IssuesLoader(IIssueBusiness business, IViewModelFactory<IssueViewModel, Issue> factory,
+        public IssuesLoader(IIssueBusiness issueBusiness, IViewModelFactory<IssueViewModel, Issue> factory,
             ProjectSelection projectSelection, IssueSelection issueSelection)
-            : base(business, factory)
+            : base(issueBusiness, factory)
         {
+            _issueSelection = issueSelection;
             _projectSelection = projectSelection;
             _projectSelection.ProjectChanged += (s, e) => Load();
 
-            _issueSelection = issueSelection;
+            Collection = issueSelection.Issues;
         }
 
         protected override void SetCollection(ObservableCollection<IssueViewModel> collection)
@@ -40,13 +41,7 @@ namespace PIT.WPF.Models.Loaders
         protected override IEnumerable<Issue> GetEntites()
         {
             int id = _projectSelection.SelectedProject.Id;
-            return ((IIssueBusiness) Business).GetIssuesOfProject(id).Select(i => FixUpProjects(i));
-        }
-
-        private Issue FixUpProjects(Issue issue)
-        {
-            issue.Project = _projectSelection.SelectedProject.Project;
-            return issue;
+            return ((IIssueBusiness) Business).GetIssuesOfProject(id);
         }
 
         public override void Load()

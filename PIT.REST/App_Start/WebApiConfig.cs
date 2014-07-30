@@ -24,8 +24,17 @@ namespace PIT.REST
                 new {controller = "projects", id = RouteParameter.Optional}
                 );
 
-            config.Routes.MapHttpRoute("Issues", "api/issues/{id}",
-                new {controller = "issues", id = RouteParameter.Optional}
+            config.Routes.MapHttpRoute(
+                name: "Issues",
+                routeTemplate: "api/issues/{id}",
+                defaults: new { controller = "issues", id = RouteParameter.Optional }
+                ); 
+//            config.Routes.MapHttpRoute("Issues", "api/issues/{id}",
+//                new {controller = "issues", id = RouteParameter.Optional}
+//                );
+
+            config.Routes.MapHttpRoute("Users", "api/users/{id}",
+                new { controller = "users", id = RouteParameter.Optional }
                 );
         }
 

@@ -6,5 +6,6 @@ namespace PIT.API.Contracts
     {
         IProjectClient ProjectClient { get; }
         IIssueClient IssueClient { get; }
+        IUserClient UserClient { get; }
     }
 }

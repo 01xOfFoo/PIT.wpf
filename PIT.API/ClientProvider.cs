@@ -2,24 +2,24 @@
 using PIT.API.Clients;
 using PIT.API.Clients.Contracts;
 using PIT.API.Contracts;
-using PIT.API.HTTP;
 using PIT.API.HTTP.Contracts;
-using PIT.Business.Entities;
 
 namespace PIT.API
 {
     [Export(typeof(IClientProvider))]
     public class ClientProvider : IClientProvider
     {
-        private readonly IHttpClient _httpClient;
         private readonly IEnvironment _environment;
+        private readonly IHttpClient _httpClient;
         private readonly IResponseMessageValidator _responseMessageValidator;
 
-        private IProjectClient _projectClient;
         private IIssueClient _issueClient;
+        private IProjectClient _projectClient;
+        private IUserClient _userClient;
 
         [ImportingConstructor]
-        public ClientProvider(IEnvironment environment, IHttpClient httpClient, IResponseMessageValidator responseMessageValidator)
+        public ClientProvider(IEnvironment environment, IHttpClient httpClient,
+            IResponseMessageValidator responseMessageValidator)
         {
             _environment = environment;
             _httpClient = httpClient;
@@ -30,7 +30,7 @@ namespace PIT.API
         {
             get
             {
-                var client = _projectClient;
+                IProjectClient client = _projectClient;
                 if (client == null)
                 {
                     client = new ProjectRestClient(_httpClient, _responseMessageValidator)
@@ -48,7 +48,7 @@ namespace PIT.API
         {
             get
             {
-                var client = _issueClient;
+                IIssueClient client = _issueClient;
                 if (client == null)
                 {
                     client = new IssueRestClient(_httpClient, _responseMessageValidator)
@@ -56,6 +56,23 @@ namespace PIT.API
                         ServerAdress = _environment.ServerAdress
                     };
                     _issueClient = client;
+                }
+                return client;
+            }
+        }
+
+        public IUserClient UserClient
+        {
+            get
+            {
+                IUserClient client = _userClient;
+                if (client == null)
+                {
+                    client = new UserRestClient(_httpClient, _responseMessageValidator)
+                    {
+                        ServerAdress = _environment.ServerAdress
+                    };
+                    _userClient = client;
                 }
                 return client;
             }

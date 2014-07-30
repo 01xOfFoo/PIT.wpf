@@ -57,6 +57,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -96,12 +98,48 @@
                       SelectedValue="{Binding Status, Mode=TwoWay}" />
             <TextBlock Grid.Row="3"
                        Grid.Column="0"
+                       Text="Developer"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="0,2,0,0"
+                       Padding="0,0,20,0" />
+            <ComboBox Grid.Row="3"
+                      Grid.Column="1"
+                      Margin="2,2,0,0"
+                      Width="100"
+                      Height="22" 
+                      ItemsSource="{Binding Users, Mode=OneWay}"
+                      SelectedItem="{Binding Developer}"
+                      SelectedValue="{Binding Developer.Id}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Name"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"/>
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Text="Tester"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="0,2,0,0"
+                       Padding="0,0,20,0" />
+            <ComboBox Grid.Row="4"
+                      Grid.Column="1"
+                      Margin="2"
+                      Width="100"
+                      ItemsSource="{Binding Users}"
+                      SelectedItem="{Binding Tester}"
+                      SelectedValue="{Binding Tester.Id}"
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Name"
+                      HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="5"
+                       Grid.Column="0"
                        Text="Description"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Right"
                        Margin="0,2,0,0"
                        Padding="0,0,20,0" />
-            <TextBox Grid.Row="3"
+            <TextBox Grid.Row="5"
                      Grid.Column="1"
                      Margin="2"
                      Height="200"
@@ -135,7 +173,7 @@
                     Grid.Column="2"
                     Margin="5,0,5,0"
                     Height="25"
-                    Content="Abort"
+                    Content="Cancel"
                     IsCancel="true" />
         </Grid>
     </Grid>

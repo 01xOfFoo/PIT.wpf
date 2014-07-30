@@ -18,7 +18,7 @@ namespace PIT.WPF.Models.Loaders
         protected ObservableCollection<TViewModel> Collection;
 
         [ImportingConstructor]
-        protected Loader(IBusiness<TEntity> business, IViewModelFactory<TViewModel, TEntity> factory)
+        public Loader(IBusiness<TEntity> business, IViewModelFactory<TViewModel, TEntity> factory)
         {
             Business = business;
             _factory = factory;

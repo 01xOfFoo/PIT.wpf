@@ -40,9 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientProvider.cs" />
+    <Compile Include="Clients\Contracts\IUserClient.cs" />
     <Compile Include="Clients\IClient.cs" />
     <Compile Include="Clients\ProjectRestClient.cs" />
     <Compile Include="Clients\RestClient.cs" />
+    <Compile Include="Clients\UserRestClient.cs" />
     <Compile Include="Exceptions\ContentTypeException.cs" />
     <Compile Include="HTTP\HttpClientProxy.cs" />
     <Compile Include="HTTP\Contracts\IHttpClientProxy.cs" />

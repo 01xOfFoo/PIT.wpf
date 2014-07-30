@@ -62,9 +62,11 @@
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\IssueStatus.cs" />
     <Compile Include="Entities\Project.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Mappers\BaseMapper.cs" />
     <Compile Include="Mappers\IssueMapper.cs" />
     <Compile Include="Mappers\ProjectMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Contracts\IRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />

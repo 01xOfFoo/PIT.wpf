@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PIT.Business;
+using PIT.Business.Factories;
 
 namespace PIT.Tests.Business
 {

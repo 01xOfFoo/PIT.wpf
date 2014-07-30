@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IProjectFactory.cs" />
-    <Compile Include="Contracts\IIssueFactory.cs" />
-    <Compile Include="EntityHistory.cs" />
-    <Compile Include="IssueFactory.cs" />
-    <Compile Include="ProjectFactory.cs" />
+    <Compile Include="Factories\Contracts\IProjectFactory.cs" />
+    <Compile Include="Factories\Contracts\IIssueFactory.cs" />
+    <Compile Include="Factories\IssueFactory.cs" />
+    <Compile Include="Factories\Contracts\IUserFactory.cs" />
+    <Compile Include="Factories\ProjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Factories\UserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PIT.Business.Entities\PIT.Business.Entities.csproj">

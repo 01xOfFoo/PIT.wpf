@@ -66,6 +66,7 @@ namespace PIT.REST.App_Start
             kernel.Bind<PITContext>().To<PITContext>().InRequestScope();
             kernel.Bind<IRepository<Project>>().To<Repository<Project>>().InRequestScope();
             kernel.Bind<IRepository<Issue>>().To<Repository<Issue>>().InRequestScope();
+            kernel.Bind<IRepository<User>>().To<Repository<User>>().InRequestScope();
 
             kernel.Bind<IModelFactory>().To<ModelFactory>().InRequestScope();
         }

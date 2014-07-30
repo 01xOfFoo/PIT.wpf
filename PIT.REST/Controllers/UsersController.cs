@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,22 +11,22 @@ using PIT.REST.Models.Factories;
 
 namespace PIT.REST.Controllers
 {
-    public class IssuesController : ApiController
+    public class UsersController : ApiController
     {
-        private readonly IRepository<Issue> _repository;
+        private readonly IRepository<User> _repository;
         private readonly IModelFactory _modelFactory;
 
-        public IssuesController(IRepository<Issue> issueRepository, IModelFactory modelFactory)
+        public UsersController(IRepository<User> userProvider, IModelFactory modelFactory)
         {
-            _repository = issueRepository;
+            _repository = userProvider;
             _modelFactory = modelFactory;
         }
 
         // GET api/<controller>
-        public IEnumerable<IssueModel> Get()
+        public IEnumerable<UserModel> Get()
         {
-            var issues = _repository.GetAll();
-            return issues.ToList().Select(i => _modelFactory.CreateIssue(i));
+            var users = _repository.GetAll();
+            return users.ToList().Select(u => _modelFactory.CreateUser(u));
         }
 
         // GET api/<controller>/5
@@ -35,26 +34,12 @@ namespace PIT.REST.Controllers
         {
             try
             {
-                var issue = _repository.Get(id);
-                if (issue.Exists())
+                var user = _repository.Get(id);
+                if (user.Exists())
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, _modelFactory.CreateIssue(issue));
+                    return Request.CreateResponse(HttpStatusCode.OK, _modelFactory.CreateUser(user));
                 }
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            catch (Exception)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
-            }
-        }
-
-        // GET api/<controller>?project=1
-        public HttpResponseMessage GetIssuesByProject(int projectId)
-        {
-            try
-            {
-                var issues = _repository.GetAll().Include(p => p.Project).Where(i => i.ProjectId == projectId).Include(d => d.Developer).Include(t => t.Tester);
-                return Request.CreateResponse(HttpStatusCode.OK, issues);
             }
             catch (Exception ex)
             {
@@ -63,13 +48,13 @@ namespace PIT.REST.Controllers
         }
 
         // POST api/<controller>
-        public HttpResponseMessage Post([FromBody]IssueModel issueModel)
+        public HttpResponseMessage Post([FromBody]UserModel userModel)
         {
             try
             {
-                var model = _modelFactory.ParseIssue(issueModel);
-                var createdIssue = _repository.Create(model);
-                return Request.CreateResponse(HttpStatusCode.Created, _modelFactory.CreateIssue(createdIssue));
+                var user = _modelFactory.ParseUser(userModel);
+                var responseModel = _repository.Create(user);
+                return Request.CreateResponse(HttpStatusCode.Created, _modelFactory.CreateUser(responseModel));
             }
             catch (Exception ex)
             {
@@ -78,12 +63,12 @@ namespace PIT.REST.Controllers
         }
 
         // PUT api/<controller>/5
-        public HttpResponseMessage Put(int id, [FromBody]IssueModel issueModel)
+        public HttpResponseMessage Put(int id, [FromBody]UserModel userModel)
         {
             try
             {
-                var issue = _modelFactory.ParseIssue(issueModel);
-                var responseModel = _repository.Update(issue);
+                var user = _modelFactory.ParseUser(userModel);
+                var responseModel = _repository.Update(user);
                 return Request.CreateResponse(HttpStatusCode.OK, responseModel);
             }
             catch (Exception ex)

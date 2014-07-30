@@ -15,7 +15,11 @@ namespace PIT.REST.Data.Mappers
             Property(i => i.Short).HasMaxLength(10);
 
             Property(i => i.Status).IsRequired();
+
             HasRequired(i => i.Project).WithMany().HasForeignKey(i => i.ProjectId).WillCascadeOnDelete();
+
+            HasOptional(i => i.Developer).WithMany().HasForeignKey(u => u.DeveloperId);
+            HasOptional(i => i.Tester).WithMany().HasForeignKey(u => u.TesterId).WillCascadeOnDelete(false);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace PIT.WPF.Models.Loaders
         private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public ProjectsLoader(IProjectBusiness business, IViewModelFactory<ProjectViewModel, Project> factory,
+        public ProjectsLoader(IProjectBusiness issueBusiness, IViewModelFactory<ProjectViewModel, Project> factory,
             ProjectSelection projectSelection)
-            : base(business, factory)
+            : base(issueBusiness, factory)
         {
             _projectSelection = projectSelection;
         }

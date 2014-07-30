@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using PIT.Business.Entities;
 
 namespace PIT.WPF.SampleData
@@ -33,5 +34,19 @@ namespace PIT.WPF.SampleData
             get { return IssueStatus.Assigned; }
             set { throw new NotImplementedException(); }
         }
+
+        public User Developer
+        {
+            get { return new User {Name = "default developer"}; }
+            set { throw new NotImplementedException(); }
+        }
+
+        public User Tester
+        {
+            get { return new User { Name = "default tester" }; }
+            set { throw new NotImplementedException(); }
+        }
+
+        public ObservableCollection<User> Users { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PIT.Business.Contracts;
 using PIT.Business.Entities;
+using PIT.Business.Factories.Contracts;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.Tests.WPF.ViewModels.Projects

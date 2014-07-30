@@ -28,6 +28,8 @@ namespace PIT.REST.Data.Context
         public DbSet<Project> Projects { get; set; }
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public DbSet<Issue> Issues { get; set; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

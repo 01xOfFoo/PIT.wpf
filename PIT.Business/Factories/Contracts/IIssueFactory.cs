@@ -1,6 +1,6 @@
 ﻿using PIT.Business.Entities;
 
-namespace PIT.Business.Contracts
+namespace PIT.Business.Factories.Contracts
 {
     public interface IIssueFactory
     {

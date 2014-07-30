@@ -45,5 +45,25 @@ namespace PIT.WPF.ViewModels.Issues
                 NotifyOfPropertyChange(() => Status);
             }
         }
+
+        public User Developer
+        {
+            get { return Issue.Developer; }
+            set
+            {
+                Issue.Developer = value;
+                NotifyOfPropertyChange(() => Developer);
+            }
+        }
+
+        public User Tester
+        {
+            get { return Issue.Tester; }
+            set
+            {
+                Issue.Tester = value;
+                NotifyOfPropertyChange(() => Tester);
+            }
+        }
     }
 }
