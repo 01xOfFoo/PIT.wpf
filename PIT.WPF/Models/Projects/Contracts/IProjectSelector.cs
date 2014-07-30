@@ -1,4 +1,4 @@
-﻿namespace PIT.WPF.Models.Projects
+﻿namespace PIT.WPF.Models.Projects.Contracts
 {
     public interface IProjectSelector
     {

@@ -3,7 +3,6 @@ using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
 using PIT.Business.Entities;
-using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
 
@@ -12,27 +11,25 @@ namespace PIT.WPF.ViewModels.Issues
     [Export(typeof(IIssueEditViewModel))]
     public class IssueEditViewModel : Screen, IIssueEditViewModel, IDisposable
     {
-        private readonly IIssueBusiness _issueBusiness;
         private readonly IssueSelection _issueSelection;
         private Window _attachedView;
         private IssueViewModel _issueViewModel;
 
         [ImportingConstructor]
-        public IssueEditViewModel(IIssueBusiness issueBusiness, IssueSelection issueSelection)
+        public IssueEditViewModel(IssueSelection issueSelection)
         {
-            _issueBusiness = issueBusiness;
             _issueSelection = issueSelection;
             _issueSelection.IssueChanged += OnIssueChanged;
         }
 
         public string DialogHeaderCaption
         {
-            get { return _issueViewModel.Id == 0 ? "Add issue" : "Edit issue"; }
+            get { return _issueViewModel != null && _issueViewModel.Id == 0 ? "Add issue" : "Edit issue"; }
         }
 
         public string DialogSubHeaderCaption
         {
-            get { return _issueViewModel.Id == 0 ? "Create a new issue" : "You're editing an existing issue"; }
+            get { return _issueViewModel != null && _issueViewModel.Id == 0 ? "Create a new issue" : "You're editing an existing issue"; }
         }
 
         public string Short
@@ -58,9 +55,9 @@ namespace PIT.WPF.ViewModels.Issues
             _issueSelection.IssueChanged -= OnIssueChanged;
         }
 
-        private void OnIssueChanged(object sender, EventArgs eventArgs)
+        private void OnIssueChanged(object sender, IssueViewModel issueViewModel)
         {
-            _issueViewModel = (IssueViewModel) sender;
+            _issueViewModel = issueViewModel;
 
             NotifyOfPropertyChange(() => DialogHeaderCaption);
             NotifyOfPropertyChange(() => DialogSubHeaderCaption);

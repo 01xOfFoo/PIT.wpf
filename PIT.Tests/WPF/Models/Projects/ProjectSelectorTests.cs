@@ -1,6 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PIT.Business.Entities.Events.Projects;
+using PIT.Core;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 
@@ -9,51 +10,50 @@ namespace PIT.Tests.WPF.Models.Projects
     [TestClass]
     public class ProjectSelectorTests
     {
-        private ProjectSelection _projectModel;
+        private ProjectSelection _projectSelection;
         private ProjectSelector _selector;
 
         [TestInitialize]
         public void SetUp()
         {
-            _projectModel = new ProjectSelection();
-            _selector = new ProjectSelector(_projectModel);
+            _projectSelection = new ProjectSelection();
+            _selector = new ProjectSelector(_projectSelection);
         }
 
         [TestMethod]
-        public void SelectsNewlyAddedProject()
+        public void SelectsLastProjectIfProjectIsRemoved()
         {
-            var newProject = new ProjectViewModel();
-            _projectModel.Projects.Add(newProject);
+            _projectSelection.Projects.Add(new ProjectViewModel());
 
-            Assert.AreEqual(newProject, _projectModel.SelectedProject);
-        }
-
-        [TestMethod]
-        public void SelectsFirstProjectIfProjectIsRemoved()
-        {
-            _projectModel.Projects.Add(new ProjectViewModel());
-            _projectModel.Projects.Add(new ProjectViewModel());
-            _projectModel.Projects.Add(new ProjectViewModel());
-
-            _projectModel.SelectedProject = _projectModel.Projects.Last();
-            _projectModel.Projects.Remove(_projectModel.Projects.Last());
-            Assert.AreEqual(_projectModel.Projects[0], _projectModel.SelectedProject);
+            Events.Current.Publish(new ProjectDeleted(null));
+            Assert.AreEqual(_projectSelection.Projects.Last(), _projectSelection.SelectedProject);
         }
 
         [TestMethod]
         public void SetsDefaultProjectIfListIsEmpty()
         {
             var project = new ProjectViewModel();
-            _projectModel.Projects.Add(project);
-            _projectModel.Projects.Remove(project);
-            Assert.IsNull(_projectModel.SelectedProject);
+            _projectSelection.Projects.Add(project);
+            _projectSelection.Projects.Remove(project);
+            Assert.IsNull(_projectSelection.SelectedProject);
         }
 
         [TestMethod]
         public void UnSubscribesFromProjectModelForListOfProjectsChanges()
         {
             _selector.Dispose();
-            _selector = null;
+        }
+
+        [TestMethod]
+        public void SelectsFirstProjectIfProjectWasRemoved()
+        {
+            _projectSelection.Projects.Add(new ProjectViewModel());
+            _projectSelection.Projects.Add(new ProjectViewModel());
+
+            _projectSelection.SelectedProject = _projectSelection.Projects[1];
+            Events.Current.Publish(new ProjectDeleted(null));
+
+            Assert.AreSame(_projectSelection.SelectedProject, _projectSelection.Projects[0]);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace PIT.WPF.ViewModels.Projects
         public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectSelection projectSelection)
         {
             _projectBusiness = projectBusiness;
+
             _projectSelection = projectSelection;
             _projectSelection.ProjectChanged += OnProjectChanged;
         }
@@ -54,9 +55,9 @@ namespace PIT.WPF.ViewModels.Projects
             _attachedView = (Window) view;
         }
 
-        private void OnProjectChanged(object sender, EventArgs eventArgs)
+        private void OnProjectChanged(object sender, ProjectViewModel projectViewModel)
         {
-            _projectViewModel = (ProjectViewModel) sender;
+            _projectViewModel = projectViewModel;
             DisplayName = _projectViewModel.Exists ? "Add project" : "Edit project";
 
             NotifyOfPropertyChange(() => ProjectDialogHeaderCaption);

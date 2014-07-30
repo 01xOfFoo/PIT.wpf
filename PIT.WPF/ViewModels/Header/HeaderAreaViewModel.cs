@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Header.Contracts;
+using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.ViewModels.Header
 {
@@ -16,10 +17,10 @@ namespace PIT.WPF.ViewModels.Header
         public HeaderAreaViewModel(ProjectSelection projectSelection)
         {
             this._projectSelection = projectSelection;
-            this._projectSelection.ProjectChanged += new EventHandler(OnProjectChanged);
+            this._projectSelection.ProjectChanged += OnProjectChanged;
         }
 
-        private void OnProjectChanged(object sender, EventArgs e)
+        private void OnProjectChanged(object sender, ProjectViewModel projectViewModel)
         {
             NotifyOfPropertyChange(() => SelectedProjectName);
         }

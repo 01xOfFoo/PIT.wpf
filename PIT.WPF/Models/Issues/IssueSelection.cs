@@ -9,12 +9,11 @@ namespace PIT.WPF.Models.Issues
     [Export(typeof(IssueSelection))]
     public class IssueSelection : IIssueSelection
     {
-        private readonly ObservableCollection<IssueViewModel> _issues;
         private IssueViewModel _selectedIssue;
 
         public IssueSelection()
         {
-            _issues = new ObservableCollection<IssueViewModel>();
+            Issues = new ObservableCollection<IssueViewModel>();
         }
 
         public IssueViewModel SelectedIssue
@@ -27,18 +26,15 @@ namespace PIT.WPF.Models.Issues
             }
         }
 
-        public ObservableCollection<IssueViewModel> Issues
-        {
-            get { return _issues; }
-        }
+        public ObservableCollection<IssueViewModel> Issues { get; set; }
 
-        public event EventHandler IssueChanged;
+        public event EventHandler<IssueViewModel> IssueChanged;
 
         private void NotifyOfIssueChanged(IssueViewModel issueViewModel)
         {
-            if ((IssueChanged != null) && (issueViewModel != null))
+            if (IssueChanged != null) 
             {
-                IssueChanged(issueViewModel, EventArgs.Empty);
+                IssueChanged(this, issueViewModel);
             }
         }
     }

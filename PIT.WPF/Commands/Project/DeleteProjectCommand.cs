@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel.Composition;
+using System.Reactive.Linq;
+using PIT.Business.Entities.Events.Projects;
 using PIT.Business.Service.Contracts;
+using PIT.Core;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.Models.Projects.Contracts;
 using PIT.WPF.ViewModels.Projects;
 
@@ -9,10 +13,10 @@ namespace PIT.WPF.Commands.Project
     public class DeleteProjectCommand : Command
     {
         private readonly IProjectBusiness _projectBusiness;
-        private readonly IProjectSelection _projectSelection;
+        private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public DeleteProjectCommand(IProjectSelection projectSelection, IProjectBusiness projectBusiness)
+        public DeleteProjectCommand(ProjectSelection projectSelection, IProjectBusiness projectBusiness)
         {
             _projectSelection = projectSelection;
             _projectBusiness = projectBusiness;
@@ -23,6 +27,7 @@ namespace PIT.WPF.Commands.Project
             ProjectViewModel selectedProject = _projectSelection.SelectedProject;
             _projectBusiness.Delete(selectedProject.Project);
             _projectSelection.Projects.Remove(selectedProject);
+            Events.Current.Publish(new ProjectDeleted(selectedProject.Project));
         }
     }
 }

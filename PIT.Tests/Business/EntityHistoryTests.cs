@@ -5,22 +5,22 @@ using PIT.Business.Entities;
 
 namespace PIT.Tests.Business
 {
-    public class Dummy
-    {
-        public string ReadWrite { get; set; }
-
-        private string _read;
-        public string Read { get { return _read; } }
-
-        public void SetRead(string readValue)
-        {
-            _read = readValue;
-        }
-    }
-
     [TestClass]
     public class EntityHistoryTests
     {
+        public class Dummy
+        {
+            public string ReadWrite { get; set; }
+
+            private string _read;
+            public string Read { get { return _read; } }
+
+            public void SetRead(string readValue)
+            {
+                _read = readValue;
+            }
+        }
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void RaisesExceptionIfEntityIsNull()

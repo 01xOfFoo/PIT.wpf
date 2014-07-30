@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Project;
-using PIT.WPF.Models.Projects.Contracts;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.Tests.WPF.Commands.Project
@@ -13,7 +13,7 @@ namespace PIT.Tests.WPF.Commands.Project
     {
         private DeleteProjectCommand _command;
         private Mock<IProjectBusiness> _projectBusiness;
-        private Mock<IProjectSelection> _projectSelection;
+        private ProjectSelection _projectSelection;
 
         [TestInitialize]
         public void SetUp()
@@ -21,13 +21,16 @@ namespace PIT.Tests.WPF.Commands.Project
             var project = new ProjectViewModel();
             var projects = new ObservableCollection<ProjectViewModel> {project};
 
-            _projectSelection = new Mock<IProjectSelection>();
-            _projectSelection.SetupGet(m => m.Projects).Returns(projects);
-            _projectSelection.SetupProperty(m => m.SelectedProject, project);
+            _projectSelection = new ProjectSelection();
+            foreach (ProjectViewModel p in projects)
+            {
+                _projectSelection.Projects.Add(p);
+            }
+            _projectSelection.SelectedProject = project;
 
             _projectBusiness = new Mock<IProjectBusiness>();
 
-            _command = new DeleteProjectCommand(_projectSelection.Object, _projectBusiness.Object);
+            _command = new DeleteProjectCommand(_projectSelection, _projectBusiness.Object);
             _command.Execute(null);
         }
 
@@ -40,8 +43,7 @@ namespace PIT.Tests.WPF.Commands.Project
         [TestMethod]
         public void RemovesProjectFromInternalList()
         {
-            _projectSelection.VerifyGet(m => m.Projects);
-            Assert.AreEqual(0, _projectSelection.Object.Projects.Count);
+            Assert.AreEqual(0, _projectSelection.Projects.Count);
         }
     }
 }

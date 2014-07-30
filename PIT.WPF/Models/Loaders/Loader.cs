@@ -9,7 +9,7 @@ using PIT.WPF.ViewModels.Contracts;
 namespace PIT.WPF.Models.Loaders
 {
     [Export(typeof(ILoader<,>))]
-    public class Loader<TViewModel, TEntity> : ILoader<TViewModel, TEntity> where TViewModel : new()
+    public abstract class Loader<TViewModel, TEntity> : ILoader<TViewModel, TEntity> where TViewModel : new()
         where TEntity : class
     {
         protected readonly IBusiness<TEntity> Business;
@@ -18,23 +18,23 @@ namespace PIT.WPF.Models.Loaders
         protected ObservableCollection<TViewModel> Collection;
 
         [ImportingConstructor]
-        public Loader(IBusiness<TEntity> business, IViewModelFactory<TViewModel, TEntity> factory)
+        protected Loader(IBusiness<TEntity> business, IViewModelFactory<TViewModel, TEntity> factory)
         {
             Business = business;
             _factory = factory;
         }
 
-        public void Load()
+        public virtual void Load()
         {
             IEnumerable<TEntity> entities = GetEntites();
-            List<TViewModel> viewModels = entities.Select(e => _factory.CreateViewModel(e)).ToList();
-
-            Collection.Clear();
-            foreach (TViewModel e in viewModels)
-            {
-                Collection.Add(e);
-            }
+            List<TViewModel> viewmodels = entities.Select(e => _factory.CreateViewModel(e)).ToList();
+            var collection = new ObservableCollection<TViewModel>();
+            foreach (TViewModel vm in viewmodels)
+                collection.Add(vm);
+            SetCollection(collection);
         }
+
+        protected abstract void SetCollection(ObservableCollection<TViewModel> collection);
 
         protected virtual IEnumerable<TEntity> GetEntites()
         {

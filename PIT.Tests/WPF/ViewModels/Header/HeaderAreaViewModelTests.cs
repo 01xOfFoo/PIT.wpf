@@ -29,7 +29,6 @@ namespace PIT.Tests.WPF.ViewModels.Header
         public void UnsubscribesFromProjectChangedHandler()
         {
             _viewModel.Dispose();
-            _viewModel = null;
             Assert.IsFalse(_projectsModel.Object.HasProjectChangedSubscriber());
         }
 

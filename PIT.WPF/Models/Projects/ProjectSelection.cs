@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel.Composition;
-using PIT.WPF.Models.Projects.Contracts;
 using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.Models.Projects
 {
-    [Export(typeof(IProjectSelection))]
-    [Export(typeof(ProjectSelection))]
-    public class ProjectSelection : IProjectSelection
+    [Export]
+    public class ProjectSelection
     {
+        private ProjectViewModel _selectedProjectViewModel;
+
         public ProjectSelection()
         {
-            _projects = new ObservableCollection<ProjectViewModel>();
+            Projects = new ObservableCollection<ProjectViewModel>();
         }
 
-        private readonly ObservableCollection<ProjectViewModel> _projects;
-        private ProjectViewModel _selectedProjectViewModel;
+        public ObservableCollection<ProjectViewModel> Projects { get; set; }
 
         public ProjectViewModel SelectedProject
         {
@@ -29,18 +27,14 @@ namespace PIT.WPF.Models.Projects
             }
         }
 
-        public ObservableCollection<ProjectViewModel> Projects
-        {
-            get { return _projects ?? (_projects); }
-        }
+        public event EventHandler<ProjectViewModel> ProjectChanged;
 
-        public event EventHandler ProjectChanged;
 
         private void NotifyOfProjectChanged(ProjectViewModel projectViewModel)
         {
             if ((ProjectChanged != null) && (projectViewModel != null))
             {
-                ProjectChanged(projectViewModel, EventArgs.Empty);
+                ProjectChanged(this, projectViewModel);
             }
         }
 
