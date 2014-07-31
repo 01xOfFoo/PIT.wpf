@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Events.cs" />
     <Compile Include="IEvents.cs" />
+    <Compile Include="ObservableCollectionEx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Disposer.cs" />
   </ItemGroup>

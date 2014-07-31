@@ -5,9 +5,9 @@ using PIT.WPF.ViewModels.Header.Contracts;
 namespace PIT.WPF.SampleData
 {
     [ExcludeFromCodeCoverage]
-    class SampleHeaderAreaViewModel : PropertyChangedBase, IHeaderAreaViewModel
+    internal class SampleHeaderAreaViewModel : PropertyChangedBase, IHeaderAreaViewModel
     {
-        public string SelectedProjectName 
+        public string SelectedProjectName
         {
             get { return "PROJEKT 1"; }
         }

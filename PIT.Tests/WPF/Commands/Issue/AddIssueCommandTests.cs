@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PIT.Business.Filter;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
@@ -9,6 +10,7 @@ using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects;
+using Action = System.Action;
 
 namespace PIT.Tests.WPF.Commands.Issue
 {
@@ -18,6 +20,7 @@ namespace PIT.Tests.WPF.Commands.Issue
         private AddIssueCommand _command;
         private Mock<IIssueBusiness> _issueBusiness;
         private Mock<IIssueEditViewModel> _issueEditViewModelMock;
+        private Mock<IIssueFilter> _issueFilter;
         private Mock<IssueSelection> _issueSelection;
         private Mock<IViewModelFactory<IssueViewModel, PIT.Business.Entities.Issue>> _issueViewModelFactory;
         private Mock<ProjectSelection> _projectSelection;
@@ -29,6 +32,7 @@ namespace PIT.Tests.WPF.Commands.Issue
             _windowManager = new Mock<IWindowManager>();
             _issueBusiness = new Mock<IIssueBusiness>();
             _issueEditViewModelMock = new Mock<IIssueEditViewModel>();
+            _issueFilter = new Mock<IIssueFilter>();
 
             _issueViewModelFactory = new Mock<IViewModelFactory<IssueViewModel, PIT.Business.Entities.Issue>>();
             _issueViewModelFactory.Setup(f => f.CreateViewModel(It.IsAny<PIT.Business.Entities.Issue>()))
@@ -46,7 +50,8 @@ namespace PIT.Tests.WPF.Commands.Issue
             };
 
             _command = new AddIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection.Object,
-                _projectSelection.Object, _issueEditViewModelMock.Object, _issueViewModelFactory.Object);
+                _projectSelection.Object, _issueEditViewModelMock.Object, _issueViewModelFactory.Object,
+                _issueFilter.Object);
         }
 
         [TestMethod]
@@ -67,10 +72,9 @@ namespace PIT.Tests.WPF.Commands.Issue
         public void DelegatesSaveActionIfDialogResultIsTrue()
         {
             _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(true);
-
             _command.Execute(null);
             _issueBusiness.Verify(b => b.Create(It.IsAny<PIT.Business.Entities.Issue>()));
-            Assert.AreEqual(1, _issueSelection.Object.Issues.Count);
+            _issueFilter.Verify(f => f.Absorb(It.IsAny<PIT.Business.Entities.Issue>(), It.IsAny<Action>()));
         }
 
         [TestMethod]

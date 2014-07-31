@@ -32,17 +32,21 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IProjectFactory.cs" />
     <Compile Include="Contracts\IIssueFactory.cs" />
     <Compile Include="EntityHistory.cs" />
+    <Compile Include="Filter\IssueFilter.cs" />
     <Compile Include="IssueFactory.cs" />
     <Compile Include="ProjectFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,6 +56,13 @@
       <Project>{773A52F0-62A2-478A-9EAB-13E5AF6139AB}</Project>
       <Name>PIT.Business.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PIT.Core\PIT.Core.csproj">
+      <Project>{DE5D3704-61DA-49F4-A9D9-82DEAFAC2333}</Project>
+      <Name>PIT.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

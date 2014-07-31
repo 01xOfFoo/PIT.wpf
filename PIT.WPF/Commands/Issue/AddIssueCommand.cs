@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
+using PIT.Business.Filter;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Projects;
@@ -14,6 +15,7 @@ namespace PIT.WPF.Commands.Issue
     {
         private readonly IIssueBusiness _issueBusiness;
         private readonly IIssueEditViewModel _issueEditViewModel;
+        private readonly IIssueFilter _issueFilter;
         private readonly IssueSelection _issueSelection;
         private readonly IViewModelFactory<IssueViewModel, Business.Entities.Issue> _issueViewModelFactory;
         private readonly ProjectSelection _projectSelection;
@@ -22,7 +24,7 @@ namespace PIT.WPF.Commands.Issue
         [ImportingConstructor]
         public AddIssueCommand(IWindowManager windowManager, IIssueBusiness issueBusiness, IssueSelection issueSelection,
             ProjectSelection projectSelection, IIssueEditViewModel issueEditViewModel,
-            IViewModelFactory<IssueViewModel, Business.Entities.Issue> issueViewModelFactory)
+            IViewModelFactory<IssueViewModel, Business.Entities.Issue> issueViewModelFactory, IIssueFilter issueFilter)
         {
             _windowManager = windowManager;
             _issueBusiness = issueBusiness;
@@ -30,6 +32,7 @@ namespace PIT.WPF.Commands.Issue
             _projectSelection = projectSelection;
             _issueViewModelFactory = issueViewModelFactory;
             _issueEditViewModel = issueEditViewModel;
+            _issueFilter = issueFilter;
         }
 
         public override void Execute(object parameter)
@@ -45,7 +48,7 @@ namespace PIT.WPF.Commands.Issue
             if (result != null && result == true)
             {
                 _issueBusiness.Create(issue.Issue);
-                _issueSelection.Issues.Add(issue);
+                _issueFilter.Absorb(issue.Issue, () => _issueSelection.Issues.Add(issue));
             }
             else
             {

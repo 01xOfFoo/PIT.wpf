@@ -122,10 +122,10 @@
     </UserControl.Resources>
     <Grid Background="#FFF3F5F5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <issues:IssueHeaderAreaView cal:View.Model="{Binding IssueHeaderView}"
+        <issues:IssueHeaderAreaView cal:View.Model="{Binding IssueHeader}"
                                     Grid.Row="0" />
         <Border Grid.Row="1"
                 Margin="15, 10, 15, 10"

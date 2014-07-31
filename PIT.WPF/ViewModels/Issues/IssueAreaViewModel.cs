@@ -51,7 +51,7 @@ namespace PIT.WPF.ViewModels.Issues
         }
 
         [Import]
-        public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
+        public IIssueHeaderAreaViewModel IssueHeader { get; set; }
 
         public ObservableCollection<IssueViewModel> Issues
         {

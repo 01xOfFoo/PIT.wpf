@@ -4,7 +4,7 @@ namespace PIT.WPF.ViewModels.Issues.Contracts
 {
     public interface IIssueAreaViewModel
     {
-        IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
+        IIssueHeaderAreaViewModel IssueHeader { get; set; }
         ObservableCollection<IssueViewModel> Issues { get; set; }
     }
 }

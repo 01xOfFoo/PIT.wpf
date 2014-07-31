@@ -37,7 +37,7 @@ namespace PIT.WPF.SampleData
         }
 
         public ICommand IssueDoubleClick { get; set; }
-        public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
+        public IIssueHeaderAreaViewModel IssueHeader { get; set; }
         public ObservableCollection<IssueViewModel> Issues { get; set; }
     }
 }

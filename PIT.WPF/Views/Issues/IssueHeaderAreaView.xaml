@@ -1,17 +1,160 @@
 ﻿<UserControl x:Class="PIT.WPF.Views.Issues.IssueHeaderAreaView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="300">
-    <Grid Background="White">
-        <Button Command="{Binding AddIssueCommand}" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sampledata="clr-namespace:PIT.WPF.SampleData"
+             xmlns:converter="clr-namespace:PIT.WPF.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="40" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance sampledata:SampleIssueHeaderAreaViewModel, IsDesignTimeCreatable=true}">
+    <UserControl.Resources>
+        <Style x:Key="RoundedToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="#FF666666" />
+            <Setter Property="TextElement.FontWeight" Value="Bold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="ButtonBorder"
+                                CornerRadius="3"
+                                BorderThickness="1"
+                                BorderBrush="Transparent">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                    <GradientStopCollection>
+                                        <GradientStop x:Name="ButtonGradientStart" Color="Transparent" Offset="0.0" />
+                                        <GradientStop x:Name="ButtonGradientStop" Color="Transparent" Offset="1.0" />
+                                    </GradientStopCollection>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ButtonBorder"
+                                                            Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                            To="#FFBCBCBC"
+                                                            Duration="0" />
+                                            <ColorAnimation Storyboard.TargetName="ButtonGradientStart"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#FFFFFFFF"
+                                                            Duration="0" />
+                                            <ColorAnimation Storyboard.TargetName="ButtonGradientStop"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#FFF7F7F7"
+                                                            Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ButtonBorder"
+                                                            Storyboard.TargetProperty="(Border.BorderBrush).Color"
+                                                            To="#FFBCBCBC"
+                                                            Duration="0" />
+                                            <ColorAnimation Storyboard.TargetName="ButtonGradientStart"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#FFFFFFFF"
+                                                            Duration="0" />
+                                            <ColorAnimation Storyboard.TargetName="ButtonGradientStop"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#FFF7F7F7"
+                                                            Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="StatusFilterListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border>
+                            <Border.Background>
+                                <SolidColorBrush x:Name="StatusItemBackground" Color="White" />
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonState">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="StatusItemBackground"
+                                                            Storyboard.TargetProperty="Color"
+                                                            To="#EAF1F8"
+                                                            Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0"
+                                          VerticalAlignment="Center"
+                                          Margin="30,0,0,0"
+                                          IsChecked="{Binding IsSelected}"
+                                          Content="{Binding Text}"
+                                          Width="Auto" />
+                                <!--                                <TextBlock Grid.Column="1"-->
+                                <!--                                           VerticalAlignment="Center"-->
+                                <!--                                           Padding="5,0,0,0"-->
+                                <!--                                           Text="{Binding Text}" />-->
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+              Margin="10,0,0,0"
+              Width="Auto">
+            <ToggleButton x:Name="Btn"
+                          Height="30"
+                          Focusable="false"
+                          IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={converter:BoolInverter}}"
+                          DataContext="{Binding Status}"
+                          Style="{StaticResource RoundedToggleButtonStyle}"
+                          HorizontalAlignment="Center"
+                          Content="{Binding DisplayText}"
+                          ContentStringFormat="  {0}  " />
+            <Popup x:Name="StatusFilterPopup"
+                   IsOpen="{Binding IsChecked, ElementName=Btn}"
+                   StaysOpen="false"
+                   Focusable="false">
+                <ItemsControl Background="Transparent">
+                    <ListView ItemsSource="{Binding Status}"
+                              Width="200"
+                              Focusable="false"
+                              BorderThickness="1"
+                              BorderBrush="#FFCCCCCC"
+                              Padding="0,15,0,15"
+                              Margin="0,0,0,0"
+                              ItemContainerStyle="{StaticResource StatusFilterListViewItemStyle}" />
+                </ItemsControl>
+            </Popup>
+        </Grid>
+        <Button Grid.Column="1"
+                Command="{Binding AddIssueCommand}"
                 Style="{StaticResource RoundedButtonStyle}"
-                HorizontalAlignment="Right" 
-                Width="100" 
-                Height="28" 
+                HorizontalAlignment="Right"
+                Width="100"
+                Height="28"
                 Content="Add issue"
-                Margin="0 0 15 0"/>
+                Margin="0 0 15 0" />
     </Grid>
 </UserControl>
