@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
@@ -12,7 +11,6 @@ using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Loaders.Contracts;
 using PIT.WPF.ViewModels.Issues.Contracts;
-using PIT.WPF.Views.Issues;
 
 namespace PIT.WPF.ViewModels.Issues
 {
@@ -20,7 +18,7 @@ namespace PIT.WPF.ViewModels.Issues
     public class IssueAreaViewModel : Screen, IIssueAreaViewModel, IDisposable
     {
         private readonly Disposer _disposer = new Disposer();
-        
+
         private readonly ICommand _editEditIssueCommand;
         private readonly ILoader<IssueViewModel, Issue> _issueLoader;
         private readonly IssueSelection _issueSelection;
@@ -47,6 +45,11 @@ namespace PIT.WPF.ViewModels.Issues
             get { return _editEditIssueCommand; }
         }
 
+        public void Dispose()
+        {
+            _disposer.Dispose();
+        }
+
         [Import]
         public IIssueHeaderAreaViewModel IssueHeaderView { get; set; }
 
@@ -61,22 +64,10 @@ namespace PIT.WPF.ViewModels.Issues
             NotifyOfPropertyChange(() => Issues);
         }
 
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void OnIssueDoubleClicked()
         {
-            if (e.ClickCount != 2)
-                return;
-            EditIssue.Execute(null);
-        }
-
-        protected override void OnViewAttached(object view, object context)
-        {
-            var issueAreaView = (IssueAreaView) view;
-            issueAreaView.PreviewMouseLeftButtonDown += OnMouseLeftButtonDown;
-        }
-
-        public void Dispose()
-        {
-            _disposer.Dispose();
+            if (_issueSelection.SelectedIssue != null)
+                EditIssue.Execute(null);
         }
     }
 }
