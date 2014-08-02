@@ -46,6 +46,7 @@
     <Compile Include="Contracts\IProjectFactory.cs" />
     <Compile Include="Contracts\IIssueFactory.cs" />
     <Compile Include="EntityHistory.cs" />
+    <Compile Include="Filter\Contracts\IIssueFilter.cs" />
     <Compile Include="Filter\IssueFilter.cs" />
     <Compile Include="IssueFactory.cs" />
     <Compile Include="ProjectFactory.cs" />

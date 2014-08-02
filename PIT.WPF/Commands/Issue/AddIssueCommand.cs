@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using PIT.Business.Filter;
+using PIT.Business.Filter.Contracts;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Projects;
@@ -48,7 +49,8 @@ namespace PIT.WPF.Commands.Issue
             if (result != null && result == true)
             {
                 _issueBusiness.Create(issue.Issue);
-                _issueFilter.Absorb(issue.Issue, () => _issueSelection.Issues.Add(issue));
+                if (!_issueFilter.Absorb(issue.Issue))
+                    _issueSelection.Issues.Add(issue);
             }
             else
             {

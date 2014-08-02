@@ -14,7 +14,11 @@ namespace PIT.WPF.SampleData
         {
             IEnumerable<IssueStatusViewModel> stati = (from IssueStatus e in Enum.GetValues(typeof(IssueStatus))
                 select new IssueStatusViewModel(e)).ToList();
-            Status = new IssueStatusListViewModel(stati);
+            Status = new IssueStatusListViewModel(null, null);
+            foreach (var status in stati)
+            {
+                Status.Add(status);
+            }
             Status[0].IsSelected = true;
         }
 

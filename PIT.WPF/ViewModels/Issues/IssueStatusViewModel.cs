@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using PIT.Business.Entities;
-using PIT.Business.Entities.Events.Issues;
-using PIT.Core;
 using PIT.WPF.Converters;
 
 namespace PIT.WPF.ViewModels.Issues
@@ -31,7 +29,6 @@ namespace PIT.WPF.ViewModels.Issues
             {
                 _isSelected = value;
                 OnPropertyChanged("IsSelected");
-                Events.Current.Publish(new FilterIssueStatus(Status, value));
             }
         }
 

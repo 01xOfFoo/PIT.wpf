@@ -65,7 +65,20 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0" HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                                <Polygon VerticalAlignment="Center" 
+                                         HorizontalAlignment="Center" 
+                                         Margin="0,2,0,0"
+                                         Width="15"
+                                         Grid.Column="1" Points="0,0 5,6, 10,0" Stroke="#9E9E9E" Fill="#3F3F3F"
+                                         UseLayoutRounding="true"/>
+                            </Grid>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -104,10 +117,6 @@
                                           IsChecked="{Binding IsSelected}"
                                           Content="{Binding Text}"
                                           Width="Auto" />
-                                <!--                                <TextBlock Grid.Column="1"-->
-                                <!--                                           VerticalAlignment="Center"-->
-                                <!--                                           Padding="5,0,0,0"-->
-                                <!--                                           Text="{Binding Text}" />-->
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -115,46 +124,49 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0"
-              Margin="10,0,0,0"
-              Width="Auto">
-            <ToggleButton x:Name="Btn"
-                          Height="30"
-                          Focusable="false"
-                          IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={converter:BoolInverter}}"
-                          DataContext="{Binding Status}"
-                          Style="{StaticResource RoundedToggleButtonStyle}"
-                          HorizontalAlignment="Center"
-                          Content="{Binding DisplayText}"
-                          ContentStringFormat="  {0}  " />
-            <Popup x:Name="StatusFilterPopup"
-                   IsOpen="{Binding IsChecked, ElementName=Btn}"
-                   StaysOpen="false"
-                   Focusable="false">
-                <ItemsControl Background="Transparent">
-                    <ListView ItemsSource="{Binding Status}"
-                              Width="200"
+    <Border BorderBrush="#E5E5E5"
+            BorderThickness="0,1,0,1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                  Margin="10,0,0,0"
+                  Width="Auto">
+                <ToggleButton x:Name="Btn"
+                              Height="30"
                               Focusable="false"
-                              BorderThickness="1"
-                              BorderBrush="#FFCCCCCC"
-                              Padding="0,15,0,15"
-                              Margin="0,0,0,0"
-                              ItemContainerStyle="{StaticResource StatusFilterListViewItemStyle}" />
-                </ItemsControl>
-            </Popup>
+                              IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={converter:BoolInverter}}"
+                              DataContext="{Binding Status}"
+                              Style="{StaticResource RoundedToggleButtonStyle}"
+                              HorizontalAlignment="Center"
+                              Content="{Binding DisplayText}"
+                              ContentStringFormat="  {0}  " />
+                <Popup x:Name="StatusFilterPopup"
+                       IsOpen="{Binding IsChecked, ElementName=Btn}"
+                       StaysOpen="false"
+                       Focusable="false">
+                    <ItemsControl Background="Transparent">
+                        <ListView ItemsSource="{Binding Status}"
+                                  Width="200"
+                                  Focusable="false"
+                                  BorderThickness="1"
+                                  BorderBrush="#FFCCCCCC"
+                                  Padding="0,15,0,15"
+                                  Margin="0,0,0,0"
+                                  ItemContainerStyle="{StaticResource StatusFilterListViewItemStyle}" />
+                    </ItemsControl>
+                </Popup>
+            </Grid>
+            <Button Grid.Column="1"
+                    Command="{Binding AddIssueCommand}"
+                    Style="{StaticResource RoundedButtonStyle}"
+                    HorizontalAlignment="Right"
+                    Width="100"
+                    Height="28"
+                    Content="Add issue"
+                    Margin="0 0 15 0" />
         </Grid>
-        <Button Grid.Column="1"
-                Command="{Binding AddIssueCommand}"
-                Style="{StaticResource RoundedButtonStyle}"
-                HorizontalAlignment="Right"
-                Width="100"
-                Height="28"
-                Content="Add issue"
-                Margin="0 0 15 0" />
-    </Grid>
+    </Border>
 </UserControl>

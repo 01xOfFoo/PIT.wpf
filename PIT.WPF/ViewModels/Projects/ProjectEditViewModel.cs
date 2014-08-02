@@ -11,7 +11,6 @@ namespace PIT.WPF.ViewModels.Projects
     [Export(typeof(IProjectEditViewModel))]
     public class ProjectEditViewModel : Screen, IProjectEditViewModel, IDisposable
     {
-        private readonly IProjectBusiness _projectBusiness;
         private readonly ProjectSelection _projectSelection;
         private Window _attachedView;
         private ProjectViewModel _projectViewModel;
@@ -19,8 +18,6 @@ namespace PIT.WPF.ViewModels.Projects
         [ImportingConstructor]
         public ProjectEditViewModel(IProjectBusiness projectBusiness, ProjectSelection projectSelection)
         {
-            _projectBusiness = projectBusiness;
-
             _projectSelection = projectSelection;
             _projectSelection.ProjectChanged += OnProjectChanged;
         }

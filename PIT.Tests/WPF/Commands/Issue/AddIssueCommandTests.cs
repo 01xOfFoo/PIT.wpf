@@ -1,7 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using System.Linq;
+using Caliburn.Micro;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PIT.Business.Filter;
+using PIT.Business.Filter.Contracts;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
@@ -21,7 +23,7 @@ namespace PIT.Tests.WPF.Commands.Issue
         private Mock<IIssueBusiness> _issueBusiness;
         private Mock<IIssueEditViewModel> _issueEditViewModelMock;
         private Mock<IIssueFilter> _issueFilter;
-        private Mock<IssueSelection> _issueSelection;
+        private IssueSelection _issueSelection;
         private Mock<IViewModelFactory<IssueViewModel, PIT.Business.Entities.Issue>> _issueViewModelFactory;
         private Mock<ProjectSelection> _projectSelection;
         private Mock<IWindowManager> _windowManager;
@@ -41,7 +43,7 @@ namespace PIT.Tests.WPF.Commands.Issue
                     Issue = new PIT.Business.Entities.Issue()
                 });
 
-            _issueSelection = new Mock<IssueSelection>();
+            _issueSelection = new IssueSelection();
 
             _projectSelection = new Mock<ProjectSelection>();
             _projectSelection.Object.SelectedProject = new ProjectViewModel
@@ -49,7 +51,7 @@ namespace PIT.Tests.WPF.Commands.Issue
                 Project = new PIT.Business.Entities.Project()
             };
 
-            _command = new AddIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection.Object,
+            _command = new AddIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection,
                 _projectSelection.Object, _issueEditViewModelMock.Object, _issueViewModelFactory.Object,
                 _issueFilter.Object);
         }
@@ -74,7 +76,7 @@ namespace PIT.Tests.WPF.Commands.Issue
             _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(true);
             _command.Execute(null);
             _issueBusiness.Verify(b => b.Create(It.IsAny<PIT.Business.Entities.Issue>()));
-            _issueFilter.Verify(f => f.Absorb(It.IsAny<PIT.Business.Entities.Issue>(), It.IsAny<Action>()));
+            _issueFilter.Verify(f => f.Absorb(It.IsAny<PIT.Business.Entities.Issue>()));
         }
 
         [TestMethod]
@@ -82,7 +84,16 @@ namespace PIT.Tests.WPF.Commands.Issue
         {
             _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(false);
             _command.Execute(null);
-            Assert.IsNull(_issueSelection.Object.SelectedIssue);
+            Assert.IsNull(_issueSelection.SelectedIssue);
+        }
+
+        [TestMethod]
+        public void DoesntAddIssueIfFilterDoesntAbsorb()
+        {
+            _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(true);
+            _issueFilter.Setup(f => f.Absorb(It.IsAny<PIT.Business.Entities.Issue>())).Returns(true);
+            _command.Execute(null);
+            Assert.IsFalse(_issueSelection.Issues.Any());
         }
     }
 }

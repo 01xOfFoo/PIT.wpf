@@ -93,6 +93,7 @@
     <Compile Include="Business.Service\IssueBusinessTests.cs" />
     <Compile Include="Business\EntityHistoryTests.cs" />
     <Compile Include="Business\IssueFactoryTests.cs" />
+    <Compile Include="Business\IssueFilterTests.cs" />
     <Compile Include="Core\EventsTests.cs" />
     <Compile Include="Core\DisposerTests.cs" />
     <Compile Include="WPF\Commands\Issue\AddIssueCommandTests.cs" />

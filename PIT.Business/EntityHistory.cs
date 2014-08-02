@@ -33,5 +33,13 @@ namespace PIT.Business
             foreach (var pair in _values)
                 pair.Key.SetValue(_entity, pair.Value, null);   
         }
+
+        public bool ValueChanged(string propertyName)
+        {
+            var prop = _values.FirstOrDefault(k => k.Key.Name == propertyName);
+            var prop2 = typeof (T).GetProperty(propertyName);
+
+            return !prop.Value.Equals(prop2.GetValue(_entity, null));
+        }
     }
 }
