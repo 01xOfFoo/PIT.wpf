@@ -3,4 +3,6 @@
                     xmlns:pit="clr-namespace:PIT.WPF.Converters">
     <pit:EnumToArrayConverter x:Key="EnumToArrayConverter"/>
     <pit:EnumToStringConverter x:Key="EnumToStringConverter"/>
+    <pit:BoolInverter x:Key="BoolInverter"/>
+    <pit:BoolToVisibleCollapsedConverter x:Key="BoolToVisibleCollapsedConverter"/>
 </ResourceDictionary>

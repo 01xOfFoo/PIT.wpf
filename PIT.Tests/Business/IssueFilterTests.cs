@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Forms.VisualStyles;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,27 +31,19 @@ namespace PIT.Tests.Business
         }
 
         [TestMethod]
-        public void AbsorbsIssueIfStatusIsNotInList()
+        public void MatchesFilter()
         {
-            _filter.AddFilter(IssueStatus.Assigned);
-
-            var absorb = _filter.Absorb(new Issue(){Status = IssueStatus.Done});
-            Assert.AreEqual(true, absorb);
+            _filter.AddFilter(IssueStatus.Done);
+            var match = _filter.Match(new Issue(){Status = IssueStatus.Done});
+            Assert.AreEqual(true, match);
         }
 
         [TestMethod]
-        public void AppliesFilterOntoList()
+        public void DoesntMatchFilterIfStatusIsNotInList()
         {
-            _filter.AddFilter(IssueStatus.Assigned);
-
-            var issues = new List<Issue>
-            {
-                new Issue() {Status = IssueStatus.Assigned},
-                new Issue() {Status = IssueStatus.Done}
-            };
-
-            var filteredIssues = _filter.Filter(issues);
-            Assert.AreEqual(1, filteredIssues.Count());
+            _filter.AddFilter(IssueStatus.Done);
+            var match = _filter.Match(new Issue() { Status = IssueStatus.Assigned });
+            Assert.AreEqual(false, match);
         }
     }
 }

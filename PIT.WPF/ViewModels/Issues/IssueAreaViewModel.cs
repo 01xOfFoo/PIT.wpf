@@ -9,8 +9,9 @@ using PIT.Business.Entities.Events.Issues;
 using PIT.Core;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
-using PIT.WPF.Models.Loaders.Contracts;
+using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Issues.Contracts;
+using PIT.WPF.ViewModels.Projects;
 
 namespace PIT.WPF.ViewModels.Issues
 {
@@ -20,18 +21,23 @@ namespace PIT.WPF.ViewModels.Issues
         private readonly Disposer _disposer = new Disposer();
 
         private readonly ICommand _editEditIssueCommand;
-        private readonly ILoader<IssueViewModel, Issue> _issueLoader;
+        private readonly IIssueCollection _issueCollection;
         private readonly IssueSelection _issueSelection;
+        private readonly ProjectSelection _projectSelection;
 
         [ImportingConstructor]
-        public IssueAreaViewModel(ILoader<IssueViewModel, Issue> issueLoader,
+        public IssueAreaViewModel(IIssueCollection issueCollection, ProjectSelection projectSelection,
             IssueSelection issueSelection, EditIssueCommand editEditIssueCommand)
         {
-            _editEditIssueCommand = editEditIssueCommand;
-            _issueLoader = issueLoader;
-
             _issueSelection = issueSelection;
-            _disposer.Add(Events.Current.OfType<IssuesLoaded>().Subscribe(e => OnIssuesLoaded(e)));
+            _editEditIssueCommand = editEditIssueCommand;
+
+            _issueCollection = issueCollection;
+            Issues = _issueCollection.Items;
+
+            _projectSelection = projectSelection;
+            _projectSelection.ProjectChanged += OnProjectChanged;
+            _disposer.Add(Events.Current.OfType<IssueStatusFiltered>().Subscribe(e => OnIssueStatusFilterChanged()));
         }
 
         public IssueViewModel Issue
@@ -47,19 +53,36 @@ namespace PIT.WPF.ViewModels.Issues
 
         public void Dispose()
         {
+            _projectSelection.ProjectChanged -= OnProjectChanged;
             _disposer.Dispose();
         }
 
         [Import]
         public IIssueHeaderAreaViewModel IssueHeader { get; set; }
 
-        public ObservableCollection<IssueViewModel> Issues
+        public ObservableCollection<IssueViewModel> Issues { get; set; }
+
+        private void OnIssueStatusFilterChanged()
         {
-            get { return _issueSelection.Issues; }
-            set { throw new NotImplementedException(); }
+            LoadIssuesOfCurrentProject();
         }
 
-        private void OnIssuesLoaded(IssuesLoaded issuesLoaded)
+        private void LoadIssuesOfCurrentProject()
+        {
+            LoadIssues(_projectSelection.SelectedProject.Project);
+        }
+
+        private void OnProjectChanged(object sender, ProjectViewModel projectViewModel)
+        {
+            LoadIssues(projectViewModel.Project);
+        }
+
+        private void LoadIssues(Project project)
+        {
+            _issueCollection.Load(project);
+        }
+
+        private void OnIssuesLoaded()
         {
             NotifyOfPropertyChange(() => Issues);
         }

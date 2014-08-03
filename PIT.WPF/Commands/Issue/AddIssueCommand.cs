@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
-using PIT.Business.Filter;
-using PIT.Business.Filter.Contracts;
 using PIT.Business.Service.Contracts;
+using PIT.Core;
 using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Contracts;
@@ -16,7 +15,6 @@ namespace PIT.WPF.Commands.Issue
     {
         private readonly IIssueBusiness _issueBusiness;
         private readonly IIssueEditViewModel _issueEditViewModel;
-        private readonly IIssueFilter _issueFilter;
         private readonly IssueSelection _issueSelection;
         private readonly IViewModelFactory<IssueViewModel, Business.Entities.Issue> _issueViewModelFactory;
         private readonly ProjectSelection _projectSelection;
@@ -25,7 +23,7 @@ namespace PIT.WPF.Commands.Issue
         [ImportingConstructor]
         public AddIssueCommand(IWindowManager windowManager, IIssueBusiness issueBusiness, IssueSelection issueSelection,
             ProjectSelection projectSelection, IIssueEditViewModel issueEditViewModel,
-            IViewModelFactory<IssueViewModel, Business.Entities.Issue> issueViewModelFactory, IIssueFilter issueFilter)
+            IViewModelFactory<IssueViewModel, Business.Entities.Issue> issueViewModelFactory)
         {
             _windowManager = windowManager;
             _issueBusiness = issueBusiness;
@@ -33,24 +31,22 @@ namespace PIT.WPF.Commands.Issue
             _projectSelection = projectSelection;
             _issueViewModelFactory = issueViewModelFactory;
             _issueEditViewModel = issueEditViewModel;
-            _issueFilter = issueFilter;
         }
 
         public override void Execute(object parameter)
         {
-            IssueViewModel oldIssue = _issueSelection.SelectedIssue;
+            var oldIssue = _issueSelection.SelectedIssue;
 
-            IssueViewModel issue = _issueViewModelFactory.CreateViewModel(null);
+            var issue = _issueViewModelFactory.CreateViewModel(null);
             issue.Issue.Project = _projectSelection.SelectedProject.Project;
 
             _issueSelection.SelectedIssue = issue;
 
-            bool? result = _windowManager.ShowDialog(_issueEditViewModel);
+            var result = _windowManager.ShowDialog(_issueEditViewModel);
             if (result != null && result == true)
             {
                 _issueBusiness.Create(issue.Issue);
-                if (!_issueFilter.Absorb(issue.Issue))
-                    _issueSelection.Issues.Add(issue);
+                Events.Current.Publish(issue.Issue);
             }
             else
             {

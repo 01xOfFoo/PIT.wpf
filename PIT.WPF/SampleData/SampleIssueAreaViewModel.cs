@@ -16,23 +16,23 @@ namespace PIT.WPF.SampleData
             Issues = new ObservableCollection<IssueViewModel>
             {
                 new IssueViewModel
-                {
-                    Issue = new Issue
+                (
+                    new Issue
                     {
                         Short = "Short1",
                         Description = "Description 1",
                         Status = IssueStatus.Open
                     }
-                },
+                ),
                 new IssueViewModel
-                {
-                    Issue = new Issue
+                (
+                    new Issue
                     {
                         Short = "Short2",
                         Description = "Description 2",
                         Status = IssueStatus.ReadyForTesting
                     }
-                }
+                )
             };
         }
 

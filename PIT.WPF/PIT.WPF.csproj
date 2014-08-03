@@ -94,16 +94,20 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Issue\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Converters\BoolToVisibleCollapsedConverter.cs" />
     <Compile Include="Converters\BoolInverter.cs" />
     <Compile Include="Converters\EnumExtension.cs" />
     <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="Models\Issues\Contracts\IIssueCollection.cs" />
+    <Compile Include="Models\Issues\IssueCollection.cs" />
     <Compile Include="Models\Loaders\Contracts\ILoader.cs" />
-    <Compile Include="Models\Loaders\IssuesLoader.cs" />
     <Compile Include="Models\Loaders\Loader.cs" />
     <Compile Include="Models\Loaders\ProjectsLoader.cs" />
     <Compile Include="Models\Projects\Contracts\IProjectsLoader.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\Issues\IssueStatusListViewModel.cs" />
+    <Compile Include="SampleData\SampleIssueStatusFilterViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Contracts\IIssueStatusFilterViewModel.cs" />
+    <Compile Include="ViewModels\Issues\IssueStatusFilterViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueStatusViewModel.cs" />
     <Compile Include="SampleData\SampleIssueHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Contracts\IViewModelFactory.cs" />
@@ -160,6 +164,9 @@
     <Compile Include="Views\Issues\IssueHeaderAreaView.xaml.cs">
       <DependentUpon>IssueHeaderAreaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Issues\IssueStatusFilterView.xaml.cs">
+      <DependentUpon>IssueStatusFilterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectAreaView.xaml.cs">
       <DependentUpon>ProjectAreaView.xaml</DependentUpon>
     </Compile>
@@ -206,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Issues\IssueHeaderAreaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Issues\IssueStatusFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

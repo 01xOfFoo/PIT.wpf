@@ -125,7 +125,7 @@
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <issues:IssueHeaderAreaView cal:View.Model="{Binding IssueHeader}"
+        <issues:IssueHeaderAreaView DataContext="{Binding IssueHeader}"
                                     Grid.Row="0" />
         <Border Grid.Row="1"
                 Margin="15, 10, 15, 10"

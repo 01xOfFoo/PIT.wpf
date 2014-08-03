@@ -19,18 +19,16 @@ namespace PIT.Business.Filter
         {
         }
 
-        public IEnumerable<Issue> Filter(IEnumerable<Issue> issues)
+        public bool Match(Issue issue)
         {
-            IEnumerable<Issue> filteredIssues = issues;
-            if (_filters.Any())
-                filteredIssues = filteredIssues.Where(i => _filters.Contains(i.Status));
-
-            return filteredIssues;
-        }
-
-        public bool Absorb(Issue issue)
-        {
-            return !_filters.Any() | !_filters.Contains(issue.Status);
+            if (!_filters.Any())
+            {
+                return true;
+            }
+            else
+            {
+                return _filters.Contains(issue.Status);
+            }
         }
 
         public void AddFilter(IssueStatus status)

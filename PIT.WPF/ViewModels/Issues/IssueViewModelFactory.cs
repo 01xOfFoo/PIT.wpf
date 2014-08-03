@@ -19,7 +19,7 @@ namespace PIT.WPF.ViewModels.Issues
         public IssueViewModel CreateViewModel(Issue entity)
         {
             Issue issue = entity ?? _issueFactory.CreateIssue();
-            return new IssueViewModel {Issue = issue};
+            return new IssueViewModel(issue);
         }
     }
 }

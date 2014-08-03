@@ -1,9 +1,15 @@
-﻿using PIT.Business.Entities;
+﻿using PIT.Business;
+using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels.Issues
 {
     public class IssueViewModel : ViewModel<Issue>
     {
+        public IssueViewModel(Issue issue)
+        {
+            Issue = issue;
+        }
+
         public Issue Issue { get; set; }
 
         public int Id

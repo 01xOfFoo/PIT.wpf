@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerableExtension.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="IEvents.cs" />
     <Compile Include="ObservableCollectionEx.cs" />

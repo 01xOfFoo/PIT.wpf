@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sampledata="clr-namespace:PIT.WPF.SampleData"
-             xmlns:converter="clr-namespace:PIT.WPF.Converters"
+             xmlns:views="clr-namespace:PIT.WPF.Views.Issues"
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance sampledata:SampleIssueHeaderAreaViewModel, IsDesignTimeCreatable=true}">
@@ -84,45 +84,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="StatusFilterListViewItemStyle" TargetType="ListViewItem">
-            <Setter Property="Height" Value="25" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListViewItem">
-                        <Border>
-                            <Border.Background>
-                                <SolidColorBrush x:Name="StatusItemBackground" Color="White" />
-                            </Border.Background>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonState">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="StatusItemBackground"
-                                                            Storyboard.TargetProperty="Color"
-                                                            To="#EAF1F8"
-                                                            Duration="0" />
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <CheckBox Grid.Column="0"
-                                          VerticalAlignment="Center"
-                                          Margin="30,0,0,0"
-                                          IsChecked="{Binding IsSelected}"
-                                          Content="{Binding Text}"
-                                          Width="Auto" />
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
     <Border BorderBrush="#E5E5E5"
             BorderThickness="0,1,0,1">
@@ -137,8 +98,8 @@
                 <ToggleButton x:Name="Btn"
                               Height="30"
                               Focusable="false"
-                              IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={converter:BoolInverter}}"
-                              DataContext="{Binding Status}"
+                              IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={StaticResource BoolInverter}}"
+                              DataContext="{Binding IssueStatusFilter}"
                               Style="{StaticResource RoundedToggleButtonStyle}"
                               HorizontalAlignment="Center"
                               Content="{Binding DisplayText}"
@@ -147,16 +108,7 @@
                        IsOpen="{Binding IsChecked, ElementName=Btn}"
                        StaysOpen="false"
                        Focusable="false">
-                    <ItemsControl Background="Transparent">
-                        <ListView ItemsSource="{Binding Status}"
-                                  Width="200"
-                                  Focusable="false"
-                                  BorderThickness="1"
-                                  BorderBrush="#FFCCCCCC"
-                                  Padding="0,15,0,15"
-                                  Margin="0,0,0,0"
-                                  ItemContainerStyle="{StaticResource StatusFilterListViewItemStyle}" />
-                    </ItemsControl>
+                    <views:IssueStatusFilter DataContext="{Binding IssueStatusFilter}"/>
                 </Popup>
             </Grid>
             <Button Grid.Column="1"

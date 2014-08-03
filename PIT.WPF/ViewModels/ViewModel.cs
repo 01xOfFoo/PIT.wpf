@@ -1,4 +1,6 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using System.Collections;
+using Caliburn.Micro;
 using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels

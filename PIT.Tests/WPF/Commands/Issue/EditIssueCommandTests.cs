@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PIT.Business.Entities;
-using PIT.Business.Filter.Contracts;
 using PIT.Business.Service.Contracts;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
@@ -20,7 +17,6 @@ namespace PIT.Tests.WPF.Commands.Issue
         private Mock<IIssueEditViewModel> _issueEditViewModel;
         private IssueSelection _issueSelection;
         private Mock<IWindowManager> _windowManager;
-        private Mock<IIssueFilter> _issueFilter;
 
         [TestInitialize]
         public void SetUp()
@@ -31,19 +27,11 @@ namespace PIT.Tests.WPF.Commands.Issue
 
             _issueSelection = new IssueSelection();
 
-            var issue = new IssueViewModel
-            {
-                Issue = new PIT.Business.Entities.Issue
-                {
-                    Short = "short"
-                }
-            };
+            var issue = new IssueViewModel(new PIT.Business.Entities.Issue {Short = "short"});
             _issueSelection.Issues.Add(issue);
             _issueSelection.SelectedIssue = issue;
 
-            _issueFilter = new Mock<IIssueFilter>();
-
-            _command = new EditIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueFilter.Object, _issueSelection,
+            _command = new EditIssueCommand(_windowManager.Object, _issueBusiness.Object, _issueSelection,
                 _issueEditViewModel.Object);
         }
 
@@ -71,15 +59,6 @@ namespace PIT.Tests.WPF.Commands.Issue
             _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(true);
             _command.Execute(null);
             _issueBusiness.Verify(b => b.Update(It.IsAny<PIT.Business.Entities.Issue>()));
-        }
-
-        [TestMethod]
-        public void RemovesIssueFromListIfFilterAbsorbs()
-        {
-            _windowManager.Setup(w => w.ShowDialog(It.IsAny<object>(), null, null)).Returns(true).Callback(() => _issueSelection.SelectedIssue.Status = IssueStatus.Done);
-            _issueFilter.Setup(f => f.Absorb(It.IsAny<PIT.Business.Entities.Issue>())).Returns(true);
-            _command.Execute(null);
-            Assert.IsFalse(_issueSelection.Issues.Any());
         }
     }
 }

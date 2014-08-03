@@ -7,8 +7,8 @@ namespace PIT.Business
 {
     public class EntityHistory<T> where T : class
     {
+        private readonly Dictionary<PropertyInfo, object> _values = new Dictionary<PropertyInfo, object>();
         private T _entity;
-        private readonly Dictionary<PropertyInfo, object> _values = new Dictionary<PropertyInfo, object>(); 
 
         public EntityHistory(T entity)
         {
@@ -23,7 +23,8 @@ namespace PIT.Business
             _entity = entity;
             _values.Clear();
 
-            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
+            var properties =
+                typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanRead && p.CanWrite);
             foreach (var prop in properties)
                 _values[prop] = prop.GetValue(_entity, null);
         }
@@ -31,13 +32,13 @@ namespace PIT.Business
         public void Restore()
         {
             foreach (var pair in _values)
-                pair.Key.SetValue(_entity, pair.Value, null);   
+                pair.Key.SetValue(_entity, pair.Value, null);
         }
 
         public bool ValueChanged(string propertyName)
         {
             var prop = _values.FirstOrDefault(k => k.Key.Name == propertyName);
-            var prop2 = typeof (T).GetProperty(propertyName);
+            var prop2 = typeof(T).GetProperty(propertyName);
 
             return !prop.Value.Equals(prop2.GetValue(_entity, null));
         }

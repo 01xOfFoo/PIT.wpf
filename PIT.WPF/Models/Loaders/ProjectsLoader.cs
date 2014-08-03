@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using PIT.Business.Entities;
 using PIT.Business.Entities.Events.Projects;
@@ -27,6 +28,11 @@ namespace PIT.WPF.Models.Loaders
         protected override void SetCollection(ObservableCollection<ProjectViewModel> collection)
         {
             _projectSelection.Projects = collection;
+        }
+
+        public override void Load()
+        {
+            base.Load();
             Events.Current.Publish(new ProjectsLoaded());
         }
     }
