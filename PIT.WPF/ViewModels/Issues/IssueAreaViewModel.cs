@@ -2,16 +2,20 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
+using System.Windows;
 using System.Windows.Input;
 using Caliburn.Micro;
+using Microsoft.Practices.ServiceLocation;
 using PIT.Business.Entities;
 using PIT.Business.Entities.Events.Issues;
 using PIT.Core;
 using PIT.WPF.Commands.Issue;
 using PIT.WPF.Models.Issues;
+using PIT.WPF.Models.Issues.Contracts;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Issues.Contracts;
 using PIT.WPF.ViewModels.Projects;
+using PIT.WPF.Views.Issues;
 
 namespace PIT.WPF.ViewModels.Issues
 {
@@ -82,15 +86,22 @@ namespace PIT.WPF.ViewModels.Issues
             _issueCollection.Load(project);
         }
 
-        private void OnIssuesLoaded()
-        {
-            NotifyOfPropertyChange(() => Issues);
-        }
-
         public void OnIssueDoubleClicked()
         {
             if (_issueSelection.SelectedIssue != null)
                 EditIssue.Execute(null);
+        }
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            BindContextMenu((IssueAreaView) view);
+        }
+
+        private void BindContextMenu(IssueAreaView view)
+        {
+            var instance = ServiceLocator.Current.GetInstance<IIssueCommands>();
+            ViewModelBinder.Bind(instance, (DependencyObject)view.FindResource("IssueContextMenu"), null);
+           
         }
     }
 }

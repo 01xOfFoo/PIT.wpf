@@ -55,6 +55,7 @@
         <Style x:Key="IssueItemStyle" TargetType="ListViewItem">
             <Setter Property="Height" Value="23" />
             <Setter Property="cal:Message.Attach" Value="[Event MouseDoubleClick] = [Action OnIssueDoubleClicked()]" />
+            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource IssueContextMenu}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">

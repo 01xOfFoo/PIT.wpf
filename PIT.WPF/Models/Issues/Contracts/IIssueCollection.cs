@@ -1,9 +1,8 @@
-﻿
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Issues;
 
-namespace PIT.WPF.Models.Issues
+namespace PIT.WPF.Models.Issues.Contracts
 {
     public interface IIssueCollection
     {

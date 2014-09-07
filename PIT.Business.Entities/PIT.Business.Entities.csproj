@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity.cs" />
+    <Compile Include="Events\Issues\IssueDeleted.cs" />
     <Compile Include="Events\Issues\IssueStatusFiltered.cs" />
     <Compile Include="Events\Projects\ProjectDeleted.cs" />
     <Compile Include="Events\Projects\ProjectEvent.cs" />

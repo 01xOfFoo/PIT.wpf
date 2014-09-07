@@ -4,9 +4,11 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive.Linq;
 using PIT.Business.Entities;
+using PIT.Business.Entities.Events.Issues;
 using PIT.Business.Filter.Contracts;
 using PIT.Business.Service.Contracts;
 using PIT.Core;
+using PIT.WPF.Models.Issues.Contracts;
 using PIT.WPF.ViewModels.Contracts;
 using PIT.WPF.ViewModels.Issues;
 
@@ -31,6 +33,13 @@ namespace PIT.WPF.Models.Issues
             Items = new ObservableCollection<IssueViewModel>();
 
             _disposer.Add(Events.Current.OfType<Issue>().Subscribe(i => OnIssueUpdate(i)));
+            _disposer.Add(Events.Current.OfType<IssueDeleted>().Subscribe(i => OnIssueDeleted(i)));
+        }
+
+        private void OnIssueDeleted(IssueDeleted issueDeleted)
+        {
+            var issue = Items.FirstOrDefault(i => i.Issue == issueDeleted.Issue);
+            Items.Remove(issue);
         }
 
         public void Dispose()

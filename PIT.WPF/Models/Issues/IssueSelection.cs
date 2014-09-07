@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using PIT.WPF.Models.Issues.Contracts;
 using PIT.WPF.ViewModels.Issues;
 
 namespace PIT.WPF.Models.Issues

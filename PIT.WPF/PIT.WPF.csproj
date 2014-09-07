@@ -94,6 +94,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Issue\AddIssueCommand.cs" />
     <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\Issue\DeleteIssueCommand.cs" />
+    <Compile Include="Commands\Issue\IIssueCommands.cs" />
+    <Compile Include="Commands\Issue\IssueCommands.cs" />
     <Compile Include="Converters\BoolToVisibleCollapsedConverter.cs" />
     <Compile Include="Converters\BoolInverter.cs" />
     <Compile Include="Converters\EnumExtension.cs" />

@@ -4,4 +4,8 @@
         <MenuItem Header="Edit project" Command="{Binding EditProject}"/>
         <MenuItem Header="Delete project" Command="{Binding DeleteProject}"/>
     </ContextMenu>
+    <ContextMenu x:Key="IssueContextMenu">
+        <MenuItem Header="Edit issue" Command="{Binding EditIssue}"/>
+        <MenuItem Header="Delete issue" Command="{Binding DeleteIssue}"/>
+    </ContextMenu>
 </ResourceDictionary>
