@@ -28,8 +28,8 @@
         <projects:ProjectAreaView cal:View.Model="{Binding Projects}"
                      Grid.Row="1"
                      Grid.Column="0"/>
-        <issues:IssueAreaView cal:View.Model="{Binding Issues}"
-                             Grid.Column="1"
-                             Grid.Row="1"/>
+        <ContentControl cal:View.Model="{Binding Content}"
+                        Grid.Column="1"
+                        Grid.Row="1"/>
     </Grid>
 </Window>

@@ -170,6 +170,9 @@
     <Compile Include="Views\Issues\IssueStatusFilterView.xaml.cs">
       <DependentUpon>IssueStatusFilterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Issues\IssueView.xaml.cs">
+      <DependentUpon>IssueView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Projects\ProjectAreaView.xaml.cs">
       <DependentUpon>ProjectAreaView.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Issues\IssueStatusFilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Issues\IssueView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

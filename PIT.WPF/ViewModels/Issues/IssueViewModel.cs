@@ -1,5 +1,4 @@
-﻿using PIT.Business;
-using PIT.Business.Entities;
+﻿using PIT.Business.Entities;
 
 namespace PIT.WPF.ViewModels.Issues
 {

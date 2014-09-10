@@ -11,6 +11,13 @@ namespace PIT.WPF.Core
     	private double _primaryScreenWidth;
 		private double _primaryScreenHeight;
 
+        public event EventHandler<object> OnActivatePage;
+
+        public void ActivatePage(object page)
+        {
+            OnActivatePage(this, page);
+        }
+
         public void ApplyScreenBoundaries(double screenWidht, double screenheight)
         {
             _primaryScreenWidth = screenWidht;
