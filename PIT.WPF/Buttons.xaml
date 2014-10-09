@@ -42,4 +42,34 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="EdgedButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border>
+                        <Border.Background>
+                            <SolidColorBrush Color="#72A014" x:Name="ButtonBackground"/>
+                        </Border.Background>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Selected" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="ButtonBackground" 
+                                                                    Storyboard.TargetProperty="Color" 
+                                                                    To="#9CCD0A" 
+                                                                    Duration="0:0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

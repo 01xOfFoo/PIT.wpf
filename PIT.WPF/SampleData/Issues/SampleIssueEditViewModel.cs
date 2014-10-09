@@ -1,7 +1,7 @@
 ﻿using System;
 using PIT.Business.Entities;
 
-namespace PIT.WPF.SampleData
+namespace PIT.WPF.SampleData.Issues
 {
     internal class SampleIssueEditViewModel
     {

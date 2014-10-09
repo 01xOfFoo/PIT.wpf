@@ -17,9 +17,6 @@ namespace PIT.WPF.ViewModels.Issues
             _addIssueCommand = addIssueCommand;
         }
 
-        [Import]
-        public IIssueStatusFilterViewModel IssueStatusFilter { get; set; }
-
         public AddIssueCommand AddIssueCommand
         {
             get { return _addIssueCommand; }

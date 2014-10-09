@@ -5,8 +5,9 @@ using Caliburn.Micro;
 using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Issues;
 using PIT.WPF.ViewModels.Issues.Contracts;
+using PIT.WPF.ViewModels.Issues.Filters.Contracts;
 
-namespace PIT.WPF.SampleData
+namespace PIT.WPF.SampleData.Issues
 {
     [ExcludeFromCodeCoverage]
     internal class SampleIssueAreaViewModel : PropertyChangedBase, IIssueAreaViewModel
@@ -38,6 +39,7 @@ namespace PIT.WPF.SampleData
 
         public ICommand IssueDoubleClick { get; set; }
         public IIssueHeaderAreaViewModel IssueHeader { get; set; }
+        public IIssueFilterAreaViewModel IssueFilter { get; set; }
         public ObservableCollection<IssueViewModel> Issues { get; set; }
     }
 }

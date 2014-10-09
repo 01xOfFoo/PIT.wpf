@@ -44,7 +44,7 @@ namespace PIT.WPF.ViewModels
         private void DetermineWindowLocation()
         {
             _windowManager.ApplyScreenBoundaries(SystemParameters.PrimaryScreenWidth, SystemParameters.PrimaryScreenHeight);
-            _windowLocation = _windowManager.GetCenteredWindowLocation(1100, 700);
+            _windowLocation = _windowManager.GetCenteredWindowLocation(1600, 900);
         }
 
         protected override void OnViewAttached(object view, object context)

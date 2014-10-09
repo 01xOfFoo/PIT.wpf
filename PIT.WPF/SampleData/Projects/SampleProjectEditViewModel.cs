@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using PIT.WPF.ViewModels.Projects;
 
-namespace PIT.WPF.SampleData
+namespace PIT.WPF.SampleData.Projects
 {
     [ExcludeFromCodeCoverage]
     class SampleProjectEditViewModel

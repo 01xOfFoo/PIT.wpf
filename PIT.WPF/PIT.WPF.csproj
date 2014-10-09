@@ -99,8 +99,10 @@
     <Compile Include="Commands\Issue\IssueCommands.cs" />
     <Compile Include="Converters\BoolToVisibleCollapsedConverter.cs" />
     <Compile Include="Converters\BoolInverter.cs" />
-    <Compile Include="Converters\EnumExtension.cs" />
+    <Compile Include="Helper\EnumExtension.cs" />
     <Compile Include="Converters\EnumToStringConverter.cs" />
+    <Compile Include="Converters\IssueStatusToColorConverter.cs" />
+    <Compile Include="Filters\FiltersViewModelProvider.cs" />
     <Compile Include="Models\Issues\Contracts\IIssueCollection.cs" />
     <Compile Include="Models\Issues\IssueCollection.cs" />
     <Compile Include="Models\Loaders\Contracts\ILoader.cs" />
@@ -108,12 +110,23 @@
     <Compile Include="Models\Loaders\ProjectsLoader.cs" />
     <Compile Include="Models\Projects\Contracts\IProjectsLoader.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="SampleData\SampleIssueStatusFilterViewModel.cs" />
-    <Compile Include="ViewModels\Issues\Contracts\IIssueStatusFilterViewModel.cs" />
-    <Compile Include="ViewModels\Issues\IssueStatusFilterViewModel.cs" />
-    <Compile Include="ViewModels\Issues\IssueStatusViewModel.cs" />
-    <Compile Include="SampleData\SampleIssueHeaderAreaViewModel.cs" />
+    <Compile Include="SampleData\Header\SampleHeaderAreaViewModel.cs" />
+    <Compile Include="SampleData\Issues\Filters\SampleIssueAllFiltersAreaViewModel.cs" />
+    <Compile Include="SampleData\Issues\Filters\SampleIssueStatusFilterViewModel.cs" />
+    <Compile Include="SampleData\Issues\SampleIssueAreaViewModel.cs" />
+    <Compile Include="SampleData\Issues\SampleIssueEditViewModel.cs" />
+    <Compile Include="SampleData\Issues\SampleIssueHeaderAreaViewModel.cs" />
+    <Compile Include="SampleData\Projects\SampleProjectAreaViewModel.cs" />
+    <Compile Include="SampleData\Projects\SampleProjectEditViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\Contracts\IIssueAllFiltersAreaViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\Contracts\IIssueFilterAreaViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\FilterViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\IssueAllFiltersAreaViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\IssueFilterAreaViewModel.cs" />
+    <Compile Include="ViewModels\Issues\Filters\IssueStatusFilterAreaViewModel.cs" />
+    <Compile Include="Filters\Contracts\IFiltersViewModelProvider.cs" />
     <Compile Include="ViewModels\Contracts\IViewModelFactory.cs" />
+    <Compile Include="ViewModels\Issues\Filters\IssueStatusViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Commands\Issue\EditIssueCommand.cs" />
     <Compile Include="Commands\Project\AddProjectCommand.cs" />
@@ -131,16 +144,12 @@
     <Compile Include="Models\Issues\IssueSelection.cs" />
     <Compile Include="Models\Projects\Contracts\IProjectSelector.cs" />
     <Compile Include="Models\Projects\ProjectSelector.cs" />
-    <Compile Include="SampleData\SampleIssueEditViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
     <Compile Include="ViewModels\Issues\IssueViewModelFactory.cs" />
     <Compile Include="ViewModels\Projects\Contracts\IProjectEditViewModel.cs" />
     <Compile Include="Models\Projects\ProjectSelection.cs" />
-    <Compile Include="SampleData\SampleHeaderAreaViewModel.cs" />
-    <Compile Include="SampleData\SampleIssueAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueEditViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueHeaderAreaViewModel.cs" />
-    <Compile Include="SampleData\SampleProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Header\HeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Header\Contracts\IHeaderAreaViewModel.cs" />
     <Compile Include="ViewModels\Issues\Contracts\IIssueAreaViewModel.cs" />
@@ -152,9 +161,17 @@
     <Compile Include="ViewModels\Projects\ProjectEditViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectViewModel.cs" />
-    <Compile Include="SampleData\SampleProjectAreaViewModel.cs" />
     <Compile Include="ViewModels\Projects\ProjectViewModelFactory.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\Issues\Filters\IssueAllFiltersAreaView.xaml.cs">
+      <DependentUpon>IssueAllFiltersAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Issues\Filters\IssueFilterAreaView.xaml.cs">
+      <DependentUpon>IssueFilterAreaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Issues\Filters\IssueStatusFilterAreaView.xaml.cs">
+      <DependentUpon>IssueStatusFilterAreaView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Header\HeaderAreaView.xaml.cs">
       <DependentUpon>HeaderAreaView.xaml</DependentUpon>
     </Compile>
@@ -166,9 +183,6 @@
     </Compile>
     <Compile Include="Views\Issues\IssueHeaderAreaView.xaml.cs">
       <DependentUpon>IssueHeaderAreaView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Issues\IssueStatusFilterView.xaml.cs">
-      <DependentUpon>IssueStatusFilterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\ProjectAreaView.xaml.cs">
       <DependentUpon>ProjectAreaView.xaml</DependentUpon>
@@ -203,6 +217,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Issues\Filters\IssueAllFiltersAreaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Issues\Filters\IssueFilterAreaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Issues\Filters\IssueStatusFilterAreaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Header\HeaderAreaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,10 +242,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Issues\IssueHeaderAreaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Issues\IssueStatusFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -302,6 +324,7 @@
   <ItemGroup>
     <Resource Include="Images\app.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -9,7 +9,7 @@
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace PIT.WPF.Annotations
+namespace PIT.WPF.Properties
 {
     /// <summary>
     ///     Indicates that the value of the marked element could be <c>null</c> sometimes,
@@ -45,7 +45,7 @@ namespace PIT.WPF.Annotations
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Parameter |
         AttributeTargets.Property | AttributeTargets.Delegate |
-        AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+        AttributeTargets.Field, AllowMultiple = false, Inherited = true), MeansImplicitUse]
     public sealed class NotNullAttribute : Attribute
     {
     }

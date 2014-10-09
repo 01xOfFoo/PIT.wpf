@@ -5,4 +5,5 @@
     <pit:EnumToStringConverter x:Key="EnumToStringConverter"/>
     <pit:BoolInverter x:Key="BoolInverter"/>
     <pit:BoolToVisibleCollapsedConverter x:Key="BoolToVisibleCollapsedConverter"/>
+    <pit:IssueStatusToColorConverter x:Key="IssueStatusToColorConverter"/>
 </ResourceDictionary>

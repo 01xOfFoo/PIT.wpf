@@ -5,7 +5,7 @@ using PIT.Business.Entities;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.ViewModels.Projects.Contracts;
 
-namespace PIT.WPF.SampleData
+namespace PIT.WPF.SampleData.Projects
 {
     [ExcludeFromCodeCoverage]
     internal class SampleProjectAreaViewModel : IProjectAreaViewModel

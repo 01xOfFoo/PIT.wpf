@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace PIT.WPF.Converters
+namespace PIT.WPF.Helper
 {
     public static class EnumExtension
     {

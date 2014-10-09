@@ -2,7 +2,7 @@
 using Caliburn.Micro;
 using PIT.WPF.ViewModels.Header.Contracts;
 
-namespace PIT.WPF.SampleData
+namespace PIT.WPF.SampleData.Header
 {
     [ExcludeFromCodeCoverage]
     internal class SampleHeaderAreaViewModel : PropertyChangedBase, IHeaderAreaViewModel

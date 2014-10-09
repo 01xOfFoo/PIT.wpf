@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
+using PIT.WPF.Helper;
 
 namespace PIT.WPF.Converters
 {

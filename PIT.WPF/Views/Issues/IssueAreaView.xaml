@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:sampleData="clr-namespace:PIT.WPF.SampleData"
              xmlns:issues="clr-namespace:PIT.WPF.Views.Issues"
+             xmlns:filters="clr-namespace:PIT.WPF.Views.Issues.Filters"
+             xmlns:issues1="clr-namespace:PIT.WPF.SampleData.Issues"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance sampleData:SampleIssueAreaViewModel, IsDesignTimeCreatable=True}">
+             d:DesignHeight="300" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance issues1:SampleIssueAreaViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <Style x:Key="IssueGridHeaderStyle" TargetType="GridViewColumnHeader">
             <Setter Property="Template">
@@ -18,33 +19,35 @@
                                 BorderBrush="#FFE6E6E6">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
                                     <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="120" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="20" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Text="Short"
-                                           Margin="10,0,0,0"
-                                           Foreground="Black"
-                                           FontWeight="Bold" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
-                                           Text="Status"
-                                           Foreground="Black"
+                                           Text="Short"
+                                           Foreground="#444444"
+                                           FontSize="14"
                                            FontWeight="Bold" />
                                 <TextBlock Grid.Column="2"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
                                            Text="Description"
-                                           Foreground="Black"
+                                           Foreground="#444444"
+                                           FontSize="14"
+                                           FontWeight="Bold" />
+                                <TextBlock Grid.Column="3"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="Status"
+                                           Foreground="#444444"
+                                           FontSize="14"
                                            FontWeight="Bold" />
                             </Grid>
                         </Border>
@@ -53,9 +56,9 @@
             </Setter>
         </Style>
         <Style x:Key="IssueItemStyle" TargetType="ListViewItem">
-            <Setter Property="Height" Value="23" />
+            <Setter Property="Height" Value="35" />
             <Setter Property="cal:Message.Attach" Value="[Event MouseDoubleClick] = [Action OnIssueDoubleClicked()]" />
-            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource IssueContextMenu}"/>
+            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource IssueContextMenu}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListViewItem">
@@ -72,7 +75,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="ListItemBackground"
                                                             Storyboard.TargetProperty="Color"
-                                                            To="#FFE6E6E6"
+                                                            To="#F5FBEA"
                                                             Duration="0" />
                                         </Storyboard>
                                     </VisualState>
@@ -80,7 +83,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="ListItemBackground"
                                                             Storyboard.TargetProperty="Color"
-                                                            To="LightGray"
+                                                            To="#F5FBEA"
                                                             Duration="0" />
                                         </Storyboard>
                                     </VisualState>
@@ -91,29 +94,27 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
                                     <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="120" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="20" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
-                                           Text="{Binding Short}"
-                                           Foreground="Black"
-                                           FontWeight="Bold" />
                                 <TextBlock Grid.Column="1"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
-                                           Text="{Binding Status, Converter={StaticResource EnumToStringConverter}}"
-                                           Foreground="DarkGray" />
+                                           Text="{Binding Short}"
+                                           Foreground="Black" />
                                 <TextBlock Grid.Column="2"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Margin="10,0,0,0"
                                            Text="{Binding Description}"
                                            Foreground="Black" />
+                                <TextBlock Grid.Column="3"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding Status, Converter={StaticResource EnumToStringConverter}}"
+                                           Foreground="{Binding Status, Converter={StaticResource IssueStatusToColorConverter}}" />
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -121,18 +122,24 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Background="#FFF3F5F5">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <filters:IssueFilterAreaView Grid.RowSpan="2"
+                                    Grid.Column="0"
+                                    cal:View.Model="{Binding IssueFilterContent}" />
         <issues:IssueHeaderAreaView DataContext="{Binding IssueHeader}"
+                                    Grid.Column="1"
                                     Grid.Row="0" />
-        <Border Grid.Row="1"
-                Margin="15, 10, 15, 10"
-                BorderBrush="#FFE5E7E7"
-                BorderThickness="1"
-                CornerRadius="3">
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Margin="15, 10, 15, 10">
             <ListView ItemsSource="{Binding Issues}"
                       ItemContainerStyle="{StaticResource IssueItemStyle}"
                       SelectedItem="{Binding Issue}"

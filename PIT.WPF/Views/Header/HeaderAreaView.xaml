@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:sampleData="clr-namespace:PIT.WPF.SampleData"
+             xmlns:header="clr-namespace:PIT.WPF.SampleData.Header"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="400"
-             d:DataContext="{d:DesignInstance sampleData:SampleHeaderAreaViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance header:SampleHeaderAreaViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />

@@ -14,6 +14,7 @@ using PIT.WPF.Models.Issues;
 using PIT.WPF.Models.Issues.Contracts;
 using PIT.WPF.Models.Projects;
 using PIT.WPF.ViewModels.Issues.Contracts;
+using PIT.WPF.ViewModels.Issues.Filters.Contracts;
 using PIT.WPF.ViewModels.Projects;
 using PIT.WPF.Views.Issues;
 
@@ -54,6 +55,9 @@ namespace PIT.WPF.ViewModels.Issues
         {
             get { return _editEditIssueCommand; }
         }
+
+        [Import]
+        public IIssueFilterAreaViewModel IssueFilterContent { get; set; }
 
         public void Dispose()
         {
@@ -100,8 +104,7 @@ namespace PIT.WPF.ViewModels.Issues
         private void BindContextMenu(IssueAreaView view)
         {
             var instance = ServiceLocator.Current.GetInstance<IIssueCommands>();
-            ViewModelBinder.Bind(instance, (DependencyObject)view.FindResource("IssueContextMenu"), null);
-           
+            ViewModelBinder.Bind(instance, (DependencyObject) view.FindResource("IssueContextMenu"), null);
         }
     }
 }

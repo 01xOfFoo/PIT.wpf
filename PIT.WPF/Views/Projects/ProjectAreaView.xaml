@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:sampleData="clr-namespace:PIT.WPF.SampleData"
+             xmlns:projects="clr-namespace:PIT.WPF.SampleData.Projects"
              mc:Ignorable="d" 
              Background="#FF2F3436"
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance sampleData:SampleProjectAreaViewModel, IsDesignTimeCreatable=True}">
+             d:DataContext="{d:DesignInstance projects:SampleProjectAreaViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <Style x:Key="ProjectItemStyle" TargetType="ListViewItem">
             <Setter Property="Height" Value="40" />
@@ -18,49 +18,37 @@
                     <ControlTemplate TargetType="ListViewItem">
                         <Border x:Name="ProjectItemBorder"
                                 BorderThickness="0">
-                            <Border.Background>
-                                <SolidColorBrush x:Name="ProjectItem" Color="Transparent"/>
-                            </Border.Background>
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ProjectName"
+                                                                Storyboard.TargetProperty="(TextBlock.Foreground).Color"
+                                                                To="#9CCD0A"
+                                                                Duration="0:0:0:0.2"/>
+                                        </Storyboard>
+                                    </VisualState>
                                     <VisualState x:Name="Selected">
                                         <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="ProjectItem"
-                                                            Storyboard.TargetProperty="Color"
-                                                            To="#FFF3F5F5"
-                                                            Duration="0" />
                                             <ColorAnimation Storyboard.TargetName="ProjectName"
                                                             Storyboard.TargetProperty="(TextBlock.Foreground).Color"
-                                                            To="#FF545D5F"
-                                                            Duration="0" />
-                                            <ColorAnimation Storyboard.TargetName="ProjectSelectionIndicator"
-                                                            Storyboard.TargetProperty="(Rectangle.Fill).Color"
-                                                            To="Tomato"
-                                                            Duration="0" />
+                                                            To="#9CCD0A"
+                                                            Duration="0"/>
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="5"/>
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle x:Name="ProjectSelectionIndicator" 
-                                           Grid.Column="0"
-                                           Fill="Transparent">
-                                </Rectangle>
                                 <TextBlock x:Name="ProjectName"
-                                           Grid.Column="1"                                            
+                                           Cursor="Hand"
                                            Text="{Binding Short}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Stretch"
                                            Margin="15, 0, 10, 0"
                                            Style="{StaticResource FontsStyle}"
-                                           FontSize="14"
-                                           FontWeight="Bold" 
+                                           FontSize="13"
+                                           FontWeight="DemiBold" 
                                            Foreground="#FFD1D6D8" />
                             </Grid>
                         </Border>
@@ -93,10 +81,10 @@
                                            VerticalAlignment="Center"
                                            Margin="20,0,0,0"
                                            Style="{StaticResource FontsStyle}"
-                                           FontWeight="Bold"
+                                           FontWeight="DemiBold"
                                            FontSize="12"
                                            Foreground="SlateGray"
-                                           Text="Add project.."/>
+                                           Text="+ ADD PROJECT"/>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -116,7 +104,7 @@
                    Foreground="DarkGray"
                    Text="PROJECTS"
                    FontSize="14"
-                   FontWeight="Bold" />
+                   FontWeight="DemiBold" />
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Projects}"
                   SelectedItem="{Binding SelectedProject}"

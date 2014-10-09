@@ -1,26 +1,25 @@
-﻿using PIT.REST.App_Start;
+﻿using System;
+using System.Web;
+using System.Web.Http;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using PIT.REST;
+using PIT.REST.Data.Context;
+using PIT.REST.Data.Entities;
+using PIT.REST.Data.Repositories;
+using PIT.REST.Data.Repositories.Contracts;
+using PIT.REST.Models.Factories;
 using WebActivatorEx;
+using WebApiContrib.IoC.Ninject;
 
-[assembly: PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 // ReSharper disable once CheckNamespace
 
-namespace PIT.REST.App_Start
+namespace PIT.REST
 {
-    using System;
-    using System.Web;
-    using System.Web.Http;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-    using Ninject;
-    using Ninject.Web.Common;
-    using Data.Context;
-    using Data.Entities;
-    using Data.Repositories;
-    using Data.Repositories.Contracts;
-    using Models.Factories;
-    using WebApiContrib.IoC.Ninject;
-
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();

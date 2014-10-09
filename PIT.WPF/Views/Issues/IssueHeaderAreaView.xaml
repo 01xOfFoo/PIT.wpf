@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:sampledata="clr-namespace:PIT.WPF.SampleData"
-             xmlns:views="clr-namespace:PIT.WPF.Views.Issues"
+             xmlns:issues="clr-namespace:PIT.WPF.SampleData.Issues"
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance sampledata:SampleIssueHeaderAreaViewModel, IsDesignTimeCreatable=true}">
+             d:DataContext="{d:DesignInstance issues:SampleIssueHeaderAreaViewModel, IsDesignTimeCreatable=true}">
     <UserControl.Resources>
         <Style x:Key="RoundedToggleButtonStyle" TargetType="ToggleButton">
             <Setter Property="Background" Value="Black" />
@@ -92,32 +91,13 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"
-                  Margin="10,0,0,0"
-                  Width="Auto">
-                <ToggleButton x:Name="Btn"
-                              Height="30"
-                              Focusable="false"
-                              IsHitTestVisible="{Binding ElementName=StatusFilterPopup, Path=IsOpen, Mode=OneWay, Converter={StaticResource BoolInverter}}"
-                              DataContext="{Binding IssueStatusFilter}"
-                              Style="{StaticResource RoundedToggleButtonStyle}"
-                              HorizontalAlignment="Center"
-                              Content="{Binding DisplayText}"
-                              ContentStringFormat="  {0}  " />
-                <Popup x:Name="StatusFilterPopup"
-                       IsOpen="{Binding IsChecked, ElementName=Btn}"
-                       StaysOpen="false"
-                       Focusable="false">
-                    <views:IssueStatusFilter DataContext="{Binding IssueStatusFilter}"/>
-                </Popup>
-            </Grid>
             <Button Grid.Column="1"
                     Command="{Binding AddIssueCommand}"
-                    Style="{StaticResource RoundedButtonStyle}"
+                    Style="{StaticResource EdgedButtonStyle}"
                     HorizontalAlignment="Right"
                     Width="100"
                     Height="28"
-                    Content="Add issue"
+                    Content="+ ADD ISSUE"
                     Margin="0 0 15 0" />
         </Grid>
     </Border>
